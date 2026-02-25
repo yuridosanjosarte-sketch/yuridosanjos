@@ -4,217 +4,52 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Galeria | Yuri dos Anjos</title>
-    
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
-    
     <style>
-        /* RESET */
         *{ margin:0; padding:0; box-sizing:border-box; }
-
-        body{
-            background:#0d0d0d;
-            color:#f5f5f5;
-            font-family:'Inter',sans-serif;
-            scroll-behavior:smooth;
-            overflow-x:hidden;
-        }
-
-        /* HEADER */
-        header{
-            text-align:center;
-            padding:80px 10% 40px 10%;
-            background:#000;
-        }
-
-        header h1{
-            font-family:'Cinzel',serif;
-            font-size:48px;
-            letter-spacing:10px;
-            text-transform: uppercase;
-        }
-
-        .btn-voltar {
-            display: inline-block;
-            margin-bottom: 30px;
-            color: #c49b3d;
-            text-decoration: none;
-            font-size: 12px;
-            letter-spacing: 3px;
-            transition: 0.3s;
-            text-transform: uppercase;
-        }
-
-        .btn-voltar:hover {
-            color: #fff;
-            letter-spacing: 5px;
-        }
-
-        /* GRID */
-        .gallery-container {
-            padding: 80px 10%;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
-            gap: 120px;
-            max-width: 1600px;
-            margin: 0 auto;
-        }
-
-        /* ANIMAÇÃO FADE + BLUR */
-        .art-piece {
-            text-align:center;
-            opacity:0;
-            transform:translateY(35px);
-            filter:blur(6px);
-            transition:
-                opacity 2.4s cubic-bezier(.22,.61,.36,1),
-                transform 2.4s cubic-bezier(.22,.61,.36,1),
-                filter 2.4s cubic-bezier(.22,.61,.36,1);
-        }
-
-        .art-piece.visible {
-            opacity:1;
-            transform:translateY(0);
-            filter:blur(0);
-        }
-
-        /* MOLDURA E ZOOM */
-        .img-wrapper {
-            overflow: hidden;
-            margin-bottom: 35px;
-            border: 1px solid #1a1a1a;
-            background: #000;
-        }
-
-        .art-piece img {
-            width:100%;
-            display: block;
-            transition: transform 3s ease;
-        }
-
-        .art-piece:hover img {
-            transform:scale(1.05);
-        }
-
-        /* TÍTULOS */
-        .art-piece h3 {
-            font-family:'Cinzel',serif;
-            color:#c49b3d;
-            letter-spacing:3px;
-            font-size: 22px;
-            margin-bottom: 12px;
-            text-transform: uppercase;
-        }
-
-        .art-piece p {
-            color:#777;
-            font-size: 13px;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
-
-        /* FOOTER */
-        footer {
-            text-align:center;
-            padding:100px 50px;
-            background:#000;
-            border-top:1px solid #222;
-            color:#444;
-            font-size: 11px;
-            letter-spacing: 5px;
-        }
-
-        @media (max-width: 768px) {
-            header h1 { font-size: 32px; }
-            .gallery-container { grid-template-columns: 1fr; padding: 40px 5%; }
-        }
+        body{ background:#0d0d0d; color:#f5f5f5; font-family:'Inter',sans-serif; overflow-x:hidden; }
+        header{ text-align:center; padding:80px 10% 40px 10%; background:#000; }
+        header h1{ font-family:'Cinzel',serif; font-size:48px; letter-spacing:10px; text-transform: uppercase; }
+        .btn-voltar { display: inline-block; margin-bottom: 30px; color: #c49b3d; text-decoration: none; font-size: 12px; letter-spacing: 3px; transition: 0.3s; text-transform: uppercase; }
+        .btn-voltar:hover { color: #fff; letter-spacing: 5px; }
+        .gallery-container { padding: 80px 10%; display: grid; grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); gap: 120px; max-width: 1600px; margin: 0 auto; }
+        .art-piece { text-align:center; opacity:0; transform:translateY(35px); filter:blur(6px); transition: opacity 2.4s cubic-bezier(.22,.61,.36,1), transform 2.4s cubic-bezier(.22,.61,.36,1), filter 2.4s cubic-bezier(.22,.61,.36,1); }
+        .art-piece.visible { opacity:1; transform:translateY(0); filter:blur(0); }
+        .img-wrapper { overflow: hidden; margin-bottom: 35px; border: 1px solid #1a1a1a; background: #000; }
+        .art-piece img { width:100%; display: block; transition: transform 3s ease; }
+        .art-piece:hover img { transform:scale(1.05); }
+        .art-piece h3 { font-family:'Cinzel',serif; color:#c49b3d; letter-spacing:3px; font-size: 22px; margin-bottom: 12px; text-transform: uppercase; }
+        .art-piece p { color:#777; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; }
+        footer { text-align:center; padding:100px 50px; background:#000; border-top:1px solid #222; color:#444; font-size: 11px; letter-spacing: 5px; }
+        @media (max-width: 768px) { header h1 { font-size: 32px; } .gallery-container { grid-template-columns: 1fr; padding: 40px 5%; } }
     </style>
 </head>
 <body>
-
     <header>
         <a href="index.html" class="btn-voltar">← Voltar para Bio</a>
         <h1>Galeria</h1>
     </header>
 
     <div class="gallery-container">
-
-        <div class="art-piece">
-            <div class="img-wrapper"><img src="foto1.jpg" alt="Etsá Ara"></div>
-            <h3>Etsá Ara</h3>
-            <p>Óleo sobre tela</p>
-        </div>
-
-        <div class="art-piece">
-            <div class="img-wrapper"><img src="foto2.jpg" alt="Ipytuẽ"></div>
-            <h3>Ipytuẽ</h3>
-            <p>Óleo sobre tela</p>
-        </div>
-
-        <div class="art-piece">
-            <div class="img-wrapper"><img src="foto3.jpg" alt="O Espírito"></div>
-            <h3>O Espírito</h3>
-            <p>Óleo sobre tela</p>
-        </div>
-
-        <div class="art-piece">
-            <div class="img-wrapper"><img src="foto4.jpg" alt="A Mariposa"></div>
-            <h3>A Mariposa</h3>
-            <p>Óleo sobre tela</p>
-        </div>
-
-        <div class="art-piece">
-            <div class="img-wrapper"><img src="foto5.jpg" alt="Harmonia"></div>
-            <h3>Harmonia</h3>
-            <p>Óleo sobre tela</p>
-        </div>
-
-        <div class="art-piece">
-            <div class="img-wrapper"><img src="foto6.jpg" alt="Kiririndju"></div>
-            <h3>Kiririndju</h3>
-            <p>Óleo sobre tela</p>
-        </div>
-
-        <div class="art-piece">
-            <div class="img-wrapper"><img src="foto7.jpg" alt="A Criança e o pássaro"></div>
-            <h3>A Criança e o pássaro</h3>
-            <p>Óleo sobre tela</p>
-        </div>
-
-        <div class="art-piece">
-            <div class="img-wrapper"><img src="foto8.jpg" alt="A criança e o pássaro 2"></div>
-            <h3>A criança e o pássaro 2</h3>
-            <p>Óleo sobre tela</p>
-        </div>
-
-        <div class="art-piece">
-            <div class="img-wrapper"><img src="foto9.jpg" alt="Kangwaá Owy"></div>
-            <h3>Kangwaá Owy</h3>
-            <p>Óleo sobre tela</p>
-        </div>
-
-        <div class="art-piece">
-            <div class="img-wrapper"><img src="foto10.jpg" alt="Obras e autor"></div>
-            <h3>Obras e autor</h3>
-            <p>Realismo Contemporâneo Indígena</p>
-        </div>
-
+        <div class="art-piece"><div class="img-wrapper"><img src="Etsá Ara.jpg"></div><h3>Etsá Ara</h3><p>Óleo sobre tela</p></div>
+        <div class="art-piece"><div class="img-wrapper"><img src="Ipytuẽ.jpg"></div><h3>Ipytuẽ</h3><p>Óleo sobre tela</p></div>
+        <div class="art-piece"><div class="img-wrapper"><img src="O Espírito.jpg"></div><h3>O Espírito</h3><p>Óleo sobre tela</p></div>
+        <div class="art-piece"><div class="img-wrapper"><img src="Um Mariposa.jpg"></div><h3>A Mariposa</h3><p>Óleo sobre tela</p></div>
+        <div class="art-piece"><div class="img-wrapper"><img src="Harmonia.jpg"></div><h3>Harmonia</h3><p>Óleo sobre tela</p></div>
+        <div class="art-piece"><div class="img-wrapper"><img src="Kiririndju.jpg"></div><h3>Kiririndju</h3><p>Óleo sobre tela</p></div>
+        <div class="art-piece"><div class="img-wrapper"><img src="A Criança e o pássaro.jpg"></div><h3>A Criança e o pássaro</h3><p>Óleo sobre tela</p></div>
+        <div class="art-piece"><div class="img-wrapper"><img src="A criança e o pássaro 2.jpg"></div><h3>A criança e o pássaro 2</h3><p>Óleo sobre tela</p></div>
+        <div class="art-piece"><div class="img-wrapper"><img src="Kangwaá Owy.jpg"></div><h3>Kangwaá Owy</h3><p>Óleo sobre tela</p></div>
+        <div class="art-piece"><div class="img-wrapper"><img src="Obras e autor.jpg"></div><h3>Obras e autor</h3><p>Realismo Contemporâneo</p></div>
     </div>
 
-    <footer>
-        © 2026 YURI DOS ANJOS | INDIGENOUS CONTEMPORARY REALISM
-    </footer>
+    <footer>© 2026 YURI DOS ANJOS | INDIGENOUS CONTEMPORARY REALISM</footer>
 
     <script>
         const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if(entry.isIntersecting){
-                    entry.target.classList.add("visible");
-                }
-            });
+            entries.forEach(entry => { if(entry.isIntersecting) entry.target.classList.add("visible"); });
         }, { threshold: 0.1 });
-
         document.querySelectorAll(".art-piece").forEach(el => observer.observe(el));
     </script>
-
 </body>
 </html>
