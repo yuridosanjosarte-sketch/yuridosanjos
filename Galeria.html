@@ -4,7 +4,155 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Gallery | Yuri dos Anjos</title>
-<link rel="stylesheet" href="gallery.css">
+
+<style>
+
+/* ================= RESET ================= */
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+/* ================= BODY ================= */
+body{
+    font-family:'Segoe UI',sans-serif;
+    background:linear-gradient(to bottom,#0f0f0f,#1b1b1b);
+    color:#fff;
+    overflow-x:hidden;
+}
+
+/* ================= HEADER ================= */
+.header{
+    text-align:center;
+    padding:90px 20px 60px;
+}
+
+.header h1{
+    font-size:3rem;
+    letter-spacing:4px;
+    margin-bottom:10px;
+}
+
+.header p{
+    color:#aaa;
+    font-size:1rem;
+    letter-spacing:1px;
+}
+
+/* ================= GALLERY GRID ================= */
+.gallery{
+    width:90%;
+    max-width:1400px;
+    margin:auto;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+    gap:40px;
+    padding-bottom:120px;
+}
+
+/* ================= CARD ================= */
+.card{
+    position:relative;
+    border-radius:20px;
+    overflow:hidden;
+    cursor:pointer;
+    background:#161616;
+    box-shadow:0 15px 40px rgba(0,0,0,0.5);
+    transition:all .4s ease;
+}
+
+.card:hover{
+    transform:translateY(-12px);
+    box-shadow:0 25px 60px rgba(0,0,0,0.7);
+}
+
+/* ================= IMAGE ================= */
+.card img{
+    width:100%;
+    height:420px;
+    object-fit:cover;
+    transition:transform .6s ease;
+}
+
+.card:hover img{
+    transform:scale(1.08);
+}
+
+/* ================= OVERLAY ================= */
+.overlay{
+    position:absolute;
+    bottom:0;
+    width:100%;
+    padding:25px;
+    background:linear-gradient(to top,rgba(0,0,0,.85),transparent);
+    transform:translateY(40%);
+    transition:all .4s ease;
+}
+
+.card:hover .overlay{
+    transform:translateY(0);
+}
+
+.overlay h3{
+    font-size:1.2rem;
+    margin-bottom:5px;
+}
+
+.overlay span{
+    font-size:.9rem;
+    color:#ccc;
+}
+
+/* ================= MODAL ================= */
+.modal{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.96);
+    display:none;
+    justify-content:center;
+    align-items:center;
+    z-index:999;
+    animation:fadeIn .4s ease;
+}
+
+.modal img{
+    max-width:90%;
+    max-height:85%;
+    border-radius:15px;
+    box-shadow:0 0 50px rgba(0,0,0,.9);
+}
+
+.close{
+    position:absolute;
+    top:30px;
+    right:40px;
+    font-size:2.5rem;
+    cursor:pointer;
+    color:white;
+    transition:.3s;
+}
+
+.close:hover{
+    color:#bbb;
+}
+
+@keyframes fadeIn{
+    from{opacity:0;}
+    to{opacity:1;}
+}
+
+/* ================= RESPONSIVE ================= */
+@media(max-width:768px){
+    .header h1{
+        font-size:2.2rem;
+    }
+    .card img{
+        height:320px;
+    }
+}
+
+</style>
 </head>
 
 <body>
@@ -18,7 +166,7 @@
 
     <div class="card" onclick="openModal(this)">
         <img src="images/art1.jpg" alt="Artwork 1">
-        <div class="info">
+        <div class="overlay">
             <h3>Spirit of the Forest</h3>
             <span>Oil on Canvas</span>
         </div>
@@ -26,7 +174,7 @@
 
     <div class="card" onclick="openModal(this)">
         <img src="images/art2.jpg" alt="Artwork 2">
-        <div class="info">
+        <div class="overlay">
             <h3>Ancestral Echo</h3>
             <span>Acrylic on Canvas</span>
         </div>
@@ -34,7 +182,7 @@
 
     <div class="card" onclick="openModal(this)">
         <img src="images/art3.jpg" alt="Artwork 3">
-        <div class="info">
+        <div class="overlay">
             <h3>Guardians of Nature</h3>
             <span>Mixed Media</span>
         </div>
@@ -42,13 +190,34 @@
 
 </section>
 
-<!-- Modal -->
+<!-- MODAL -->
 <div class="modal" id="modal">
     <span class="close" onclick="closeModal()">&times;</span>
     <img id="modalImg">
 </div>
 
-<script src="gallery.js"></script>
+<script>
+
+function openModal(card){
+    const modal = document.getElementById("modal");
+    const modalImg = document.getElementById("modalImg");
+    const img = card.querySelector("img");
+
+    modal.style.display="flex";
+    modalImg.src = img.src;
+}
+
+function closeModal(){
+    document.getElementById("modal").style.display="none";
+}
+
+document.getElementById("modal").addEventListener("click",function(e){
+    if(e.target.id==="modal"){
+        closeModal();
+    }
+});
+
+</script>
 
 </body>
 </html>
