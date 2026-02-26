@@ -1,330 +1,94 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Galeria | Yuri dos Anjos</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
-
-<style>
-*{margin:0;padding:0;box-sizing:border-box;}
-
-body{
-    background:#0b0b0b;
-    color:#f5f5f5;
-    font-family:'Inter',sans-serif;
-}
-
-/* HEADER */
-
-header{
-    text-align:center;
-    padding:90px 10% 60px;
-    background:#000;
-    border-bottom:1px solid #111;
-}
-
-header h1{
-    font-family:'Cinzel',serif;
-    font-size:48px;
-    letter-spacing:12px;
-    text-transform:uppercase;
-}
-
-.btn-voltar{
-    display:inline-block;
-    margin-bottom:35px;
-    color:#c49b3d;
-    text-decoration:none;
-    font-size:12px;
-    letter-spacing:4px;
-    transition:.4s;
-    text-transform:uppercase;
-}
-
-.btn-voltar:hover{
-    color:#fff;
-}
-
-/* FILTROS */
-
-.filters{
-    text-align:center;
-    margin:60px 0;
-}
-
-.filters button{
-    background:none;
-    border:1px solid #222;
-    color:#777;
-    padding:10px 20px;
-    margin:10px;
-    letter-spacing:3px;
-    font-size:11px;
-    cursor:pointer;
-    transition:.3s;
-    text-transform:uppercase;
-}
-
-.filters button:hover,
-.filters button.active{
-    border-color:#c49b3d;
-    color:#c49b3d;
-}
-
-/* GALERIA */
-
-.gallery-container{
-    padding:60px 8% 120px;
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(350px,1fr));
-    gap:100px;
-    max-width:1600px;
-    margin:auto;
-}
-
-.art-piece{
-    text-align:center;
-    cursor:pointer;
-}
-
-.art-piece.hide{
-    display:none;
-}
-
-.art-piece img{
-    width:100%;
-    border:1px solid #1a1a1a;
-    transition:transform 6s ease;
-}
-
-.art-piece:hover img{
-    transform:scale(1.05);
-}
-
-.art-piece h3{
-    font-family:'Cinzel',serif;
-    color:#c49b3d;
-    letter-spacing:4px;
-    font-size:20px;
-    margin-top:25px;
-    text-transform:uppercase;
-}
-
-.art-piece p{
-    color:#666;
-    font-size:12px;
-    letter-spacing:3px;
-}
-
-/* LIGHTBOX */
-
-.lightbox{
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,.97);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    flex-direction:column;
-    opacity:0;
-    visibility:hidden;
-    transition:.4s ease;
-    z-index:999;
-}
-
-.lightbox.active{
-    opacity:1;
-    visibility:visible;
-}
-
-.lightbox img{
-    max-width:88%;
-    max-height:75%;
-    transition:.3s ease;
-    box-shadow:0 0 80px rgba(0,0,0,.9);
-}
-
-.lightbox-title{
-    margin-top:25px;
-    font-family:'Cinzel',serif;
-    color:#c49b3d;
-    letter-spacing:6px;
-    font-size:18px;
-    text-transform:uppercase;
-}
-
-.lightbox-series{
-    margin-top:10px;
-    font-size:12px;
-    letter-spacing:4px;
-    color:#666;
-}
-
-.counter{
-    margin-top:8px;
-    font-size:11px;
-    letter-spacing:4px;
-    color:#444;
-}
-
-.close, .prev, .next, .fullscreen{
-    position:absolute;
-    color:#fff;
-    font-size:26px;
-    cursor:pointer;
-    transition:.3s;
-}
-
-.close{ top:40px; right:60px; }
-.prev{ left:60px; top:50%; transform:translateY(-50%); }
-.next{ right:60px; top:50%; transform:translateY(-50%); }
-.fullscreen{ bottom:40px; right:60px; font-size:20px; }
-
-.close:hover, .prev:hover, .next:hover, .fullscreen:hover{
-    color:#c49b3d;
-}
-
-footer{
-    text-align:center;
-    padding:100px 40px;
-    background:#000;
-    border-top:1px solid #111;
-    color:#333;
-    font-size:11px;
-    letter-spacing:6px;
-}
-</style>
+  <meta charset="UTF-8">
+  <title>Galeria | Yuri dos Anjos</title>
+  <link rel="stylesheet" href="css/style.css">
 </head>
-
 <body>
 
 <header>
-<a href="index.html" class="btn-voltar">← Voltar</a>
-<h1>Galeria</h1>
+  <h1>Galeria</h1>
+  <p>Obras disponíveis — Temática Indígena</p>
 </header>
 
-<div class="filters">
-<button class="active" onclick="filterSelection('all', this)">Todas</button>
-<button onclick="filterSelection('ancestral', this)">Série Ancestral</button>
-<button onclick="filterSelection('cosmologia', this)">Série Cosmologia</button>
-<button onclick="filterSelection('retratos', this)">Série Retratos</button>
+<section class="gallery">
+
+  <div class="art">
+    <img src="img/A criança e o pássaro 2.jpg" alt="A criança e o pássaro 2">
+    <h3>A criança e o pássaro 2</h3>
+    <span>Temática Indígena</span>
+  </div>
+
+  <div class="art">
+    <img src="img/A Criança e o pássaro.jpg" alt="A Criança e o pássaro">
+    <h3>A Criança e o pássaro</h3>
+    <span>Temática Indígena</span>
+  </div>
+
+  <div class="art">
+    <img src="img/A Mariposa.jpg" alt="A Mariposa">
+    <h3>A Mariposa</h3>
+    <span>Temática Indígena</span>
+  </div>
+
+  <div class="art">
+    <img src="img/Djera Poty.jpg" alt="Djera Poty">
+    <h3>Djera Poty</h3>
+    <span>Temática Indígena</span>
+  </div>
+
+  <div class="art">
+    <img src="img/Está Ara.jpg" alt="Está Ara">
+    <h3>Está Ara</h3>
+    <span>Temática Indígena</span>
+  </div>
+
+  <div class="art">
+    <img src="img/Harmonia.jpg" alt="Harmonia">
+    <h3>Harmonia</h3>
+    <span>Temática Indígena</span>
+  </div>
+
+  <div class="art">
+    <img src="img/Ipyutê.jpg" alt="Ipyutê">
+    <h3>Ipyutê</h3>
+    <span>Temática Indígena</span>
+  </div>
+
+  <div class="art">
+    <img src="img/Kangwá Owy.jpg" alt="Kangwá Owy">
+    <h3>Kangwá Owy</h3>
+    <span>Temática Indígena</span>
+  </div>
+
+  <div class="art">
+    <img src="img/Kirindju.jpg" alt="Kirindju">
+    <h3>Kirindju</h3>
+    <span>Temática Indígena</span>
+  </div>
+
+  <div class="art">
+    <img src="img/Lenda-EstáAra.jpg" alt="Lenda EstáAra">
+    <h3>Lenda EstáAra</h3>
+    <span>Temática Indígena</span>
+  </div>
+
+  <div class="art">
+    <img src="img/O Espírito.jpg" alt="O Espírito">
+    <h3>O Espírito</h3>
+    <span>Temática Indígena</span>
+  </div>
+
+</section>
+
+<!-- Modal -->
+<div class="modal" id="modal">
+  <span class="close">&times;</span>
+  <img class="modal-content" id="modal-img">
+  <div id="caption"></div>
 </div>
 
-<div class="gallery-container">
-
-<div class="art-piece ancestral">
-<img src="Etsa Ara.jpg">
-<h3>Etsá Ara</h3>
-<p>Série Ancestral</p>
-</div>
-
-<div class="art-piece cosmologia">
-<img src="O Espírito.jpg">
-<h3>O Espírito</h3>
-<p>Série Cosmologia</p>
-</div>
-
-<div class="art-piece retratos">
-<img src="Ipytue.jpg">
-<h3>Ipytuẽ</h3>
-<p>Série Retratos</p>
-</div>
-
-<div class="art-piece ancestral">
-<img src="A Mariposa.jpg">
-<h3>A Mariposa</h3>
-<p>Série Ancestral</p>
-</div>
-
-</div>
-
-<div class="lightbox" id="lightbox">
-<span class="close" onclick="closeLightbox()">✕</span>
-<span class="prev" onclick="changeSlide(-1)">❮</span>
-<span class="next" onclick="changeSlide(1)">❯</span>
-<span class="fullscreen" onclick="toggleFullscreen()">⛶</span>
-<img id="lightbox-img">
-<div class="lightbox-title" id="lightbox-title"></div>
-<div class="lightbox-series" id="lightbox-series"></div>
-<div class="counter" id="counter"></div>
-</div>
-
-<footer>
-© 2025 Yuri dos Anjos — Todos os direitos reservados
-</footer>
-
-<script>
-const pieces = document.querySelectorAll('.art-piece');
-const lightbox = document.getElementById('lightbox');
-const lightboxImg = document.getElementById('lightbox-img');
-const lightboxTitle = document.getElementById('lightbox-title');
-const lightboxSeries = document.getElementById('lightbox-series');
-const counter = document.getElementById('counter');
-
-let currentIndex = 0;
-
-function filterSelection(category, btn){
-    document.querySelectorAll('.filters button').forEach(b=>b.classList.remove('active'));
-    btn.classList.add('active');
-
-    pieces.forEach(piece=>{
-        if(category === "all"){
-            piece.classList.remove('hide');
-        } else {
-            piece.classList.toggle('hide', !piece.classList.contains(category));
-        }
-    });
-}
-
-function openLightbox(index){
-    currentIndex = index;
-    updateLightbox();
-    lightbox.classList.add('active');
-}
-
-function updateLightbox(){
-    const img = pieces[currentIndex].querySelector('img');
-    const title = pieces[currentIndex].querySelector('h3').innerText;
-    const series = pieces[currentIndex].querySelector('p').innerText;
-
-    lightboxImg.src = img.src;
-    lightboxTitle.innerText = title;
-    lightboxSeries.innerText = series;
-    counter.innerText = (currentIndex+1).toString().padStart(2,'0') + " / " + pieces.length.toString().padStart(2,'0');
-}
-
-function closeLightbox(){
-    lightbox.classList.remove('active');
-}
-
-function changeSlide(direction){
-    currentIndex += direction;
-    if(currentIndex < 0) currentIndex = pieces.length - 1;
-    if(currentIndex >= pieces.length) currentIndex = 0;
-    updateLightbox();
-}
-
-function toggleFullscreen(){
-    if(!document.fullscreenElement){
-        lightbox.requestFullscreen();
-    }else{
-        document.exitFullscreen();
-    }
-}
-
-pieces.forEach((piece,index)=>{
-    piece.addEventListener('click',()=> openLightbox(index));
-});
-
-document.addEventListener('keydown',(e)=>{
-    if(!lightbox.classList.contains('active')) return;
-    if(e.key === "Escape") closeLightbox();
-    if(e.key === "ArrowRight") changeSlide(1);
-    if(e.key === "ArrowLeft") changeSlide(-1);
-});
-</script>
-
+<script src="js/script.js"></script>
 </body>
 </html>
