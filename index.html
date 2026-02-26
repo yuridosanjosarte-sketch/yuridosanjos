@@ -1,19 +1,25 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Yuri dos Anjos | Indigenous Contemporary Realism</title>
-<meta name="description" content="Yuri dos Anjos is a contemporary Indigenous Brazilian artist exploring ancestry, territory and spiritual consciousness through oil painting.">
+<title>Yuri dos Anjos | Realismo Contemporâneo Indígena</title>
+<meta name="description" content="Yuri dos Anjos é um artista indígena contemporâneo brasileiro cuja pintura em óleo explora memória ancestral, território e espiritualidade.">
 
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
 
 /* RESET */
-*{margin:0;padding:0;box-sizing:border-box;}
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
 
 body{
 background:#0d0d0d;
@@ -252,6 +258,7 @@ border-top:1px solid #222;
 color:#666;
 }
 
+/* RESPONSIVO */
 @media(max-width:768px){
 header h1{font-size:32px;}
 .hero-content h2{font-size:26px;}
@@ -272,14 +279,14 @@ header h1{font-size:32px;}
 
 <header>
 <h1>YURI DOS ANJOS</h1>
-<p>Indigenous Contemporary Realism</p>
+<p>Realismo Contemporâneo Indígena</p>
 </header>
 
 <nav class="menu">
-<a href="#about">ABOUT</a>
-<a href="obras.html">AVAILABLE WORKS</a>
-<a href="galeria.html">GALLERY</a>
-<a href="#contact">CONTACT</a>
+<a href="#about">SOBRE</a>
+<a href="obras.html">OBRAS</a>
+<a href="galeria.html">GALERIA</a>
+<a href="#contact">CONTATO</a>
 </nav>
 
 <section class="hero">
@@ -291,30 +298,34 @@ header h1{font-size:32px;}
 
 <section id="about">
 <div class="aboutcontainer">
-<img src="yuridosanjos.WEBP" class="about-image" alt="Yuri dos Anjos portrait">
+<img src="yuridosanjos.WEBP" class="about-image" alt="Yuri dos Anjos">
 <div class="about-text">
-<h2>About the Artist</h2>
+<h2>Sobre o Artista</h2>
 <p>
-Yuri dos Anjos is a contemporary Indigenous Brazilian artist of Tupi heritage.
-His work explores ancestry, territory, and spiritual consciousness through oil painting.
-Each artwork is a unique piece, signed and accompanied by a certificate of authenticity.
+Artista indígena contemporâneo brasileiro, de herança Tupi, cuja pintura
+em óleo investiga memória, território e espiritualidade como experiência viva.
+Sua produção constrói pontes entre ancestralidade e contemporaneidade,
+criando obras únicas, assinadas e acompanhadas de certificado de autenticidade.
 </p>
 </div>
 </div>
 </section>
 
 <section id="gallery">
-<h2>Gallery</h2>
+<h2>Galeria</h2>
+
 <div class="preview-grid">
-<img src="Ipytuẽ.jpg" alt="Ipytuẽ painting">
-<img src="Etsá Ara.jpg" alt="Etsá Ara painting">
-<img src="Mariposa.jpg" alt="Mariposa painting">
+<img src="Ipytuẽ.jpg" alt="Ipytuẽ">
+<img src="Etsá Ara.jpg" alt="Etsá Ara">
+<img src="Mariposa.jpg" alt="Mariposa">
 </div>
-<a class="button" href="galeria.html">View Full Gallery</a>
+
+<a class="button" href="galeria.html">Ver Galeria Completa</a>
+
 </section>
 
 <section id="contact">
-<h2>Contact</h2>
+<h2>Contato</h2>
 <p>Email: yuridosanjos.arte@gmail.com</p>
 </section>
 
@@ -323,7 +334,9 @@ Each artwork is a unique piece, signed and accompanied by a certificate of authe
 </footer>
 
 <script>
-const heroText=document.querySelector(".hero-content");
+
+const heroText = document.querySelector(".hero-content");
+
 new IntersectionObserver((entries)=>{
 entries.forEach(entry=>{
 if(entry.isIntersecting){
@@ -331,6 +344,7 @@ heroText.classList.add("visible");
 }
 });
 },{threshold:0.6}).observe(document.querySelector(".hero"));
+
 </script>
 
 </body>
