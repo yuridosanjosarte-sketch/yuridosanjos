@@ -4,93 +4,51 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Gallery | Yuri dos Anjos</title>
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="gallery.css">
 </head>
 
 <body>
 
 <header class="header">
-  <h1>Gallery</h1>
-  <p>Available Works — Indigenous Theme</p>
+    <h1>Gallery</h1>
+    <p>Available Works — Indigenous Theme</p>
 </header>
 
 <section class="gallery">
 
-  <div class="art">
-    <img src="A criança e o pássaro 2.jpg" alt="A criança e o pássaro 2">
-    <h3>A criança e o pássaro 2</h3>
-    <span>Indigenous Theme</span>
-  </div>
+    <div class="card" onclick="openModal(this)">
+        <img src="images/art1.jpg" alt="Artwork 1">
+        <div class="info">
+            <h3>Spirit of the Forest</h3>
+            <span>Oil on Canvas</span>
+        </div>
+    </div>
 
-  <div class="art">
-    <img src="A Criança e o pássaro.jpg" alt="A Criança e o pássaro">
-    <h3>A Criança e o pássaro</h3>
-    <span>Indigenous Theme</span>
-  </div>
+    <div class="card" onclick="openModal(this)">
+        <img src="images/art2.jpg" alt="Artwork 2">
+        <div class="info">
+            <h3>Ancestral Echo</h3>
+            <span>Acrylic on Canvas</span>
+        </div>
+    </div>
 
-  <div class="art">
-    <img src="A Mariposa.jpg" alt="A Mariposa">
-    <h3>A Mariposa</h3>
-    <span>Indigenous Theme</span>
-  </div>
-
-  <div class="art">
-    <img src="Djera Poty.jpg" alt="Djera Poty">
-    <h3>Djera Poty</h3>
-    <span>Indigenous Theme</span>
-  </div>
-
-  <div class="art">
-    <img src="Etsá Ara.jpg" alt="Etsá Ara">
-    <h3>Etsá Ara</h3>
-    <span>Indigenous Theme</span>
-  </div>
-
-  <div class="art">
-    <img src="Harmonia.jpg" alt="Harmonia">
-    <h3>Harmonia</h3>
-    <span>Indigenous Theme</span>
-  </div>
-
-  <div class="art">
-    <img src="Ipyutê.jpg" alt="Ipyutê">
-    <h3>Ipyutê</h3>
-    <span>Indigenous Theme</span>
-  </div>
-
-  <div class="art">
-    <img src="Kangwá Owy.jpg" alt="Kangwá Owy">
-    <h3>Kangwá Owy</h3>
-    <span>Indigenous Theme</span>
-  </div>
-
-  <div class="art">
-    <img src="Kirindju.jpg" alt="Kirindju">
-    <h3>Kirindju</h3>
-    <span>Indigenous Theme</span>
-  </div>
-
-  <div class="art">
-    <img src="Lenda-EstáAra.jpg" alt="Lenda EstáAra">
-    <h3>Lenda EstáAra</h3>
-    <span>Indigenous Theme</span>
-  </div>
-
-  <div class="art">
-    <img src="O Espírito.jpg" alt="O Espírito">
-    <h3>O Espírito</h3>
-    <span>Indigenous Theme</span>
-  </div>
+    <div class="card" onclick="openModal(this)">
+        <img src="images/art3.jpg" alt="Artwork 3">
+        <div class="info">
+            <h3>Guardians of Nature</h3>
+            <span>Mixed Media</span>
+        </div>
+    </div>
 
 </section>
 
 <!-- Modal -->
-<div id="modal" class="modal">
-  <span class="close">&times;</span>
-  <img class="modal-content" id="modal-img">
-  <div id="caption"></div>
+<div class="modal" id="modal">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <img id="modalImg">
 </div>
 
-<script src="script.js"></script>
+<script src="gallery.js"></script>
+
 </body>
 </html>
