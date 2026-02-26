@@ -1,11 +1,10 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Yuri dos Anjos | Realismo Contemporâneo Indígena</title>
-<meta name="description" content="Yuri dos Anjos é um artista indígena contemporâneo brasileiro cuja pintura em óleo explora memória ancestral, território e espiritualidade.">
+<title>Yuri dos Anjos | Indigenous Contemporary Realism</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 
@@ -15,6 +14,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
 <style>
 
 /* RESET */
+
 *{
 margin:0;
 padding:0;
@@ -29,7 +29,9 @@ scroll-behavior:smooth;
 overflow-x:hidden;
 }
 
+
 /* TOPBAR */
+
 .topbar{
 background:#000;
 padding:10px 10%;
@@ -50,7 +52,9 @@ transition:0.3s;
 color:#c49b3d;
 }
 
+
 /* HEADER */
+
 header{
 text-align:center;
 padding:60px 10%;
@@ -69,110 +73,158 @@ color:#aaa;
 letter-spacing:3px;
 }
 
+
 /* NAV */
-.menu{
+
+nav{
 background:#111;
-padding:20px 0;
-display:flex;
-justify-content:center;
-gap:60px;
+padding:18px;
+text-align:center;
 border-bottom:1px solid #222;
 }
 
-.menu a{
+nav a{
 color:#ccc;
 text-decoration:none;
+margin:0 35px;
 letter-spacing:3px;
 font-size:13px;
-position:relative;
-padding:8px 0;
-transition:0.3s;
 }
 
-.menu a::after{
-content:"";
-position:absolute;
-left:0;
-bottom:-6px;
-width:0%;
-height:1px;
-background:#c49b3d;
-transition:0.4s;
-}
-
-.menu a:hover{
+nav a:hover{
 color:#fff;
 }
 
-.menu a:hover::after{
-width:100%;
-}
+
 
 /* HERO */
+
 .hero{
+
 height:95vh;
-position:relative;
+
+background:url('Etsá Ara.jpg') no-repeat;
+
+background-size:cover;
+
+background-position:center 38%;
+
+background-attachment:fixed;
+
 display:flex;
+
 align-items:center;
+
 justify-content:center;
+
+position:relative;
+
 overflow:hidden;
+
 }
 
+
+
+/* ZOOM CINEMATOGRÁFICO */
+
 .hero::before{
+
 content:"";
+
 position:absolute;
+
 inset:0;
+
 background:url('Etsá Ara.jpg') no-repeat center 38%;
+
 background-size:cover;
+
 animation:slowZoom 28s ease-in-out infinite alternate;
+
 z-index:0;
+
 }
 
 @keyframes slowZoom{
+
 from{transform:scale(1);}
+
 to{transform:scale(1.06);}
+
 }
+
+
 
 .hero::after{
+
 content:"";
+
 position:absolute;
+
 inset:0;
+
 background:rgba(0,0,0,0.65);
+
 z-index:1;
+
 }
+
+
+
+/* LETREIRO */
 
 .hero-content{
+
 position:relative;
+
 z-index:2;
+
 text-align:center;
-max-width:800px;
+
 opacity:0;
-transform:translateY(40px);
-transition:all 1.8s cubic-bezier(.22,.61,.36,1);
+
+transform:translateX(-140px);
+
+transition:
+
+transform 2.2s cubic-bezier(.22,.61,.36,1),
+
+opacity 2.2s cubic-bezier(.22,.61,.36,1);
+
 }
+
 
 .hero-content.visible{
+
 opacity:1;
-transform:translateY(0);
+
+transform:translateX(0);
+
 }
 
-.hero-content h2{
-font-family:'Cinzel',serif;
-font-size:38px;
-margin-bottom:20px;
-letter-spacing:4px;
+
+.hero-content.hidden{
+
+opacity:0;
+
+transform:translateX(-160px);
+
 }
 
-.hero-content p{
-color:#ccc;
-}
+
+
+
 
 /* SECTIONS */
+
 section{
-padding:140px 10%;
+padding:160px 10%;
 }
 
+
+
 /* ABOUT */
+
 #about{
 display:flex;
 justify-content:center;
@@ -198,49 +250,85 @@ color:#ccc;
 line-height:1.8;
 }
 
-/* GALLERY PREVIEW */
-#gallery{
-text-align:center;
-}
+
+
+/* GALLERY */
 
 #gallery h2{
+text-align:center;
 font-family:'Cinzel',serif;
-margin-bottom:80px;
+margin-bottom:160px;
 }
 
-.preview-grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-gap:40px;
-margin-bottom:80px;
+
+
+.art-piece{
+
+max-width:1000px;
+margin:0 auto 220px auto;
+text-align:center;
+
+opacity:0;
+transform:translateY(35px);
+filter:blur(6px);
+
+transition:
+opacity 2.4s cubic-bezier(.22,.61,.36,1),
+transform 2.4s cubic-bezier(.22,.61,.36,1),
+filter 2.4s cubic-bezier(.22,.61,.36,1);
+
 }
 
-.preview-grid img{
+
+.art-piece.visible{
+
+opacity:1;
+transform:translateY(0);
+filter:blur(0);
+
+}
+
+
+
+.art-piece img{
+
 width:100%;
-height:350px;
-object-fit:cover;
-transition:transform 1.2s ease;
+margin-bottom:60px;
+transition:transform 3s ease;
+
 }
 
-.preview-grid img:hover{
-transform:scale(1.03);
+.art-piece img:hover{
+
+transform:scale(1.02);
+
 }
+
+
+
+/* BUTTON */
 
 .button{
+
 display:inline-block;
 padding:14px 35px;
 background:#c49b3d;
 color:#000;
 text-decoration:none;
 font-weight:600;
-transition:0.3s;
+
 }
 
 .button:hover{
+
 background:#e0b94f;
+
 }
 
+
+
 /* CONTACT */
+
 #contact{
 text-align:center;
 }
@@ -249,19 +337,18 @@ text-align:center;
 color:#ccc;
 }
 
+
+
 /* FOOTER */
+
 footer{
+
 text-align:center;
 padding:50px;
 background:#000;
 border-top:1px solid #222;
 color:#666;
-}
 
-/* RESPONSIVO */
-@media(max-width:768px){
-header h1{font-size:32px;}
-.hero-content h2{font-size:26px;}
 }
 
 </style>
@@ -269,83 +356,227 @@ header h1{font-size:32px;}
 
 <body>
 
+
+
 <div class="topbar">
 <div class="socials">
+
 <a href="#"><i class="fab fa-instagram"></i></a>
+
 <a href="#"><i class="fab fa-facebook"></i></a>
+
 <a href="#"><i class="fab fa-youtube"></i></a>
+
 </div>
 </div>
+
+
 
 <header>
+
 <h1>YURI DOS ANJOS</h1>
-<p>Realismo Contemporâneo Indígena</p>
+
+<p>Indigenous Contemporary Realism</p>
+
 </header>
 
+
+
 <nav class="menu">
-<a href="#about">SOBRE</a>
-<a href="obras.html">OBRAS</a>
-<a href="galeria.html">GALERIA</a>
-<a href="#contact">CONTATO</a>
+  <ul>
+    <li><a href="#sobre">Sobre</a></li>
+    <li><a href="obras.html">Obras Disponíveis</a></li>
+    <li><a href="galeria.html">Galeria</a></li>
+    <li><a href="#contato">Contato</a></li>
+  </ul>
 </nav>
 
+
+
+
 <section class="hero">
+
 <div class="hero-content">
+
 <h2>Ancestral Memory Through Realism</h2>
+
 <p>Oil paintings rooted in Tupi identity and spiritual memory.</p>
+
 </div>
+
 </section>
+
+
+
 
 <section id="about">
+
 <div class="aboutcontainer">
-<img src="yuridosanjos.WEBP" class="about-image" alt="Yuri dos Anjos">
+
+<img src="yuridosanjos.WEBP" class="about-image">
+
 <div class="about-text">
+
 <h2>Sobre o Artista</h2>
-<p>
-Artista indígena contemporâneo brasileiro, de herança Tupi, cuja pintura
-em óleo investiga memória, território e espiritualidade como experiência viva.
-Sua produção constrói pontes entre ancestralidade e contemporaneidade,
-criando obras únicas, assinadas e acompanhadas de certificado de autenticidade.
-</p>
+
+<p>Yuri dos Anjos (born 1992, Brazil) is a contemporary Indigenous Brazilian artist whose practice is deeply rooted in ancestry, territory, and spiritual consciousness. Of Tupi heritage, his work emerges from lived experience and cultural memory, transforming painting into a space of resistance, remembrance, and transcendence.
+
+He lives and works in Aldeia Pakowaty, located in Peruíbe, on the coast of São Paulo, where he has developed a visual language that bridges the visible and the invisible. Through oil on canvas, he constructs layered compositions marked by symbolic intensity, tactile depth, and atmospheric force.
+
+His paintings are not representations of identity — they are embodiments of it. Each work is a singular creation, never reproduced. The material presence of oil paint, the density of gesture, and the deliberate construction of space result in pieces that carry emotional weight, spiritual gravity, and presence.
+
+His compositions oscillate between silence and force, grounding and expansion, inviting the viewer into a contemplative encounter with memory and being.
+
+Yuri’s practice exists at the intersection of contemporary expression and ancestral continuity. By channeling Indigenous cosmology and personal narrative, he reclaims space within the global discourse of contemporary art while maintaining absolute integrity with his origin.
+
+Each artwork is signed and released as a unique piece, accompanied by a certificate of authenticity.</p>
+
 </div>
+
 </div>
+
 </section>
+
+
+
 
 <section id="gallery">
-<h2>Galeria</h2>
 
-<div class="preview-grid">
-<img src="Ipytuẽ.jpg" alt="Ipytuẽ">
-<img src="Etsá Ara.jpg" alt="Etsá Ara">
-<img src="Mariposa.jpg" alt="Mariposa">
+<h2>Obras Disponíveis</h2>
+
+
+
+<div class="art-piece">
+
+<img src="Ipytuẽ.jpg">
+
+<h3>Ipytuẽ (Breathe)</h3>
+
+<p>Oil on canvas – 60x80 cm – 2026</p>
+
+<a class="button"
+href="https://www.paypal.com/ncp/payment/BXNG5KXJ7SZVE"
+target="_blank">
+
+Adquirir Obra – $5,500 USD
+
+</a>
+
 </div>
 
-<a class="button" href="galeria.html">Ver Galeria Completa</a>
+
+
+<div class="art-piece">
+
+<img src="Etsá Ara.jpg">
+
+<h3>Etsá Ara – Eyes of the Sky</h3>
+
+<p>Oil on canvas – 30x40 cm – 2026</p>
+
+<a class="button"
+href="https://www.paypal.com/ncp/payment/5Z6P4RHMDT6AW"
+target="_blank">
+
+Adquirir Obra – $1,500 USD
+
+</a>
+
+</div>
 
 </section>
+
+
+
 
 <section id="contact">
+
 <h2>Contato</h2>
+
 <p>Email: yuridosanjos.arte@gmail.com</p>
+
 </section>
 
+
+
 <footer>
+
 © 2026 Yuri dos Anjos
+
 </footer>
+
+
+
 
 <script>
 
-const heroText = document.querySelector(".hero-content");
+/* CONTROLE DO HERO */
+
+const hero =
+document.querySelector(".hero");
+
+const heroText =
+document.querySelector(".hero-content");
 
 new IntersectionObserver((entries)=>{
+
 entries.forEach(entry=>{
+
 if(entry.isIntersecting){
+
 heroText.classList.add("visible");
+heroText.classList.remove("hidden");
+
+}else{
+
+heroText.classList.add("hidden");
+heroText.classList.remove("visible");
+
 }
+
 });
-},{threshold:0.6}).observe(document.querySelector(".hero"));
+
+},{
+threshold:0.6
+}).observe(hero);
+
+
+
+/* ANIMAÇÃO DAS OBRAS */
+
+const observer =
+new IntersectionObserver((entries)=>{
+
+entries.forEach(entry=>{
+
+const el = entry.target;
+
+if(entry.isIntersecting){
+
+el.classList.add("visible");
+
+}
+else{
+
+const rect = el.getBoundingClientRect();
+
+if(rect.bottom < 0 || rect.top > window.innerHeight){
+
+el.classList.remove("visible");
+
+}
+
+}
+
+});
+
+});
+
+document.querySelectorAll(".art-piece")
+.forEach(el=>observer.observe(el));
 
 </script>
 
 </body>
+
 </html>
