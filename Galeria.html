@@ -66,15 +66,16 @@ grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
 gap:80px;
 }
 
-.gallery img{
-width:100%;
+.gallery .art{
+overflow:hidden;
+position:relative;
 cursor:pointer;
-transition:transform 1.2s ease, filter 1.2s ease;
 }
 
-.gallery img:hover{
-transform:scale(1.05);
-filter:brightness(1.1);
+.gallery .art img{
+width:100%;
+transition:transform 0.3s ease;
+transform-origin:center center;
 }
 
 /* LIGHTBOX */
@@ -111,6 +112,7 @@ transform:scale(1);
 transform:scale(1.18);
 }
 }
+
 /* FECHAR */
 
 .close{
@@ -134,19 +136,16 @@ cursor:pointer;
 
 <section class="gallery">
 
+<div class="art"><img src="Etsá Ara.jpg"></div>
+<div class="art"><img src="Ipytuẽ.jpg"></div>
+<div class="art"><img src="Djera Poty.jpg"></div>
+<div class="art"><img src="Harmonia.jpg"></div>
+<div class="art"><img src="Mariposa.jpg"></div>
+<div class="art"><img src="Kiririndju.jpg"></div>
+<div class="art"><img src="O Espírito.jpg"></div>
+<div class="art"><img src="Kangwaá Owy.jpg"></div>
+<div class="art"><img src="Obras e autor.jpg"></div>
 
-<img src="Etsá Ara.jpg">
-<img src="Ipytuẽ.jpg">
-<img src="Djera Poty.jpg">
-<img src="Harmonia.jpg">
-<img src="Mariposa.jpg">
-<img src="Kiririndju.jpg">
-<img src="O Espírito.jpg">
-<img src="Kangwaá Owy.jpg">
-<img src="Obras e autor.jpg">
-
-
-  
 </section>
 
 <div class="lightbox" id="lightbox">
@@ -161,6 +160,7 @@ const lightbox = document.getElementById("lightbox");
 const lightboxImg = document.getElementById("lightbox-img");
 const closeBtn = document.querySelector(".close");
 
+/* LIGHTBOX */
 images.forEach(img=>{
 img.addEventListener("click",()=>{
 lightbox.classList.add("active");
@@ -178,7 +178,43 @@ lightbox.classList.remove("active");
 }
 });
 
+/* ZOOM DINÂMICO NO MOUSE (GRID) */
+
+const zoomArts = document.querySelectorAll(".gallery .art");
+
+zoomArts.forEach(art => {
+
+  const img = art.querySelector("img");
+
+  art.addEventListener("mousemove", (e) => {
+
+    const rect = art.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    const xPercent = (x / rect.width) * 100;
+    const yPercent = (y / rect.height) * 100;
+
+    img.style.transformOrigin = `${xPercent}% ${yPercent}%`;
+    img.style.transform = "scale(2.2)";
+
+  });
+
+  art.addEventListener("mouseleave", () => {
+
+    img.style.transform = "scale(1)";
+    img.style.transformOrigin = "center center";
+
+  });
+
+});
+
 </script>
 
 </body>
 </html>
+    img.style.transformOrigin = "center center";
+
+  });
+
+});
