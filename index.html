@@ -31,20 +31,21 @@ overflow-x:hidden;
 background:#000;
 padding:10px 10%;
 display:flex;
-justify-content:space-between;
+justify-content:flex-end;
 align-items:center;
 border-bottom:1px solid #222;
 }
 
 .socials a{
 color:#aaa;
-margin-right:18px;
+margin-left:20px;
 font-size:16px;
-transition:0.3s;
+transition:0.3s ease;
 }
 
 .socials a:hover{
 color:#c49b3d;
+transform:translateY(-3px);
 }
 
 /* HEADER */
@@ -67,7 +68,6 @@ letter-spacing:3px;
 }
 
 /* NAV */
-/* NAV */
 nav{
 background:#111;
 padding:18px;
@@ -86,12 +86,10 @@ padding-bottom:6px;
 transition:color 0.3s ease;
 }
 
-/* Hover texto */
 nav a:hover{
 color:#fff;
 }
 
-/* Linha dourada animada */
 nav a::after{
 content:"";
 position:absolute;
@@ -106,7 +104,7 @@ transition:width 0.4s ease;
 nav a:hover::after{
 width:100%;
 }
-  
+
 /* HERO */
 .hero{
 height:95vh;
@@ -121,7 +119,6 @@ position:relative;
 overflow:hidden;
 }
 
-/* CINEMATIC ZOOM */
 .hero::before{
 content:"";
 position:absolute;
@@ -197,7 +194,7 @@ color:#ccc;
 line-height:1.8;
 }
 
-/* GALLERY (OBRAS DISPONÍVEIS) */
+/* GALLERY */
 #gallery h2{
 text-align:center;
 font-family:'Cinzel',serif;
@@ -271,13 +268,11 @@ color:#666;
 <body>
 
 <div class="topbar">
-<div class="socials">
-<div class="socials">
-
-<a href="#"><i class="fab fa-instagram"></i></a>
-<a href="#"><i class="fab fa-facebook"></i></a>
-<a href="#"><i class="fab fa-youtube"></i></a>
-</div>
+  <div class="socials">
+    <a href="https://instagram.com/SEUUSUARIO" target="_blank"><i class="fab fa-instagram"></i></a>
+    <a href="https://facebook.com/SEUUSUARIO" target="_blank"><i class="fab fa-facebook"></i></a>
+    <a href="https://youtube.com/SEUUSUARIO" target="_blank"><i class="fab fa-youtube"></i></a>
+  </div>
 </div>
 
 <header>
@@ -286,10 +281,10 @@ color:#666;
 </header>
 
 <nav>
-    <a href="#about" class="nav-link">About</a>
-    <a href="#Gallery" class="nav-link">Available Works</a>
-    <a href="Galeria.html" class="nav-link external">Gallery</a>
-    <a href="#contact" class="nav-link">Contact</a>
+    <a href="#about">About</a>
+    <a href="#gallery">Available Works</a>
+    <a href="Galeria.html">Gallery</a>
+    <a href="#contact">Contact</a>
 </nav>
 
 <section class="hero">
@@ -345,7 +340,6 @@ Acquire Artwork – $1,500 USD
 
 <script>
 
-/* HERO CONTROL */
 const hero = document.querySelector(".hero");
 const heroText = document.querySelector(".hero-content");
 
@@ -361,7 +355,6 @@ heroText.classList.remove("visible");
 });
 },{threshold:0.6}).observe(hero);
 
-/* ART ANIMATION */
 const observer = new IntersectionObserver((entries)=>{
 entries.forEach(entry=>{
 const el = entry.target;
@@ -383,6 +376,3 @@ document.querySelectorAll(".art-piece")
 
 </body>
 </html>
-
-
-
