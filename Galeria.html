@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Galeria | Yuri dos Anjos</title>
+
+<title>Gallery | Yuri dos Anjos</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 
@@ -23,7 +24,21 @@ font-family:'Inter',sans-serif;
 overflow-x:hidden;
 }
 
-/* BOTÃO VOLTAR */
+/* HEADER */
+
+header{
+text-align:center;
+padding:60px 10%;
+background:#000;
+}
+
+header h1{
+font-family:'Cinzel',serif;
+font-size:42px;
+letter-spacing:6px;
+}
+
+/* BACK BUTTON */
 
 .back-btn{
 position:fixed;
@@ -42,48 +57,59 @@ transition:0.3s;
 background:#e0b94f;
 }
 
-/* HEADER */
+/* GALLERY SECTION */
 
-header{
+.gallery{
+padding:140px 10%;
+}
+
+/* ART BLOCK */
+
+.art-piece{
+max-width:1000px;
+margin:0 auto 220px auto;
 text-align:center;
-padding:100px 10% 60px 10%;
-background:#000;
 }
 
-header h1{
-font-family:'Cinzel',serif;
-font-size:42px;
-letter-spacing:6px;
+/* IMAGE CONTAINER */
+
+.art-image{
+position:relative;
+overflow:hidden;
 }
 
-/* SEÇÃO OBRA */
+/* CINEMATIC ZOOM LIKE HERO */
 
-.art-section{
+.art-image::before{
+content:"";
+position:absolute;
+inset:0;
+background:inherit;
+background-size:cover;
+background-position:center;
+animation:slowZoom 32s ease-in-out infinite alternate;
+z-index:0;
+}
+
+.art-image img{
 width:100%;
-padding:120px 10%;
-display:flex;
-flex-direction:column;
-align-items:center;
-gap:40px;
-border-bottom:1px solid #111;
+display:block;
+position:relative;
+z-index:1;
+animation:slowZoom 32s ease-in-out infinite alternate;
 }
 
-.art-section img{
-width:100%;
-max-width:900px;
-transition:transform 0.6s ease;
-cursor:pointer;
+@keyframes slowZoom{
+from{transform:scale(1);}
+to{transform:scale(1.08);}
 }
 
-.art-section img:hover{
-transform:scale(1.03);
-}
+/* TITLE */
 
-.art-title{
+.art-piece h2{
+margin-top:40px;
 font-family:'Cinzel',serif;
-font-size:24px;
-letter-spacing:3px;
-opacity:0.85;
+letter-spacing:4px;
 }
 
 /* LIGHTBOX */
@@ -91,7 +117,7 @@ opacity:0.85;
 .lightbox{
 position:fixed;
 inset:0;
-background:rgba(0,0,0,0.95);
+background:rgba(0,0,0,0.97);
 display:flex;
 justify-content:center;
 align-items:center;
@@ -109,22 +135,20 @@ visibility:visible;
 .lightbox img{
 max-width:85%;
 max-height:85%;
-animation:cinemaZoom 28s ease-in-out infinite alternate;
+animation:cinemaZoom 40s ease-in-out infinite alternate;
 }
 
 @keyframes cinemaZoom{
-0%{
-transform:scale(1);
+0%{transform:scale(1);}
+100%{transform:scale(1.18);}
 }
-100%{
-transform:scale(1.18);
-}
-}
+
+/* CLOSE BUTTON */
 
 .close{
 position:absolute;
 top:40px;
-right:50px;
+right:60px;
 font-size:40px;
 color:#fff;
 cursor:pointer;
@@ -134,67 +158,79 @@ cursor:pointer;
 </head>
 <body>
 
-<a href="index.html" class="back-btn">Voltar</a>
+<a href="index.html" class="back-btn">Back to Home</a>
 
 <header>
-<h1>Galeria</h1>
+<h1>Gallery</h1>
 </header>
 
-<!-- OBRA 1 -->
-<section class="art-section">
-<img src="Etsá Ara.jpg" class="open-lightbox">
-<div class="art-title">Etsá Ara</div>
+<section class="gallery">
+
+<div class="art-piece">
+<div class="art-image">
+<img src="Etsá Ara.jpg" alt="Etsá Ara">
+</div>
+<h2>Etsá Ara – Eyes of the Sky</h2>
+</div>
+
+<div class="art-piece">
+<div class="art-image">
+<img src="Ipytuẽ.jpg" alt="Ipytuẽ">
+</div>
+<h2>Ipytuẽ – Breathe</h2>
+</div>
+
+<div class="art-piece">
+<div class="art-image">
+<img src="Djera Poty.jpg" alt="Djera Poty">
+</div>
+<h2>Djera Poty</h2>
+</div>
+
+<div class="art-piece">
+<div class="art-image">
+<img src="Harmonia.jpg" alt="Harmonia">
+</div>
+<h2>Harmonia</h2>
+</div>
+
+<div class="art-piece">
+<div class="art-image">
+<img src="Mariposa.jpg" alt="Mariposa">
+</div>
+<h2>Mariposa</h2>
+</div>
+
+<div class="art-piece">
+<div class="art-image">
+<img src="Kiririndju.jpg" alt="Kiririndju">
+</div>
+<h2>Kiririndju</h2>
+</div>
+
+<div class="art-piece">
+<div class="art-image">
+<img src="O Espírito.jpg" alt="O Espírito">
+</div>
+<h2>The Spirit</h2>
+</div>
+
+<div class="art-piece">
+<div class="art-image">
+<img src="Kangwaá Owy.jpg" alt="Kangwaá Owy">
+</div>
+<h2>Kangwaá Owy</h2>
+</div>
+
+<div class="art-piece">
+<div class="art-image">
+<img src="Obras e autor.jpg" alt="Artist and Works">
+</div>
+<h2>Artist & Works</h2>
+</div>
+
 </section>
 
-<!-- OBRA 2 -->
-<section class="art-section">
-<img src="Ipytuẽ.jpg" class="open-lightbox">
-<div class="art-title">Ipytuẽ</div>
-</section>
-
-<!-- OBRA 3 -->
-<section class="art-section">
-<img src="Djera Poty.jpg" class="open-lightbox">
-<div class="art-title">Djera Poty</div>
-</section>
-
-<!-- OBRA 4 -->
-<section class="art-section">
-<img src="Harmonia.jpg" class="open-lightbox">
-<div class="art-title">Harmonia</div>
-</section>
-
-<!-- OBRA 5 -->
-<section class="art-section">
-<img src="Mariposa.jpg" class="open-lightbox">
-<div class="art-title">Mariposa</div>
-</section>
-
-<!-- OBRA 6 -->
-<section class="art-section">
-<img src="Kiririndju.jpg" class="open-lightbox">
-<div class="art-title">Kiririndju</div>
-</section>
-
-<!-- OBRA 7 -->
-<section class="art-section">
-<img src="O Espírito.jpg" class="open-lightbox">
-<div class="art-title">O Espírito</div>
-</section>
-
-<!-- OBRA 8 -->
-<section class="art-section">
-<img src="Kangwaá Owy.jpg" class="open-lightbox">
-<div class="art-title">Kangwaá Owy</div>
-</section>
-
-<!-- OBRA 9 -->
-<section class="art-section">
-<img src="Obras e autor.jpg" class="open-lightbox">
-<div class="art-title">Obras e Autor</div>
-</section>
-
-<!-- LIGHTBOX -->
 <div class="lightbox" id="lightbox">
 <span class="close">&times;</span>
 <img src="" id="lightbox-img">
@@ -202,7 +238,7 @@ cursor:pointer;
 
 <script>
 
-const images = document.querySelectorAll(".open-lightbox");
+const images = document.querySelectorAll(".art-image img");
 const lightbox = document.getElementById("lightbox");
 const lightboxImg = document.getElementById("lightbox-img");
 const closeBtn = document.querySelector(".close");
