@@ -1,1 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<title>Galeria | Yuri dos Anjos</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+
+/* RESET */
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+background:#0d0d0d;
+color:#f5f5f5;
+font-family:'Inter',sans-serif;
+overflow-x:hidden;
+}
+
+/* HEADER */
+
+header{
+text-align:center;
+padding:60px 10%;
+background:#000;
+}
+
+header h1{
+font-family:'Cinzel',serif;
+font-size:42px;
+letter-spacing:6px;
+}
+
+/* BOTÃO VOLTAR */
+
+.back-btn{
+position:fixed;
+top:25px;
+left:25px;
+background:#c49b3d;
+color:#000;
+padding:10px 20px;
+text-decoration:none;
+font-weight:600;
+z-index:1000;
+transition:0.3s;
+}
+
+.back-btn:hover{
+background:#e0b94f;
+}
+
+/* GALERIA GRID */
+
+.gallery{
+padding:120px 8%;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+gap:80px;
+}
+
+.gallery img{
+width:100%;
+cursor:pointer;
+transition:transform 1.2s ease, filter 1.2s ease;
+}
+
+.gallery img:hover{
+transform:scale(1.05);
+filter:brightness(1.1);
+}
+
+/* LIGHTBOX */
+
+.lightbox{
+position:fixed;
+inset:0;
+background:rgba(0,0,0,0.95);
+display:flex;
+justify-content:center;
+align-items:center;
+opacity:0;
+visibility:hidden;
+transition:opacity 0.6s ease;
+z-index:2000;
+}
+
+.lightbox.active{
+opacity:1;
+visibility:visible;
+}
+
+.lightbox img{
+max-width:85%;
+max-height:85%;
+animation:cinemaZoom 12s ease-in-out infinite alternate;
+}
+
+@keyframes cinemaZoom{
+from{transform:scale(1);}
+to{transform:scale(1.08);}
+}
+
+/* FECHAR */
+
+.close{
+position:absolute;
+top:40px;
+right:50px;
+font-size:40px;
+color:#fff;
+cursor:pointer;
+}
+
+</style>
+</head>
+<body>
+
+<a href="index.html" class="back-btn">Voltar</a>
+
+<header>
+<h1>Galeria</h1>
+</header>
+
+<section class="gallery">
+
+<img src="A Crianca e o pássaro.jpg">
+<img src="A criança e o pássaro 2.jpg">
+<img src="Djera Poty.jpg">
+<img src="Etsá Ara.jpg">
+<img src="Harmonia.jpg">
+<img src="Ipytuẽ.jpg">
+<img src="Kangwá Owy.jpg">
+<img src="Kiririndju.jpg">
+<img src="Mariposa.jpg">
+<img src="O Espírito.jpg">
+<img src="Obras e autor.jpg">
+
+</section>
+
+<div class="lightbox" id="lightbox">
+<span class="close">&times;</span>
+<img src="" id="lightbox-img">
+</div>
+
+<script>
+
+const images = document.querySelectorAll(".gallery img");
+const lightbox = document.getElementById("lightbox");
+const lightboxImg = document.getElementById("lightbox-img");
+const closeBtn = document.querySelector(".close");
+
+images.forEach(img=>{
+img.addEventListener("click",()=>{
+lightbox.classList.add("active");
+lightboxImg.src = img.src;
+});
+});
+
+closeBtn.addEventListener("click",()=>{
+lightbox.classList.remove("active");
+});
+
+lightbox.addEventListener("click",(e)=>{
+if(e.target !== lightboxImg){
+lightbox.classList.remove("active");
+}
+});
+
+</script>
+
+</body>
+</html>
