@@ -78,7 +78,7 @@ letter-spacing:3px;
 
 nav{
 background:#111;
-padding:18px;
+padding:22px 0;
 text-align:center;
 border-bottom:1px solid #222;
 }
@@ -86,15 +86,31 @@ border-bottom:1px solid #222;
 nav a{
 color:#ccc;
 text-decoration:none;
-margin:0 35px;
+margin:0 40px;
 letter-spacing:3px;
 font-size:13px;
+position:relative;
+transition:0.4s;
+}
+
+nav a::after{
+content:"";
+position:absolute;
+left:0;
+bottom:-8px;
+width:0%;
+height:1px;
+background:#c49b3d;
+transition:0.4s;
 }
 
 nav a:hover{
 color:#fff;
 }
 
+nav a:hover::after{
+width:100%;
+}
 
 
 /* HERO */
@@ -383,12 +399,10 @@ color:#666;
 
 
 <nav class="menu">
-  <ul>
-    <li><a href="#sobre">Sobre</a></li>
-    <li><a href="obras.html">Obras Disponíveis</a></li>
-    <li><a href="galeria.html">Galeria</a></li>
-    <li><a href="#contato">Contato</a></li>
-  </ul>
+  <a href="#about">Sobre</a>
+  <a href="#gallery">Obras Disponíveis</a>
+  <a href="Galeria.html">Galeria</a>
+  <a href="#contact">Contato</a>
 </nav>
 
 
@@ -580,4 +594,5 @@ document.querySelectorAll(".art-piece")
 </body>
 
 </html>
+
 
