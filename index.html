@@ -4,9 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Galeria | Yuri dos Anjos</title>
+<title>Yuri dos Anjos | Indigenous Contemporary Realism</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
 
@@ -21,244 +22,341 @@ body{
 background:#0d0d0d;
 color:#f5f5f5;
 font-family:'Inter',sans-serif;
+scroll-behavior:smooth;
 overflow-x:hidden;
 }
 
-/* BOTÃO VOLTAR */
+/* TOPBAR */
+.topbar{
+background:#000;
+padding:10px 10%;
+display:flex;
+justify-content:space-between;
+align-items:center;
+border-bottom:1px solid #222;
+}
 
-.back-btn{
-position:fixed;
-top:25px;
-left:25px;
-background:#c49b3d;
-color:#000;
-padding:10px 20px;
-text-decoration:none;
-font-weight:600;
-z-index:1000;
+.socials a{
+color:#aaa;
+margin-right:18px;
+font-size:16px;
 transition:0.3s;
 }
 
-.back-btn:hover{
-background:#e0b94f;
+.socials a:hover{
+color:#c49b3d;
 }
 
 /* HEADER */
-
 header{
 text-align:center;
-padding:100px 10% 60px;
+padding:60px 10%;
 background:#000;
 }
 
 header h1{
 font-family:'Cinzel',serif;
-font-size:42px;
-letter-spacing:6px;
+font-size:52px;
+letter-spacing:8px;
 }
 
-/* GALERIA VERTICAL */
-
-.gallery{
-width:100%;
-padding:0 8% 150px;
+header p{
+margin-top:15px;
+color:#aaa;
+letter-spacing:3px;
 }
 
-.art{
+/* NAV */
+nav{
+background:#111;
+padding:18px;
+text-align:center;
+border-bottom:1px solid #222;
+}
+
+nav a{
+color:#ccc;
+text-decoration:none;
+margin:0 35px;
+letter-spacing:3px;
+font-size:13px;
+}
+
+nav a:hover{
+color:#fff;
+}
+
+/* HERO */
+.hero{
+height:95vh;
+background:url('Etsá Ara.jpg') no-repeat;
+background-size:cover;
+background-position:center 38%;
+background-attachment:fixed;
+display:flex;
+align-items:center;
+justify-content:center;
 position:relative;
 overflow:hidden;
-margin-bottom:160px;
-cursor:zoom-in;
 }
 
-.art img{
-width:100%;
-display:block;
+/* CINEMATIC ZOOM */
+.hero::before{
+content:"";
+position:absolute;
+inset:0;
+background:url('Etsá Ara.jpg') no-repeat center 38%;
+background-size:cover;
 animation:slowZoom 28s ease-in-out infinite alternate;
-transition:transform 1.8s cubic-bezier(.22,.61,.36,1);
+z-index:0;
 }
 
-/* Nome da obra */
-.art h2{
-text-align:center;
-margin-top:25px;
-font-family:'Cinzel',serif;
-letter-spacing:4px;
-font-weight:400;
-font-size:18px;
-color:#c49b3d;
-}
-
-/* Zoom hipnotizante */
 @keyframes slowZoom{
 from{transform:scale(1);}
-to{transform:scale(1.08);}
+to{transform:scale(1.06);}
 }
 
-/* LIGHTBOX */
-
-.lightbox{
-position:fixed;
+.hero::after{
+content:"";
+position:absolute;
 inset:0;
-background:rgba(0,0,0,0.95);
+background:rgba(0,0,0,0.65);
+z-index:1;
+}
+
+.hero-content{
+position:relative;
+z-index:2;
+text-align:center;
+opacity:0;
+transform:translateX(-140px);
+transition:
+transform 2.2s cubic-bezier(.22,.61,.36,1),
+opacity 2.2s cubic-bezier(.22,.61,.36,1);
+}
+
+.hero-content.visible{
+opacity:1;
+transform:translateX(0);
+}
+
+.hero-content.hidden{
+opacity:0;
+transform:translateX(-160px);
+}
+
+/* SECTIONS */
+section{
+padding:160px 10%;
+}
+
+/* ABOUT */
+#about{
 display:flex;
 justify-content:center;
+}
+
+.aboutcontainer{
+max-width:1100px;
+display:flex;
+gap:60px;
+flex-wrap:wrap;
 align-items:center;
+}
+
+.about-image{
+width:320px;
+border:2px solid #c49b3d;
+}
+
+.about-text{
+flex:1;
+min-width:300px;
+color:#ccc;
+line-height:1.8;
+}
+
+/* GALLERY (OBRAS DISPONÍVEIS) */
+#gallery h2{
+text-align:center;
+font-family:'Cinzel',serif;
+margin-bottom:160px;
+}
+
+.art-piece{
+max-width:1000px;
+margin:0 auto 220px auto;
+text-align:center;
 opacity:0;
-visibility:hidden;
-transition:opacity 0.6s ease;
-z-index:2000;
+transform:translateY(35px);
+filter:blur(6px);
+transition:
+opacity 2.4s cubic-bezier(.22,.61,.36,1),
+transform 2.4s cubic-bezier(.22,.61,.36,1),
+filter 2.4s cubic-bezier(.22,.61,.36,1);
 }
 
-.lightbox.active{
+.art-piece.visible{
 opacity:1;
-visibility:visible;
+transform:translateY(0);
+filter:blur(0);
 }
 
-.lightbox img{
-max-width:85%;
-max-height:85%;
-animation:cinemaZoom 28s ease-in-out infinite alternate;
+.art-piece img{
+width:100%;
+margin-bottom:60px;
+transition:transform 3s ease;
 }
 
-@keyframes cinemaZoom{
-from{transform:scale(1);}
-to{transform:scale(1.18);}
+.art-piece img:hover{
+transform:scale(1.02);
 }
 
-.close{
-position:absolute;
-top:40px;
-right:50px;
-font-size:40px;
-color:#fff;
-cursor:pointer;
+/* BUTTON */
+.button{
+display:inline-block;
+padding:14px 35px;
+background:#c49b3d;
+color:#000;
+text-decoration:none;
+font-weight:600;
+}
+
+.button:hover{
+background:#e0b94f;
+}
+
+/* CONTACT */
+#contact{
+text-align:center;
+}
+
+#contact p{
+color:#ccc;
+}
+
+/* FOOTER */
+footer{
+text-align:center;
+padding:50px;
+background:#000;
+border-top:1px solid #222;
+color:#666;
 }
 
 </style>
 </head>
+
 <body>
 
-<a href="index.html" class="back-btn">Voltar</a>
+<div class="topbar">
+<div class="socials">
+<a href="#"><i class="fab fa-instagram"></i></a>
+<a href="#"><i class="fab fa-facebook"></i></a>
+<a href="#"><i class="fab fa-youtube"></i></a>
+</div>
+</div>
 
 <header>
-<h1>Galeria</h1>
+<h1>YURI DOS ANJOS</h1>
+<p>Indigenous Contemporary Realism</p>
 </header>
 
-<section class="gallery">
+<nav>
+<a href="#about">About</a>
+<a href="#gallery">Available Works</a>
+<a href="galeria.html">Gallery</a>
+<a href="#contact">Contact</a>
+</nav>
 
-<div class="art">
-<img src="Etsá Ara.jpg">
-<h2>Etsá Ara</h2>
+<section class="hero">
+<div class="hero-content">
+<h2>Ancestral Memory Through Realism</h2>
+<p>Oil paintings rooted in Tupi identity and spiritual memory.</p>
 </div>
+</section>
 
-<div class="art">
+<section id="about">
+<div class="aboutcontainer">
+<img src="yuridosanjos.webp" class="about-image">
+<div class="about-text">
+<h2>About the Artist</h2>
+<p>
+Yuri dos Anjos (born 1992, Brazil) is a contemporary Indigenous Brazilian artist...
+</p>
+</div>
+</div>
+</section>
+
+<section id="gallery">
+<h2>Available Works</h2>
+
+<div class="art-piece">
 <img src="Ipytuẽ.jpg">
-<h2>Ipytuẽ</h2>
+<h3>Ipytuẽ (Breathe)</h3>
+<p>Oil on canvas – 60x80 cm – 2026</p>
+<a class="button" href="https://www.paypal.com/ncp/payment/BXNG5KXJ7SZVE" target="_blank">
+Acquire Artwork – $5,500 USD
+</a>
 </div>
 
-<div class="art">
-<img src="Djera Poty.jpg">
-<h2>Djera Poty</h2>
-</div>
-
-<div class="art">
-<img src="Harmonia.jpg">
-<h2>Harmonia</h2>
-</div>
-
-<div class="art">
-<img src="Mariposa.jpg">
-<h2>Mariposa</h2>
-</div>
-
-<div class="art">
-<img src="Kiririndju.jpg">
-<h2>Kiririndju</h2>
-</div>
-
-<div class="art">
-<img src="O Espírito.jpg">
-<h2>O Espírito</h2>
-</div>
-
-<div class="art">
-<img src="Kangwaá Owy.jpg">
-<h2>Kangwaá Owy</h2>
-</div>
-
-<div class="art">
-<img src="Obras e autor.jpg">
-<h2>Obras e Autor</h2>
+<div class="art-piece">
+<img src="Etsá Ara.jpg">
+<h3>Etsá Ara – Eyes of the Sky</h3>
+<p>Oil on canvas – 30x40 cm – 2026</p>
+<a class="button" href="https://www.paypal.com/ncp/payment/5Z6P4RHMDT6AW" target="_blank">
+Acquire Artwork – $1,500 USD
+</a>
 </div>
 
 </section>
 
-<!-- LIGHTBOX -->
+<section id="contact">
+<h2>Contact</h2>
+<p>Email: yuridosanjos.arte@gmail.com</p>
+</section>
 
-<div class="lightbox" id="lightbox">
-<span class="close">&times;</span>
-<img src="" id="lightbox-img">
-</div>
+<footer>
+© 2026 Yuri dos Anjos
+</footer>
 
 <script>
 
-/* LIGHTBOX */
+/* HERO CONTROL */
+const hero = document.querySelector(".hero");
+const heroText = document.querySelector(".hero-content");
 
-const images = document.querySelectorAll(".art img");
-const lightbox = document.getElementById("lightbox");
-const lightboxImg = document.getElementById("lightbox-img");
-const closeBtn = document.querySelector(".close");
-
-images.forEach(img=>{
-img.addEventListener("click",()=>{
-lightbox.classList.add("active");
-lightboxImg.src = img.src;
-});
-});
-
-closeBtn.addEventListener("click",()=>{
-lightbox.classList.remove("active");
-});
-
-lightbox.addEventListener("click",(e)=>{
-if(e.target !== lightboxImg){
-lightbox.classList.remove("active");
+new IntersectionObserver((entries)=>{
+entries.forEach(entry=>{
+if(entry.isIntersecting){
+heroText.classList.add("visible");
+heroText.classList.remove("hidden");
+}else{
+heroText.classList.add("hidden");
+heroText.classList.remove("visible");
 }
 });
+},{threshold:0.6}).observe(hero);
 
-/* ZOOM FORTE SEGUINDO MOUSE */
-
-const arts = document.querySelectorAll(".art");
-
-arts.forEach(art => {
-
-  const img = art.querySelector("img");
-
-  art.addEventListener("mousemove", (e) => {
-
-    const rect = art.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-
-    const xPercent = (x / rect.width) * 100;
-    const yPercent = (y / rect.height) * 100;
-
-    img.style.transformOrigin = `${xPercent}% ${yPercent}%`;
-    img.style.transform = "scale(1.8)";
-
-  });
-
-  art.addEventListener("mouseleave", () => {
-
-    img.style.transform = "";
-
-  });
-
+/* ART ANIMATION */
+const observer = new IntersectionObserver((entries)=>{
+entries.forEach(entry=>{
+const el = entry.target;
+if(entry.isIntersecting){
+el.classList.add("visible");
+}else{
+const rect = el.getBoundingClientRect();
+if(rect.bottom < 0 || rect.top > window.innerHeight){
+el.classList.remove("visible");
+}
+}
 });
+});
+
+document.querySelectorAll(".art-piece")
+.forEach(el=>observer.observe(el));
 
 </script>
 
 </body>
 </html>
-
