@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Galeria | Yuri dos Anjos</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
@@ -22,20 +21,6 @@ background:#0d0d0d;
 color:#f5f5f5;
 font-family:'Inter',sans-serif;
 overflow-x:hidden;
-}
-
-/* HEADER */
-
-header{
-text-align:center;
-padding:60px 10%;
-background:#000;
-}
-
-header h1{
-font-family:'Cinzel',serif;
-font-size:42px;
-letter-spacing:6px;
 }
 
 /* BOTÃO VOLTAR */
@@ -57,25 +42,48 @@ transition:0.3s;
 background:#e0b94f;
 }
 
-/* GALERIA GRID */
+/* HEADER */
 
-.gallery{
-padding:120px 8%;
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
-gap:80px;
+header{
+text-align:center;
+padding:100px 10% 60px 10%;
+background:#000;
 }
 
-.gallery .art{
-overflow:hidden;
-position:relative;
+header h1{
+font-family:'Cinzel',serif;
+font-size:42px;
+letter-spacing:6px;
+}
+
+/* SEÇÃO OBRA */
+
+.art-section{
+width:100%;
+padding:120px 10%;
+display:flex;
+flex-direction:column;
+align-items:center;
+gap:40px;
+border-bottom:1px solid #111;
+}
+
+.art-section img{
+width:100%;
+max-width:900px;
+transition:transform 0.6s ease;
 cursor:pointer;
 }
 
-.gallery .art img{
-width:100%;
-transition:transform 0.3s ease;
-transform-origin:center center;
+.art-section img:hover{
+transform:scale(1.03);
+}
+
+.art-title{
+font-family:'Cinzel',serif;
+font-size:24px;
+letter-spacing:3px;
+opacity:0.85;
 }
 
 /* LIGHTBOX */
@@ -113,8 +121,6 @@ transform:scale(1.18);
 }
 }
 
-/* FECHAR */
-
 .close{
 position:absolute;
 top:40px;
@@ -134,20 +140,61 @@ cursor:pointer;
 <h1>Galeria</h1>
 </header>
 
-<section class="gallery">
-
-<div class="art"><img src="Etsá Ara.jpg"></div>
-<div class="art"><img src="Ipytuẽ.jpg"></div>
-<div class="art"><img src="Djera Poty.jpg"></div>
-<div class="art"><img src="Harmonia.jpg"></div>
-<div class="art"><img src="Mariposa.jpg"></div>
-<div class="art"><img src="Kiririndju.jpg"></div>
-<div class="art"><img src="O Espírito.jpg"></div>
-<div class="art"><img src="Kangwaá Owy.jpg"></div>
-<div class="art"><img src="Obras e autor.jpg"></div>
-
+<!-- OBRA 1 -->
+<section class="art-section">
+<img src="Etsá Ara.jpg" class="open-lightbox">
+<div class="art-title">Etsá Ara</div>
 </section>
 
+<!-- OBRA 2 -->
+<section class="art-section">
+<img src="Ipytuẽ.jpg" class="open-lightbox">
+<div class="art-title">Ipytuẽ</div>
+</section>
+
+<!-- OBRA 3 -->
+<section class="art-section">
+<img src="Djera Poty.jpg" class="open-lightbox">
+<div class="art-title">Djera Poty</div>
+</section>
+
+<!-- OBRA 4 -->
+<section class="art-section">
+<img src="Harmonia.jpg" class="open-lightbox">
+<div class="art-title">Harmonia</div>
+</section>
+
+<!-- OBRA 5 -->
+<section class="art-section">
+<img src="Mariposa.jpg" class="open-lightbox">
+<div class="art-title">Mariposa</div>
+</section>
+
+<!-- OBRA 6 -->
+<section class="art-section">
+<img src="Kiririndju.jpg" class="open-lightbox">
+<div class="art-title">Kiririndju</div>
+</section>
+
+<!-- OBRA 7 -->
+<section class="art-section">
+<img src="O Espírito.jpg" class="open-lightbox">
+<div class="art-title">O Espírito</div>
+</section>
+
+<!-- OBRA 8 -->
+<section class="art-section">
+<img src="Kangwaá Owy.jpg" class="open-lightbox">
+<div class="art-title">Kangwaá Owy</div>
+</section>
+
+<!-- OBRA 9 -->
+<section class="art-section">
+<img src="Obras e autor.jpg" class="open-lightbox">
+<div class="art-title">Obras e Autor</div>
+</section>
+
+<!-- LIGHTBOX -->
 <div class="lightbox" id="lightbox">
 <span class="close">&times;</span>
 <img src="" id="lightbox-img">
@@ -155,12 +202,11 @@ cursor:pointer;
 
 <script>
 
-const images = document.querySelectorAll(".gallery img");
+const images = document.querySelectorAll(".open-lightbox");
 const lightbox = document.getElementById("lightbox");
 const lightboxImg = document.getElementById("lightbox-img");
 const closeBtn = document.querySelector(".close");
 
-/* LIGHTBOX */
 images.forEach(img=>{
 img.addEventListener("click",()=>{
 lightbox.classList.add("active");
@@ -178,43 +224,7 @@ lightbox.classList.remove("active");
 }
 });
 
-/* ZOOM DINÂMICO NO MOUSE (GRID) */
-
-const zoomArts = document.querySelectorAll(".gallery .art");
-
-zoomArts.forEach(art => {
-
-  const img = art.querySelector("img");
-
-  art.addEventListener("mousemove", (e) => {
-
-    const rect = art.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-
-    const xPercent = (x / rect.width) * 100;
-    const yPercent = (y / rect.height) * 100;
-
-    img.style.transformOrigin = `${xPercent}% ${yPercent}%`;
-    img.style.transform = "scale(2.2)";
-
-  });
-
-  art.addEventListener("mouseleave", () => {
-
-    img.style.transform = "scale(1)";
-    img.style.transformOrigin = "center center";
-
-  });
-
-});
-
 </script>
 
 </body>
 </html>
-    img.style.transformOrigin = "center center";
-
-  });
-
-});
