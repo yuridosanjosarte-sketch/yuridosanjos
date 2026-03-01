@@ -80,32 +80,22 @@ text-align:center;
 .art-image{
 position:relative;
 overflow:hidden;
+cursor:pointer;
 }
 
-/* CINEMATIC ZOOM LIKE HERO */
-
-.art-image::before{
-content:"";
-position:absolute;
-inset:0;
-background:inherit;
-background-size:cover;
-background-position:center;
-animation:slowZoom 32s ease-in-out infinite alternate;
-z-index:0;
-}
+/* HIPNOTIC DEEP ZOOM */
 
 .art-image img{
 width:100%;
 display:block;
-position:relative;
-z-index:1;
-animation:slowZoom 32s ease-in-out infinite alternate;
+transition:transform 10s ease-in-out, filter 6s ease-in-out;
+transform-origin:50% 35%; /* foco levemente acima do centro (rostos) */
+filter:brightness(0.95);
 }
 
-@keyframes slowZoom{
-from{transform:scale(1);}
-to{transform:scale(1.08);}
+.art-image:hover img{
+transform:scale(1.5);
+filter:brightness(1.05) contrast(1.05);
 }
 
 /* TITLE */
@@ -179,7 +169,7 @@ cursor:pointer;
   }
 
 }  
-  
+
 </style>
 </head>
 <body>
