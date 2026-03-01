@@ -154,42 +154,16 @@ align-items:center;
 justify-content:center;
 }
 
-.hero::before,
-.hero::after{
+.hero::before{
 content:"";
 position:absolute;
 inset:0;
+background-image:url('etsa-ara.jpg');
 background-size:cover;
 background-position:center 38%;
+filter:brightness(0.55);
 z-index:0;
 animation:zoom 30s ease-in-out infinite alternate;
-}
-
-.hero::before{
-background-image:url('etsa-ara.jpg');
-animation:fadeOne 32s ease-in-out infinite, zoom 30s ease-in-out infinite alternate;
-}
-
-.hero::after{
-background-image:url('ipytue.jpg');
-opacity:0;
-animation:fadeTwo 32s ease-in-out infinite, zoom 30s ease-in-out infinite alternate;
-}
-
-.hero::before,
-.hero::after{
-  filter:brightness(0.55);
-}
-
-@keyframes fadeOne{
-0%,45%{opacity:1;}
-50%,95%{opacity:0;}
-100%{opacity:1;}
-}
-@keyframes fadeTwo{
-0%,45%{opacity:0;}
-50%,95%{opacity:1;}
-100%{opacity:0;}
 }
 
 @keyframes zoom{
@@ -563,5 +537,6 @@ links.forEach(link=>{
   
 </body>
 </html>
+
 
 
