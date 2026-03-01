@@ -11,12 +11,9 @@
 
 <style>
 
-/* RESET */
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-}
+/* ================= ORIGINAL ================= */
+
+*{margin:0;padding:0;box-sizing:border-box;}
 
 body{
 background:#0d0d0d;
@@ -28,36 +25,31 @@ overflow-x:hidden;
 
 /* TOPBAR */
 .topbar{
-  background:#000;
-  padding:10px 6%;
-  display:flex;
-  justify-content:flex-end;
-  align-items:center;
-  border-bottom:1px solid #222;
+background:#000;
+padding:10px 6%;
+display:flex;
+justify-content:flex-end;
+border-bottom:1px solid #222;
 }
 
-/* SOCIAL ICONS */
-.socials{
-  display:flex;
-  align-items:center;
-  gap:18px;
-}
+.socials{display:flex;gap:18px;}
 
 .socials a{
-  color:#aaa;
-  font-size:18px;
-  transition:0.3s ease;
+color:#aaa;
+font-size:18px;
+transition:.3s;
 }
 
 .socials a:hover{
-  color:#c49b3d;
-  transform:translateY(-3px);
+color:#c49b3d;
+transform:translateY(-3px);
 }
+
 /* HEADER */
 header{
-  text-align:center;
-  padding:60px 10%;
-  background:#000;
+text-align:center;
+padding:60px 10%;
+background:#000;
 }
 
 header h1{
@@ -78,73 +70,45 @@ background:#111;
 padding:18px;
 text-align:center;
 border-bottom:1px solid #222;
+transition:.6s;
+}
+
+body:not(.menu-open) nav{
+opacity:0;
+pointer-events:none;
+transform:translateY(-40px);
+}
+
+body.menu-open nav{
+opacity:1;
+transform:translateY(0);
 }
 
 nav a{
-position:relative;
 color:#ccc;
 text-decoration:none;
 margin:0 35px;
 letter-spacing:3px;
 font-size:13px;
-padding-bottom:6px;
-transition:color 0.3s ease;
-}
-
-nav a:hover{
-color:#fff;
-}
-
-nav a::after{
-content:"";
-position:absolute;
-left:0;
-bottom:0;
-width:0%;
-height:2px;
-background:#c49b3d;
-transition:width 0.4s ease;
-}
-
-nav a:hover::after{
-width:100%;
 }
 
 /* HERO */
 .hero{
 height:95vh;
-background:url('Etsá Ara.jpg') no-repeat;
+background:url('Etsá Ara.jpg') no-repeat center 38%;
 background-size:cover;
-background-position:center 38%;
 background-attachment:fixed;
 display:flex;
 align-items:center;
 justify-content:center;
 position:relative;
-overflow:hidden;
-}
-
-.hero::before{
-content:"";
-position:absolute;
-inset:0;
-background:url('Etsá Ara.jpg') no-repeat center 38%;
-background-size:cover;
-animation:slowZoom 28s ease-in-out infinite alternate;
-z-index:0;
-}
-
-@keyframes slowZoom{
-from{transform:scale(1);}
-to{transform:scale(1.06);}
 }
 
 .hero::after{
 content:"";
 position:absolute;
 inset:0;
-background:rgba(0,0,0,0.65);
-z-index:1;
+background:rgba(0,0,0,.65);
 }
 
 .hero-content{
@@ -153,9 +117,7 @@ z-index:2;
 text-align:center;
 opacity:0;
 transform:translateX(-140px);
-transition:
-transform 2.2s cubic-bezier(.22,.61,.36,1),
-opacity 2.2s cubic-bezier(.22,.61,.36,1);
+transition:2s;
 }
 
 .hero-content.visible{
@@ -163,123 +125,66 @@ opacity:1;
 transform:translateX(0);
 }
 
-.hero-content.hidden{
-opacity:0;
-transform:translateX(-160px);
-}
+section{padding:160px 10%;}
 
-/* SECTIONS */
-section{
-padding:160px 10%;
-}
+/* ================= HAMBURGER INTRO ================= */
 
-/* ABOUT */
-#about{
+.hamburger-intro{
+position:fixed;
+inset:0;
+background:#0d0d0d;
 display:flex;
-justify-content:center;
-}
-
-.aboutcontainer{
-max-width:1100px;
-display:flex;
-gap:60px;
-flex-wrap:wrap;
 align-items:center;
+justify-content:center;
+z-index:9999;
+transition:1s;
 }
 
-.about-image{
-width:320px;
-border:2px solid #c49b3d;
-}
-
-.about-text{
-flex:1;
-min-width:300px;
-color:#ccc;
-line-height:1.8;
-}
-
-/* GALLERY */
-#gallery h2{
-text-align:center;
-font-family:'Cinzel',serif;
-margin-bottom:160px;
-}
-
-.art-piece{
-max-width:1000px;
-margin:0 auto 220px auto;
-text-align:center;
+body.menu-open .hamburger-intro{
 opacity:0;
-transform:translateY(35px);
-filter:blur(6px);
-transition:
-opacity 2.4s cubic-bezier(.22,.61,.36,1),
-transform 2.4s cubic-bezier(.22,.61,.36,1),
-filter 2.4s cubic-bezier(.22,.61,.36,1);
+pointer-events:none;
 }
 
-.art-piece.visible{
-opacity:1;
-transform:translateY(0);
-filter:blur(0);
+.hamburger{
+width:42px;
+height:30px;
+cursor:pointer;
+position:relative;
 }
 
-.art-piece img{
+.hamburger span{
+position:absolute;
 width:100%;
-margin-bottom:60px;
-transition:transform 3s ease;
-}
-
-.art-piece img:hover{
-transform:scale(1.02);
-}
-
-/* BUTTON */
-.button{
-display:inline-block;
-padding:14px 35px;
+height:2px;
 background:#c49b3d;
-color:#000;
-text-decoration:none;
-font-weight:600;
+box-shadow:0 0 12px rgba(196,155,61,.9);
+transition:.5s;
 }
 
-.button:hover{
-background:#e0b94f;
-}
+.hamburger span:nth-child(1){top:0;}
+.hamburger span:nth-child(2){top:14px;}
+.hamburger span:nth-child(3){bottom:0;}
 
-/* CONTACT */
-#contact{
-text-align:center;
-}
-
-#contact p{
-color:#ccc;
-}
-
-/* FOOTER */
-footer{
-text-align:center;
-padding:50px;
-background:#000;
-border-top:1px solid #222;
-color:#666;
-}
-
-/* RESPONSIVO MOBILE CELULAR */
-  
 </style>
 </head>
 
 <body>
 
+<!-- INTRO HAMBURGER -->
+<div class="hamburger-intro" id="hamburgerIntro">
+<div class="hamburger" id="hamburgerBtn">
+<span></span>
+<span></span>
+<span></span>
+</div>
+</div>
+
 <div class="topbar">
-  <div class="socials">
-    <a href="https://instagram.com/yuridosanjos.arte" target="_blank"><i class="fab fa-instagram"></i></a>
-    <a href="https://www.facebook.com/yuridosanjos.arte/" target="_blank"><i class="fab fa-facebook"></i></a>
-    <a href="https://www.youtube.com/@art.yuridosanjos" target="_blank"><i class="fab fa-youtube"></i></a>
-  </div>
+<div class="socials">
+<a href="#"><i class="fab fa-instagram"></i></a>
+<a href="#"><i class="fab fa-facebook"></i></a>
+<a href="#"><i class="fab fa-youtube"></i></a>
+</div>
 </div>
 
 <header>
@@ -288,10 +193,10 @@ color:#666;
 </header>
 
 <nav>
-    <a href="#about">About</a>
-    <a href="#gallery">Available Works</a>
-    <a href="Galeria.html">Gallery</a>
-    <a href="#contact">Contact</a>
+<a href="#about">About</a>
+<a href="#gallery">Available Works</a>
+<a href="Galeria.html">Gallery</a>
+<a href="#contact">Contact</a>
 </nav>
 
 <section class="hero">
@@ -301,83 +206,36 @@ color:#666;
 </div>
 </section>
 
-<section id="about">
-<div class="aboutcontainer">
-<img src="yuridosanjos.webp" class="about-image">
-<div class="about-text">
-<h2>About the Artist</h2>
-<p>
-Yuri dos Anjos (born 1992, Brazil) is a contemporary Indigenous Brazilian artist...
-</p>
-</div>
-</div>
-</section>
-
-<section id="gallery">
-<h2>Available Works</h2>
-
-<div class="art-piece">
-<img src="Ipytuẽ.jpg">
-<h3>Ipytuẽ (Breathe)</h3>
-<p>Oil on canvas – 60x80 cm – 2026</p>
-<a class="button" href="https://www.paypal.com/ncp/payment/BXNG5KXJ7SZVE" target="_blank">
-Acquire Artwork – $5,500 USD
-</a>
-</div>
-
-<div class="art-piece">
-<img src="Etsá Ara.jpg">
-<h3>Etsá Ara – Eyes of the Sky</h3>
-<p>Oil on canvas – 30x40 cm – 2026</p>
-<a class="button" href="https://www.paypal.com/ncp/payment/5Z6P4RHMDT6AW" target="_blank">
-Acquire Artwork – $1,500 USD
-</a>
-</div>
-
-</section>
-
-<section id="contact">
-<h2>Contact</h2>
-<p>Email: yuridosanjos.arte@gmail.com</p>
-</section>
-
 <footer>
 © 2026 Yuri dos Anjos
 </footer>
 
+<!-- ✅ SCRIPT CORRETO -->
 <script>
 
-const hero = document.querySelector(".hero");
-const heroText = document.querySelector(".hero-content");
+/* ===== MENU ONE TIME ===== */
 
-new IntersectionObserver((entries)=>{
+const btn=document.getElementById("hamburgerBtn");
+
+if(localStorage.getItem("menuOpened")){
+document.body.classList.add("menu-open");
+}
+
+btn.addEventListener("click",()=>{
+document.body.classList.add("menu-open");
+localStorage.setItem("menuOpened","true");
+});
+
+/* HERO */
+
+const hero=document.querySelector(".hero");
+const heroText=document.querySelector(".hero-content");
+
+new IntersectionObserver(entries=>{
 entries.forEach(entry=>{
-if(entry.isIntersecting){
-heroText.classList.add("visible");
-heroText.classList.remove("hidden");
-}else{
-heroText.classList.add("hidden");
-heroText.classList.remove("visible");
-}
+heroText.classList.toggle("visible",entry.isIntersecting);
 });
-},{threshold:0.6}).observe(hero);
-
-const observer = new IntersectionObserver((entries)=>{
-entries.forEach(entry=>{
-const el = entry.target;
-if(entry.isIntersecting){
-el.classList.add("visible");
-}else{
-const rect = el.getBoundingClientRect();
-if(rect.bottom < 0 || rect.top > window.innerHeight){
-el.classList.remove("visible");
-}
-}
-});
-});
-
-document.querySelectorAll(".art-piece")
-.forEach(el=>observer.observe(el));
+},{threshold:.6}).observe(hero);
 
 </script>
 
