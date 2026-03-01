@@ -89,6 +89,9 @@ width:100%;
 display:block;
 transform-origin:50% 35%;
 filter:brightness(0.98);
+animation: contemplativeZoom 300s linear infinite alternate;
+animation-play-state: paused;
+will-change: transform;
 }
 
 @keyframes contemplativeZoom{
@@ -265,21 +268,15 @@ lightbox.classList.remove("active");
 
 window.addEventListener("load", ()=>{
 
-/* CINEMATIC AUTO IMMERSION */
+window.addEventListener("load", ()=>{
 
 const observer = new IntersectionObserver((entries)=>{
 entries.forEach(entry=>{
 
 if(entry.isIntersecting){
-
-entry.target.style.animation =
-"contemplativeZoom 300s linear infinite alternate";
-
+entry.target.style.animationPlayState = "running";
 }else{
-
-entry.target.style.animation = "none";
-entry.target.offsetHeight;
-
+entry.target.style.animationPlayState = "paused";
 }
 
 });
