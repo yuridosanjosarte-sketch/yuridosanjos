@@ -51,28 +51,6 @@ nav a::after{
 display:none;
 }
 
-/* Fragmentos */
-.thanos-link span{
-display:inline-block;
-transition:transform 0.8s cubic-bezier(.22,.61,.36,1),
-opacity 0.8s ease,
-filter 0.8s ease;
-}
-
-/* ESTADO DESINTEGRADO */
-.thanos-link.disintegrate span{
-opacity:0;
-transform:translateY(-40px) rotate(20deg);
-filter:blur(6px);
-}
-
-/* ESTADO REGENERANDO */
-.thanos-link.regenerate span{
-opacity:1;
-transform:translateY(0) rotate(0deg);
-filter:blur(0);
-}
-
 /* MOBILE */
 @media(max-width:768px){
 
@@ -165,60 +143,58 @@ padding-bottom:6px;
 transition:color 0.3s ease;
 }
 
-nav a:hover{
-color:#fff;
-}
-
-nav a::after{
-content:"";
-position:absolute;
-left:0;
-bottom:0;
-width:0%;
-height:2px;
-background:#c49b3d;
-transition:width 0.4s ease;
-}
-
-nav a:hover::after{
-width:100%;
-}
-
 /* HERO */
+  
 .hero{
 height:95vh;
-background:url('Etsá Ara.jpg') no-repeat;
-background-size:cover;
-background-position:center 38%;
-background-attachment:fixed;
+position:relative;
+overflow:hidden;
 display:flex;
 align-items:center;
 justify-content:center;
-position:relative;
-overflow:hidden;
 }
 
-.hero::before{
-content:"";
-position:absolute;
-inset:0;
-background:url('Etsá Ara.jpg') no-repeat center 38%;
-background-size:cover;
-animation:slowZoom 28s ease-in-out infinite alternate;
-z-index:0;
-}
-
-@keyframes slowZoom{
-from{transform:scale(1);}
-to{transform:scale(1.06);}
-}
-
+.hero::before,
 .hero::after{
 content:"";
 position:absolute;
 inset:0;
-background:rgba(0,0,0,0.65);
-z-index:1;
+background-size:cover;
+background-position:center 38%;
+z-index:0;
+animation:zoom 30s ease-in-out infinite alternate;
+}
+
+.hero::before{
+background-image:url('etsa-ara.jpg');
+animation:fadeOne 32s ease-in-out infinite, zoom 30s ease-in-out infinite alternate;
+}
+
+.hero::after{
+background-image:url('ipytue.jpg');
+opacity:0;
+animation:fadeTwo 32s ease-in-out infinite, zoom 30s ease-in-out infinite alternate;
+}
+
+.hero::before,
+.hero::after{
+  filter:brightness(0.55);
+}
+
+@keyframes fadeOne{
+0%,45%{opacity:1;}
+50%,95%{opacity:0;}
+100%{opacity:1;}
+}
+@keyframes fadeTwo{
+0%,45%{opacity:0;}
+50%,95%{opacity:1;}
+100%{opacity:0;}
+}
+
+@keyframes zoom{
+from{transform:scale(1);}
+to{transform:scale(1.06);}
 }
 
 .hero-content{
@@ -340,8 +316,32 @@ background:#000;
 border-top:1px solid #222;
 color:#666;
 }
-
+ 
 /* RESPONSIVO MOBILE CELULAR */
+
+.thanos-link span{
+display:inline-block;
+transition:
+transform 0.9s cubic-bezier(.22,.61,.36,1),
+opacity 0.9s ease,
+filter 0.9s ease;
+will-change: transform, opacity;
+}
+
+.thanos-link.disintegrate span{
+opacity:0;
+transform:
+translate(var(--x), var(--y))
+rotate(var(--r))
+scale(0.5);
+filter:blur(12px);
+}
+
+.thanos-link.regenerate span{
+opacity:1;
+transform:translate(0,0) rotate(0deg) scale(1);
+filter:blur(0);
+}
   
 </style>
 </head>
@@ -393,7 +393,7 @@ Yuri dos Anjos (born 1992, Brazil) is a contemporary Indigenous Brazilian artist
 <h2>Available Works</h2>
 
 <div class="art-piece">
-<img src="Ipytuẽ.jpg">
+<img src="ipytue.jpg">
 <h3>Ipytuẽ (Breathe)</h3>
 <p>Oil on canvas – 60x80 cm – 2026</p>
 <a class="button" href="https://www.paypal.com/ncp/payment/BXNG5KXJ7SZVE" target="_blank">
@@ -402,7 +402,7 @@ Acquire Artwork – $5,500 USD
 </div>
 
 <div class="art-piece">
-<img src="Etsá Ara.jpg">
+<img src="etsa-ara.jpg">
 <h3>Etsá Ara – Eyes of the Sky</h3>
 <p>Oil on canvas – 30x40 cm – 2026</p>
 <a class="button" href="https://www.paypal.com/ncp/payment/5Z6P4RHMDT6AW" target="_blank">
@@ -423,67 +423,108 @@ Acquire Artwork – $1,500 USD
 
 <script>
 
-// ===== HERO =====
+// ===============================
+// HERO INTERSECTION
+// ===============================
+
 const hero = document.querySelector(".hero");
 const heroText = document.querySelector(".hero-content");
 
 if(hero && heroText){
-  new IntersectionObserver((entries)=>{
+  const heroObserver = new IntersectionObserver((entries)=>{
     entries.forEach(entry=>{
       if(entry.isIntersecting){
         heroText.classList.add("visible");
         heroText.classList.remove("hidden");
-      }else{
+      } else {
         heroText.classList.add("hidden");
         heroText.classList.remove("visible");
       }
     });
-  },{threshold:0.6}).observe(hero);
+  },{ threshold:0.6 });
+
+  heroObserver.observe(hero);
 }
 
-// ===== ART OBSERVER =====
+
+// ===============================
+// ARTWORK SCROLL ANIMATION
+// ===============================
+
 const artObserver = new IntersectionObserver((entries)=>{
   entries.forEach(entry=>{
     const el = entry.target;
+
     if(entry.isIntersecting){
       el.classList.add("visible");
-    }else{
+    } else {
       const rect = el.getBoundingClientRect();
       if(rect.bottom < 0 || rect.top > window.innerHeight){
         el.classList.remove("visible");
       }
     }
   });
-});
+},{ threshold:0.2 });
 
 document.querySelectorAll(".art-piece")
 .forEach(el=>artObserver.observe(el));
 
 
-// ==========================
-// 🔥 THANOS EFFECT
-// ==========================
+// ===============================
+// 🔥 ADVANCED THANOS MENU
+// ===============================
 
 const links = document.querySelectorAll(".thanos-link");
 
-// dividir letras
+// 1️⃣ Transformar texto em partículas
 links.forEach(link=>{
   const text = link.textContent;
   link.textContent = "";
+
   text.split("").forEach(letter=>{
     const span = document.createElement("span");
     span.textContent = letter;
+
+    // Movimento muito mais orgânico
+    const randomX = (Math.random() - 0.5) * 160;
+    const randomY = Math.random() * 160;
+    const randomRotate = (Math.random() - 0.5) * 220;
+
+    span.dataset.x = randomX;
+    span.dataset.y = randomY;
+    span.dataset.r = randomRotate;
+
+    span.style.transitionDelay = (Math.random() * 0.7) + "s";
+
     link.appendChild(span);
   });
 });
 
+
+// 2️⃣ Aplicar variáveis CSS
+function applyRandomMovement(){
+  links.forEach(link=>{
+    link.querySelectorAll("span").forEach(span=>{
+      span.style.setProperty("--x", span.dataset.x + "px");
+      span.style.setProperty("--y", span.dataset.y + "px");
+      span.style.setProperty("--r", span.dataset.r + "deg");
+    });
+  });
+}
+
+
+// 3️⃣ Desintegrar
 function disintegrateMenu(){
+  applyRandomMovement();
+
   links.forEach(link=>{
     link.classList.add("disintegrate");
     link.classList.remove("regenerate");
   });
 }
 
+
+// 4️⃣ Regenerar
 function regenerateMenu(){
   links.forEach(link=>{
     link.classList.remove("disintegrate");
@@ -491,23 +532,30 @@ function regenerateMenu(){
   });
 }
 
-// ao entrar
-window.addEventListener("load", regenerateMenu);
 
-// ao rolar
+// ===============================
+// EVENTOS
+// ===============================
+
+// Ao carregar
+window.addEventListener("load", ()=>{
+  regenerateMenu();
+});
+
+// Ao rolar
 window.addEventListener("scroll", ()=>{
   if(window.scrollY > 150){
     disintegrateMenu();
-  }else{
+  } else {
     regenerateMenu();
   }
 });
 
-// ao clicar
+// Ao clicar
 links.forEach(link=>{
   link.addEventListener("click", ()=>{
     disintegrateMenu();
-    setTimeout(regenerateMenu, 800);
+    setTimeout(regenerateMenu, 950);
   });
 });
 
@@ -515,4 +563,5 @@ links.forEach(link=>{
   
 </body>
 </html>
+
 
