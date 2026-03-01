@@ -26,6 +26,80 @@ scroll-behavior:smooth;
 overflow-x:hidden;
 }
 
+/* NAV CONTAINER FIX MOBILE */
+.nav-container{
+display:flex;
+justify-content:center;
+flex-wrap:wrap;
+gap:40px;
+}
+
+/* LINKS DOURADOS */
+.thanos-link{
+position:relative;
+color:#c49b3d;
+text-decoration:none;
+letter-spacing:3px;
+font-size:13px;
+cursor:pointer;
+display:inline-block;
+overflow:hidden;
+}
+
+/* Remove antigo hover */
+nav a::after{
+display:none;
+}
+
+/* Fragmentos */
+.thanos-link span{
+display:inline-block;
+transition:transform 0.8s cubic-bezier(.22,.61,.36,1),
+opacity 0.8s ease,
+filter 0.8s ease;
+}
+
+/* ESTADO DESINTEGRADO */
+.thanos-link.disintegrate span{
+opacity:0;
+transform:translateY(-40px) rotate(20deg);
+filter:blur(6px);
+}
+
+/* ESTADO REGENERANDO */
+.thanos-link.regenerate span{
+opacity:1;
+transform:translateY(0) rotate(0deg);
+filter:blur(0);
+}
+
+/* MOBILE */
+@media(max-width:768px){
+
+header h1{
+font-size:34px;
+letter-spacing:4px;
+}
+
+nav{
+padding:20px 10px;
+}
+
+.nav-container{
+gap:20px;
+}
+
+.thanos-link{
+font-size:12px;
+letter-spacing:2px;
+}
+
+.hero{
+background-attachment:scroll; /* resolve bug mobile */
+}
+
+}
+  
 /* TOPBAR */
 .topbar{
   background:#000;
@@ -288,10 +362,12 @@ color:#666;
 </header>
 
 <nav>
-    <a href="#about">About</a>
-    <a href="#gallery">Available Works</a>
-    <a href="Galeria.html">Gallery</a>
-    <a href="#contact">Contact</a>
+  <div class="nav-container">
+    <a href="#about" class="thanos-link">About</a>
+    <a href="#gallery" class="thanos-link">Available Works</a>
+    <a href="Galeria.html" class="thanos-link">Gallery</a>
+    <a href="#contact" class="thanos-link">Contact</a>
+  </div>
 </nav>
 
 <section class="hero">
@@ -347,39 +423,96 @@ Acquire Artwork – $1,500 USD
 
 <script>
 
+// ===== HERO =====
 const hero = document.querySelector(".hero");
 const heroText = document.querySelector(".hero-content");
 
-new IntersectionObserver((entries)=>{
-entries.forEach(entry=>{
-if(entry.isIntersecting){
-heroText.classList.add("visible");
-heroText.classList.remove("hidden");
-}else{
-heroText.classList.add("hidden");
-heroText.classList.remove("visible");
+if(hero && heroText){
+  new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        heroText.classList.add("visible");
+        heroText.classList.remove("hidden");
+      }else{
+        heroText.classList.add("hidden");
+        heroText.classList.remove("visible");
+      }
+    });
+  },{threshold:0.6}).observe(hero);
 }
-});
-},{threshold:0.6}).observe(hero);
 
-const observer = new IntersectionObserver((entries)=>{
-entries.forEach(entry=>{
-const el = entry.target;
-if(entry.isIntersecting){
-el.classList.add("visible");
-}else{
-const rect = el.getBoundingClientRect();
-if(rect.bottom < 0 || rect.top > window.innerHeight){
-el.classList.remove("visible");
-}
-}
-});
+// ===== ART OBSERVER =====
+const artObserver = new IntersectionObserver((entries)=>{
+  entries.forEach(entry=>{
+    const el = entry.target;
+    if(entry.isIntersecting){
+      el.classList.add("visible");
+    }else{
+      const rect = el.getBoundingClientRect();
+      if(rect.bottom < 0 || rect.top > window.innerHeight){
+        el.classList.remove("visible");
+      }
+    }
+  });
 });
 
 document.querySelectorAll(".art-piece")
-.forEach(el=>observer.observe(el));
+.forEach(el=>artObserver.observe(el));
+
+
+// ==========================
+// 🔥 THANOS EFFECT
+// ==========================
+
+const links = document.querySelectorAll(".thanos-link");
+
+// dividir letras
+links.forEach(link=>{
+  const text = link.textContent;
+  link.textContent = "";
+  text.split("").forEach(letter=>{
+    const span = document.createElement("span");
+    span.textContent = letter;
+    link.appendChild(span);
+  });
+});
+
+function disintegrateMenu(){
+  links.forEach(link=>{
+    link.classList.add("disintegrate");
+    link.classList.remove("regenerate");
+  });
+}
+
+function regenerateMenu(){
+  links.forEach(link=>{
+    link.classList.remove("disintegrate");
+    link.classList.add("regenerate");
+  });
+}
+
+// ao entrar
+window.addEventListener("load", regenerateMenu);
+
+// ao rolar
+window.addEventListener("scroll", ()=>{
+  if(window.scrollY > 150){
+    disintegrateMenu();
+  }else{
+    regenerateMenu();
+  }
+});
+
+// ao clicar
+links.forEach(link=>{
+  link.addEventListener("click", ()=>{
+    disintegrateMenu();
+    setTimeout(regenerateMenu, 800);
+  });
+});
 
 </script>
-
+  
 </body>
 </html>
+
