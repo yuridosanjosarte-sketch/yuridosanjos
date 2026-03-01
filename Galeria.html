@@ -44,17 +44,21 @@ letter-spacing:6px;
 position:fixed;
 top:25px;
 left:25px;
-background:#c49b3d;
+background:rgba(196,155,61,0.9);
 color:#000;
-padding:10px 20px;
+padding:8px 18px;
 text-decoration:none;
-font-weight:600;
+font-weight:500;
+font-size:14px;
+border-radius:30px;
+backdrop-filter: blur(6px);
+transition:all 0.3s ease;
 z-index:1000;
-transition:0.3s;
 }
 
 .back-btn:hover{
 background:#e0b94f;
+transform:translateY(-2px);
 }
 
 /* GALLERY SECTION */
@@ -154,6 +158,30 @@ color:#fff;
 cursor:pointer;
 }
 
+/* MOBILE REFINEMENT */
+
+@media (max-width: 480px){
+
+  .back-btn{
+    top:12px;
+    left:12px;
+    padding:5px 12px;
+    font-size:11px;
+  }
+
+  }
+
+  header{
+    padding:90px 8% 40px 8%;
+  }
+
+  header h1{
+    font-size:30px;
+    letter-spacing:4px;
+  }
+
+}  
+  
 </style>
 </head>
 <body>
