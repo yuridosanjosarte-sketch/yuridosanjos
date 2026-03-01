@@ -87,10 +87,15 @@ cursor:pointer;
 .art-image img{
 width:100%;
 display:block;
-transition:transform 45s cubic-bezier(0.19, 1, 0.22, 1),
-           filter 25s ease-in-out;
+transition:transform 90s cubic-bezier(0.19, 1, 0.22, 1),
+           filter 40s ease-in-out;
 transform-origin:50% 35%;
 filter:brightness(0.95);
+}
+
+.art-image:hover img{
+transform:scale(1.65);
+filter:brightness(1.08) contrast(1.08);
 }
 
 .art-image:hover img{
