@@ -88,8 +88,9 @@ cursor:default;
 width:100%;
 display:block;
 transform-origin:50% 35%;
-animation: contemplativeZoom 300s linear infinite alternate;
 filter:brightness(0.98);
+animation: contemplativeZoom 300s linear infinite alternate;
+animation-play-state: paused;
 }
 
 @keyframes contemplativeZoom{
@@ -264,6 +265,23 @@ lightbox.classList.remove("active");
 }
 });
 
+/* CINEMATIC AUTO IMMERSION */
+
+const observer = new IntersectionObserver((entries)=>{
+entries.forEach(entry=>{
+if(entry.isIntersecting){
+entry.target.style.animationPlayState = "running";
+}else{
+entry.target.style.animationPlayState = "paused";
+}
+});
+},{
+threshold:0.35
+});
+
+document.querySelectorAll(".art-image img")
+.forEach(img=>observer.observe(img));
+  
 </script>
 
 </body>
