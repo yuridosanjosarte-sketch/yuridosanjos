@@ -296,10 +296,9 @@ color:#666;
 .thanos-link span{
 display:inline-block;
 transition:
-transform 2.8s cubic-bezier(.19,1,.22,1),
-opacity 2.4s ease,
-filter 2.4s ease;
-will-change: transform, opacity;
+transform 3s cubic-bezier(.19,1,.22,1),
+opacity 2.8s ease-out,
+filter 2.8s ease-out;
 }
 
 .thanos-link.disintegrate span{
@@ -468,7 +467,7 @@ links.forEach(link=>{
     span.dataset.y = randomY;
     span.dataset.r = randomRotate;
 
-    span.style.transitionDelay = (Math.random() * 0.7) + "s";
+    span.style.transitionDelay = (Math.random() * 2.2) + "s";
 
     link.appendChild(span);
   });
@@ -537,6 +536,7 @@ links.forEach(link=>{
   
 </body>
 </html>
+
 
 
 
