@@ -296,9 +296,9 @@ color:#666;
 .thanos-link span{
 display:inline-block;
 transition:
-transform 0.9s cubic-bezier(.22,.61,.36,1),
-opacity 0.9s ease,
-filter 0.9s ease;
+transform 1.8s cubic-bezier(.22,.61,.36,1),
+opacity 1.6s ease,
+filter 1.6s ease;
 will-change: transform, opacity;
 }
 
@@ -460,9 +460,9 @@ links.forEach(link=>{
     span.textContent = letter;
 
     // Movimento muito mais orgânico
-    const randomX = (Math.random() - 0.5) * 160;
-    const randomY = Math.random() * 160;
-    const randomRotate = (Math.random() - 0.5) * 220;
+    const randomX = (Math.random() - 0.5) * 90;
+    const randomY = Math.random() * 90;
+    const randomRotate = (Math.random() - 0.5) * 120;
 
     span.dataset.x = randomX;
     span.dataset.y = randomY;
@@ -537,6 +537,7 @@ links.forEach(link=>{
   
 </body>
 </html>
+
 
 
 
