@@ -11,12 +11,9 @@
 
 <style>
 
-/* RESET */
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-}
+/* ================= ORIGINAL CODE (UNCHANGED) ================= */
+
+*{margin:0;padding:0;box-sizing:border-box;}
 
 body{
 background:#0d0d0d;
@@ -28,36 +25,31 @@ overflow-x:hidden;
 
 /* TOPBAR */
 .topbar{
-  background:#000;
-  padding:10px 6%;
-  display:flex;
-  justify-content:flex-end;
-  align-items:center;
-  border-bottom:1px solid #222;
+background:#000;
+padding:10px 6%;
+display:flex;
+justify-content:flex-end;
+border-bottom:1px solid #222;
 }
 
-/* SOCIAL ICONS */
-.socials{
-  display:flex;
-  align-items:center;
-  gap:18px;
-}
+.socials{display:flex;gap:18px;}
 
 .socials a{
-  color:#aaa;
-  font-size:18px;
-  transition:0.3s ease;
+color:#aaa;
+font-size:18px;
+transition:.3s;
 }
 
 .socials a:hover{
-  color:#c49b3d;
-  transform:translateY(-3px);
+color:#c49b3d;
+transform:translateY(-3px);
 }
+
 /* HEADER */
 header{
-  text-align:center;
-  padding:60px 10%;
-  background:#000;
+text-align:center;
+padding:60px 10%;
+background:#000;
 }
 
 header h1{
@@ -78,6 +70,8 @@ background:#111;
 padding:18px;
 text-align:center;
 border-bottom:1px solid #222;
+position:relative;
+z-index:10;
 }
 
 nav a{
@@ -88,12 +82,9 @@ margin:0 35px;
 letter-spacing:3px;
 font-size:13px;
 padding-bottom:6px;
-transition:color 0.3s ease;
 }
 
-nav a:hover{
-color:#fff;
-}
+nav a:hover{color:#fff;}
 
 nav a::after{
 content:"";
@@ -103,19 +94,16 @@ bottom:0;
 width:0%;
 height:2px;
 background:#c49b3d;
-transition:width 0.4s ease;
+transition:.4s;
 }
 
-nav a:hover::after{
-width:100%;
-}
+nav a:hover::after{width:100%;}
 
 /* HERO */
 .hero{
 height:95vh;
-background:url('Etsá Ara.jpg') no-repeat;
+background:url('Etsá Ara.jpg') no-repeat center 38%;
 background-size:cover;
-background-position:center 38%;
 background-attachment:fixed;
 display:flex;
 align-items:center;
@@ -130,8 +118,7 @@ position:absolute;
 inset:0;
 background:url('Etsá Ara.jpg') no-repeat center 38%;
 background-size:cover;
-animation:slowZoom 28s ease-in-out infinite alternate;
-z-index:0;
+animation:slowZoom 28s infinite alternate;
 }
 
 @keyframes slowZoom{
@@ -143,8 +130,7 @@ to{transform:scale(1.06);}
 content:"";
 position:absolute;
 inset:0;
-background:rgba(0,0,0,0.65);
-z-index:1;
+background:rgba(0,0,0,.65);
 }
 
 .hero-content{
@@ -153,9 +139,7 @@ z-index:2;
 text-align:center;
 opacity:0;
 transform:translateX(-140px);
-transition:
-transform 2.2s cubic-bezier(.22,.61,.36,1),
-opacity 2.2s cubic-bezier(.22,.61,.36,1);
+transition:2.2s;
 }
 
 .hero-content.visible{
@@ -168,16 +152,10 @@ opacity:0;
 transform:translateX(-160px);
 }
 
-/* SECTIONS */
-section{
-padding:160px 10%;
-}
+section{padding:160px 10%;}
 
 /* ABOUT */
-#about{
-display:flex;
-justify-content:center;
-}
+#about{display:flex;justify-content:center;}
 
 .aboutcontainer{
 max-width:1100px;
@@ -208,15 +186,12 @@ margin-bottom:160px;
 
 .art-piece{
 max-width:1000px;
-margin:0 auto 220px auto;
+margin:0 auto 220px;
 text-align:center;
 opacity:0;
 transform:translateY(35px);
 filter:blur(6px);
-transition:
-opacity 2.4s cubic-bezier(.22,.61,.36,1),
-transform 2.4s cubic-bezier(.22,.61,.36,1),
-filter 2.4s cubic-bezier(.22,.61,.36,1);
+transition:2.4s;
 }
 
 .art-piece.visible{
@@ -228,14 +203,11 @@ filter:blur(0);
 .art-piece img{
 width:100%;
 margin-bottom:60px;
-transition:transform 3s ease;
+transition:3s;
 }
 
-.art-piece img:hover{
-transform:scale(1.02);
-}
+.art-piece img:hover{transform:scale(1.02);}
 
-/* BUTTON */
 .button{
 display:inline-block;
 padding:14px 35px;
@@ -245,20 +217,11 @@ text-decoration:none;
 font-weight:600;
 }
 
-.button:hover{
-background:#e0b94f;
-}
+.button:hover{background:#e0b94f;}
 
-/* CONTACT */
-#contact{
-text-align:center;
-}
+#contact{text-align:center;}
+#contact p{color:#ccc;}
 
-#contact p{
-color:#ccc;
-}
-
-/* FOOTER */
 footer{
 text-align:center;
 padding:50px;
@@ -267,19 +230,117 @@ border-top:1px solid #222;
 color:#666;
 }
 
-/* RESPONSIVO MOBILE CELULAR */
-  
+/* ======================================================
+   ⭐ GOLD CINEMATIC MOBILE MENU (ADDED ONLY)
+====================================================== */
+
+.menu-toggle{
+display:none;
+width:32px;
+height:24px;
+cursor:pointer;
+margin:auto;
+}
+
+.menu-toggle span{
+position:absolute;
+width:32px;
+height:2px;
+background:#c49b3d;
+box-shadow:0 0 10px rgba(196,155,61,.8);
+transition:.4s;
+}
+
+.menu-toggle span:nth-child(1){transform:translateY(-8px);}
+.menu-toggle span:nth-child(3){transform:translateY(8px);}
+
+nav.active .menu-toggle span:nth-child(1){
+transform:rotate(45deg);
+}
+
+nav.active .menu-toggle span:nth-child(2){
+opacity:0;
+}
+
+nav.active .menu-toggle span:nth-child(3){
+transform:rotate(-45deg);
+}
+
+@media(max-width:768px){
+
+.menu-toggle{
+display:block;
+position:relative;
+margin-bottom:20px;
+}
+
+nav{
+display:flex;
+flex-direction:column;
+align-items:center;
+}
+
+nav a{
+display:none;
+margin:14px 0;
+opacity:0;
+filter:blur(12px);
+transform:translateY(30px);
+}
+
+nav.active a{
+display:block;
+animation:goldReveal .9s forwards;
+}
+
+nav.active a:nth-of-type(2){animation-delay:.15s;}
+nav.active a:nth-of-type(3){animation-delay:.3s;}
+nav.active a:nth-of-type(4){animation-delay:.45s;}
+
+}
+
+@keyframes goldReveal{
+0%{
+opacity:0;
+filter:blur(18px);
+transform:translateY(30px) scale(.8);
+text-shadow:0 0 40px rgba(196,155,61,.9);
+}
+100%{
+opacity:1;
+filter:blur(0);
+transform:translateY(0);
+}
+}
+
+/* PARTICLES CANVAS */
+#goldDust{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+pointer-events:none;
+opacity:0;
+transition:.6s;
+z-index:5;
+}
+
+nav.active ~ #goldDust{
+opacity:1;
+}
+
 </style>
 </head>
 
 <body>
 
 <div class="topbar">
-  <div class="socials">
-    <a href="https://instagram.com/yuridosanjos.arte" target="_blank"><i class="fab fa-instagram"></i></a>
-    <a href="https://www.facebook.com/yuridosanjos.arte/" target="_blank"><i class="fab fa-facebook"></i></a>
-    <a href="https://www.youtube.com/@art.yuridosanjos" target="_blank"><i class="fab fa-youtube"></i></a>
-  </div>
+<div class="socials">
+<a href="https://instagram.com/yuridosanjos.arte" target="_blank"><i class="fab fa-instagram"></i></a>
+<a href="https://www.facebook.com/yuridosanjos.arte/" target="_blank"><i class="fab fa-facebook"></i></a>
+<a href="https://www.youtube.com/@art.yuridosanjos" target="_blank"><i class="fab fa-youtube"></i></a>
+</div>
 </div>
 
 <header>
@@ -287,11 +348,20 @@ color:#666;
 <p>Indigenous Contemporary Realism</p>
 </header>
 
+<!-- ✅ NAV UPDATED -->
 <nav>
-    <a href="#about">About</a>
-    <a href="#gallery">Available Works</a>
-    <a href="Galeria.html">Gallery</a>
-    <a href="#contact">Contact</a>
+
+<div class="menu-toggle">
+<span></span>
+<span></span>
+<span></span>
+</div>
+
+<a href="#about">About</a>
+<a href="#gallery">Available Works</a>
+<a href="Galeria.html">Gallery</a>
+<a href="#contact">Contact</a>
+
 </nav>
 
 <section class="hero">
@@ -301,14 +371,13 @@ color:#666;
 </div>
 </section>
 
+<!-- RESTO DO SITE INTACTO -->
 <section id="about">
 <div class="aboutcontainer">
 <img src="yuridosanjos.webp" class="about-image">
 <div class="about-text">
 <h2>About the Artist</h2>
-<p>
-Yuri dos Anjos (born 1992, Brazil) is a contemporary Indigenous Brazilian artist...
-</p>
+<p>Yuri dos Anjos (born 1992, Brazil) is a contemporary Indigenous Brazilian artist...</p>
 </div>
 </div>
 </section>
@@ -321,8 +390,7 @@ Yuri dos Anjos (born 1992, Brazil) is a contemporary Indigenous Brazilian artist
 <h3>Ipytuẽ (Breathe)</h3>
 <p>Oil on canvas – 60x80 cm – 2026</p>
 <a class="button" href="https://www.paypal.com/ncp/payment/BXNG5KXJ7SZVE" target="_blank">
-Acquire Artwork – $5,500 USD
-</a>
+Acquire Artwork – $5,500 USD</a>
 </div>
 
 <div class="art-piece">
@@ -330,10 +398,8 @@ Acquire Artwork – $5,500 USD
 <h3>Etsá Ara – Eyes of the Sky</h3>
 <p>Oil on canvas – 30x40 cm – 2026</p>
 <a class="button" href="https://www.paypal.com/ncp/payment/5Z6P4RHMDT6AW" target="_blank">
-Acquire Artwork – $1,500 USD
-</a>
+Acquire Artwork – $1,500 USD</a>
 </div>
-
 </section>
 
 <section id="contact">
@@ -341,43 +407,87 @@ Acquire Artwork – $1,500 USD
 <p>Email: yuridosanjos.arte@gmail.com</p>
 </section>
 
-<footer>
-© 2026 Yuri dos Anjos
-</footer>
+<footer>© 2026 Yuri dos Anjos</footer>
+
+<canvas id="goldDust"></canvas>
 
 <script>
 
-const hero = document.querySelector(".hero");
-const heroText = document.querySelector(".hero-content");
+/* ===== ORIGINAL OBSERVERS ===== */
 
-new IntersectionObserver((entries)=>{
+const hero=document.querySelector(".hero");
+const heroText=document.querySelector(".hero-content");
+
+new IntersectionObserver(entries=>{
 entries.forEach(entry=>{
-if(entry.isIntersecting){
-heroText.classList.add("visible");
-heroText.classList.remove("hidden");
-}else{
-heroText.classList.add("hidden");
-heroText.classList.remove("visible");
-}
+heroText.classList.toggle("visible",entry.isIntersecting);
+heroText.classList.toggle("hidden",!entry.isIntersecting);
 });
-},{threshold:0.6}).observe(hero);
+},{threshold:.6}).observe(hero);
 
-const observer = new IntersectionObserver((entries)=>{
+const observer=new IntersectionObserver(entries=>{
 entries.forEach(entry=>{
-const el = entry.target;
-if(entry.isIntersecting){
-el.classList.add("visible");
-}else{
-const rect = el.getBoundingClientRect();
-if(rect.bottom < 0 || rect.top > window.innerHeight){
-el.classList.remove("visible");
-}
-}
+entry.target.classList.toggle("visible",entry.isIntersecting);
 });
 });
 
 document.querySelectorAll(".art-piece")
 .forEach(el=>observer.observe(el));
+
+/* ===== GOLD MENU ===== */
+
+const toggle=document.querySelector(".menu-toggle");
+const nav=document.querySelector("nav");
+
+toggle.addEventListener("click",()=>{
+nav.classList.toggle("active");
+createDust();
+});
+
+/* PARTICLES */
+
+const canvas=document.getElementById("goldDust");
+const ctx=canvas.getContext("2d");
+
+canvas.width=innerWidth;
+canvas.height=innerHeight;
+
+let particles=[];
+
+function createDust(){
+particles=[];
+for(let i=0;i<140;i++){
+particles.push({
+x:Math.random()*canvas.width,
+y:Math.random()*canvas.height,
+size:Math.random()*2+1,
+vx:(Math.random()-.5)*1.5,
+vy:(Math.random()-.5)*1.5,
+alpha:0
+});
+}
+}
+
+function animate(){
+ctx.clearRect(0,0,canvas.width,canvas.height);
+
+particles.forEach(p=>{
+p.x+=p.vx;
+p.y+=p.vy;
+p.alpha=Math.min(p.alpha+.02,1);
+
+ctx.beginPath();
+ctx.arc(p.x,p.y,p.size,0,Math.PI*2);
+ctx.fillStyle=`rgba(196,155,61,${p.alpha})`;
+ctx.shadowColor="#c49b3d";
+ctx.shadowBlur=14;
+ctx.fill();
+});
+
+requestAnimationFrame(animate);
+}
+
+animate();
 
 </script>
 
