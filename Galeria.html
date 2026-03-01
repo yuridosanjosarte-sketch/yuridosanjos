@@ -265,30 +265,6 @@ lightbox.classList.remove("active");
 }
 });
 
-
-  
-window.addEventListener("load", ()=>{
-
-const images = document.querySelectorAll(".art-image img");
-
-const observer = new IntersectionObserver((entries)=>{
-entries.forEach(entry=>{
-entry.target.style.animationPlayState =
-entry.isIntersecting ? "running" : "paused";
-});
-},{
-threshold:0.15
-});
-
-images.forEach(img=>{
-observer.observe(img);
-
-/* 🔥 FORÇA CHECAGEM INICIAL */
-const rect = img.getBoundingClientRect();
-if(rect.top < window.innerHeight && rect.bottom > 0){
-img.style.animationPlayState = "running";
-}
-});
 });
   
 </script>
