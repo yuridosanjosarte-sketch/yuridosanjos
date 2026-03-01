@@ -516,14 +516,38 @@ window.addEventListener("load", ()=>{
 });
 
 // Ao rolar
-window.addEventListener("scroll", ()=>{
-  if(window.scrollY > 150){
-    disintegrateMenu();
-  } else {
-    regenerateMenu();
-  }
-});
+let lastScroll = window.scrollY;
+const scrollThreshold = 20;
+let menuState = "visible"; // controle de estado
 
+window.addEventListener("scroll", ()=>{
+
+  const currentScroll = window.scrollY;
+
+  if(currentScroll <= 50){
+  regenerateMenu();
+  menuState = "visible";
+  lastScroll = currentScroll;
+  return;
+  }
+  
+  const scrollDifference = currentScroll - lastScroll;
+
+  // Descendo
+  if(scrollDifference > scrollThreshold && menuState !== "hidden"){
+  disintegrateMenu();
+  menuState = "hidden";
+  }
+
+  // Subindo
+  if(scrollDifference < -scrollThreshold && menuState !== "visible"){
+    regenerateMenu();
+    menuState = "visible";
+  }
+
+  lastScroll = currentScroll;
+});
+  
 // Ao clicar
 links.forEach(link=>{
   link.addEventListener("click", ()=>{
@@ -536,6 +560,7 @@ links.forEach(link=>{
   
 </body>
 </html>
+
 
 
 
