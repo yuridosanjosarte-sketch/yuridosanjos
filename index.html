@@ -11,7 +11,7 @@
 
 <style>
 
-/* ================= ORIGINAL ================= */
+/* ================= ORIGINAL (INTACT) ================= */
 
 *{margin:0;padding:0;box-sizing:border-box;}
 
@@ -29,6 +29,7 @@ background:#000;
 padding:10px 6%;
 display:flex;
 justify-content:flex-end;
+align-items:center;
 border-bottom:1px solid #222;
 }
 
@@ -64,24 +65,12 @@ color:#aaa;
 letter-spacing:3px;
 }
 
-/* NAV */
+/* NAV ORIGINAL */
 nav{
 background:#111;
 padding:18px;
 text-align:center;
 border-bottom:1px solid #222;
-transition:.6s;
-}
-
-body:not(.menu-open) nav{
-opacity:0;
-pointer-events:none;
-transform:translateY(-40px);
-}
-
-body.menu-open nav{
-opacity:1;
-transform:translateY(0);
 }
 
 nav a{
@@ -91,6 +80,8 @@ margin:0 35px;
 letter-spacing:3px;
 font-size:13px;
 }
+
+nav a:hover{color:#fff;}
 
 /* HERO */
 .hero{
@@ -102,6 +93,21 @@ display:flex;
 align-items:center;
 justify-content:center;
 position:relative;
+overflow:hidden;
+}
+
+.hero::before{
+content:"";
+position:absolute;
+inset:0;
+background:url('Etsá Ara.jpg') no-repeat center 38%;
+background-size:cover;
+animation:slowZoom 28s infinite alternate;
+}
+
+@keyframes slowZoom{
+from{transform:scale(1);}
+to{transform:scale(1.06);}
 }
 
 .hero::after{
@@ -117,7 +123,7 @@ z-index:2;
 text-align:center;
 opacity:0;
 transform:translateX(-140px);
-transition:2s;
+transition:2.2s;
 }
 
 .hero-content.visible{
@@ -127,27 +133,76 @@ transform:translateX(0);
 
 section{padding:160px 10%;}
 
-/* ================= HAMBURGER INTRO ================= */
+/* ABOUT */
+#about{display:flex;justify-content:center;}
 
-.hamburger-intro{
-position:fixed;
-inset:0;
-background:#0d0d0d;
+.aboutcontainer{
+max-width:1100px;
 display:flex;
+gap:60px;
+flex-wrap:wrap;
 align-items:center;
-justify-content:center;
-z-index:9999;
-transition:1s;
 }
 
-body.menu-open .hamburger-intro{
-opacity:0;
-pointer-events:none;
+.about-image{
+width:320px;
+border:2px solid #c49b3d;
 }
+
+.about-text{
+flex:1;
+min-width:300px;
+color:#ccc;
+line-height:1.8;
+}
+
+/* GALLERY */
+.art-piece{
+max-width:1000px;
+margin:0 auto 220px;
+text-align:center;
+opacity:0;
+transform:translateY(35px);
+filter:blur(6px);
+transition:2.4s;
+}
+
+.art-piece.visible{
+opacity:1;
+transform:translateY(0);
+filter:blur(0);
+}
+
+.art-piece img{
+width:100%;
+margin-bottom:60px;
+}
+
+.button{
+display:inline-block;
+padding:14px 35px;
+background:#c49b3d;
+color:#000;
+text-decoration:none;
+font-weight:600;
+}
+
+/* FOOTER */
+footer{
+text-align:center;
+padding:50px;
+background:#000;
+border-top:1px solid #222;
+color:#666;
+}
+
+/* ================= SAFE MOBILE MENU ================= */
 
 .hamburger{
-width:42px;
-height:30px;
+display:none;
+width:30px;
+height:22px;
+margin:15px auto;
 cursor:pointer;
 position:relative;
 }
@@ -157,27 +212,39 @@ position:absolute;
 width:100%;
 height:2px;
 background:#c49b3d;
-box-shadow:0 0 12px rgba(196,155,61,.9);
-transition:.5s;
 }
 
 .hamburger span:nth-child(1){top:0;}
-.hamburger span:nth-child(2){top:14px;}
-.hamburger span:nth-child(3){bottom:0;}
+.hamburger span:nth-child(2){top:10px;}
+.hamburger span:nth-child(3){top:20px;}
+
+@media(max-width:768px){
+
+.hamburger{
+display:block;
+}
+
+nav{
+max-height:0;
+overflow:hidden;
+transition:max-height .6s ease;
+}
+
+nav.mobile-open{
+max-height:260px;
+}
+
+nav a{
+display:block;
+margin:18px 0;
+}
+
+}
 
 </style>
 </head>
 
 <body>
-
-<!-- INTRO HAMBURGER -->
-<div class="hamburger-intro" id="hamburgerIntro">
-<div class="hamburger" id="hamburgerBtn">
-<span></span>
-<span></span>
-<span></span>
-</div>
-</div>
 
 <div class="topbar">
 <div class="socials">
@@ -191,6 +258,13 @@ transition:.5s;
 <h1>YURI DOS ANJOS</h1>
 <p>Indigenous Contemporary Realism</p>
 </header>
+
+<!-- MOBILE ONLY BUTTON -->
+<div class="hamburger" id="hamburgerBtn">
+<span></span>
+<span></span>
+<span></span>
+</div>
 
 <nav>
 <a href="#about">About</a>
@@ -206,28 +280,45 @@ transition:.5s;
 </div>
 </section>
 
+<section id="about">
+<div class="aboutcontainer">
+<img src="yuridosanjos.webp" class="about-image">
+<div class="about-text">
+<h2>About the Artist</h2>
+<p>Yuri dos Anjos (born 1992, Brazil)...</p>
+</div>
+</div>
+</section>
+
+<section id="gallery">
+
+<div class="art-piece">
+<img src="Ipytuẽ.jpg">
+<h3>Ipytuẽ (Breathe)</h3>
+</div>
+
+<div class="art-piece">
+<img src="Etsá Ara.jpg">
+<h3>Etsá Ara – Eyes of the Sky</h3>
+</div>
+
+</section>
+
 <footer>
 © 2026 Yuri dos Anjos
 </footer>
 
-<!-- ✅ SCRIPT CORRETO -->
 <script>
 
-/* ===== MENU ONE TIME ===== */
+/* MOBILE MENU SAFE */
+const hamburger=document.getElementById("hamburgerBtn");
+const nav=document.querySelector("nav");
 
-const btn=document.getElementById("hamburgerBtn");
-
-if(localStorage.getItem("menuOpened")){
-document.body.classList.add("menu-open");
-}
-
-btn.addEventListener("click",()=>{
-document.body.classList.add("menu-open");
-localStorage.setItem("menuOpened","true");
+hamburger.addEventListener("click",()=>{
+nav.classList.toggle("mobile-open");
 });
 
-/* HERO */
-
+/* ORIGINAL OBSERVERS */
 const hero=document.querySelector(".hero");
 const heroText=document.querySelector(".hero-content");
 
@@ -236,6 +327,15 @@ entries.forEach(entry=>{
 heroText.classList.toggle("visible",entry.isIntersecting);
 });
 },{threshold:.6}).observe(hero);
+
+const observer=new IntersectionObserver(entries=>{
+entries.forEach(entry=>{
+entry.target.classList.toggle("visible",entry.isIntersecting);
+});
+});
+
+document.querySelectorAll(".art-piece")
+.forEach(el=>observer.observe(el));
 
 </script>
 
