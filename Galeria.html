@@ -266,27 +266,30 @@ lightbox.classList.remove("active");
 }
 });
 
+
+  
 window.addEventListener("load", ()=>{
 
-window.addEventListener("load", ()=>{
+const images = document.querySelectorAll(".art-image img");
 
 const observer = new IntersectionObserver((entries)=>{
 entries.forEach(entry=>{
-
-if(entry.isIntersecting){
-entry.target.style.animationPlayState = "running";
-}else{
-entry.target.style.animationPlayState = "paused";
-}
-
+entry.target.style.animationPlayState =
+entry.isIntersecting ? "running" : "paused";
 });
 },{
-threshold:0.25
+threshold:0.15
 });
 
-document.querySelectorAll(".art-image img")
-.forEach(img=>observer.observe(img));
+images.forEach(img=>{
+observer.observe(img);
 
+/* 🔥 FORÇA CHECAGEM INICIAL */
+const rect = img.getBoundingClientRect();
+if(rect.top < window.innerHeight && rect.bottom > 0){
+img.style.animationPlayState = "running";
+}
+});
 });
   
 </script>
