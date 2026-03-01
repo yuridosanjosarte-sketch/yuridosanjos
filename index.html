@@ -44,8 +44,13 @@ font-size:13px;
 cursor:pointer;
 display:inline-block;
 overflow:hidden;
+white-space:nowrap;
 }
 
+.thanos-link span{
+display:inline-block;
+}
+  
 /* Remove antigo hover */
 nav a::after{
 display:none;
@@ -70,10 +75,12 @@ gap:20px;
 .thanos-link{
 font-size:12px;
 letter-spacing:2px;
+white-space:normal;
+text-align:center;
 }
 
 .hero{
-background-attachment:scroll; /* resolve bug mobile */
+background-attachment:scroll;
 }
 
 }
@@ -132,7 +139,7 @@ text-align:center;
 border-bottom:1px solid #222;
 }
 
-nav a{
+nav a:not(.thanos-link){
 position:relative;
 color:#ccc;
 text-decoration:none;
@@ -560,6 +567,7 @@ links.forEach(link=>{
   
 </body>
 </html>
+
 
 
 
