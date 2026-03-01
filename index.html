@@ -11,9 +11,7 @@
 
 <style>
 
-/* ================= ORIGINAL SITE ================= */
-/* ✅ NADA ALTERADO AQUI */
-
+/* ================= RESET ================= */
 *{margin:0;padding:0;box-sizing:border-box;}
 
 body{
@@ -72,37 +70,89 @@ padding:18px;
 text-align:center;
 border-bottom:1px solid #222;
 position:relative;
-z-index:10;
+z-index:20;
 }
 
-/* LINKS */
 nav a{
-position:relative;
 color:#ccc;
 text-decoration:none;
 margin:0 35px;
 letter-spacing:3px;
 font-size:13px;
-padding-bottom:6px;
 }
 
-nav a:hover{color:#fff;}
+/* ===== GOLD MENU ===== */
 
-nav a::after{
-content:"";
+.menu-toggle{
+display:none;
+width:32px;
+height:24px;
+cursor:pointer;
+margin:auto;
+position:relative;
+}
+
+.menu-toggle span{
 position:absolute;
-left:0;
-bottom:0;
-width:0%;
+width:32px;
 height:2px;
 background:#c49b3d;
+box-shadow:0 0 10px rgba(196,155,61,.8);
 transition:.4s;
 }
 
-nav a:hover::after{width:100%;}
+.menu-toggle span:nth-child(1){top:0;}
+.menu-toggle span:nth-child(2){top:11px;}
+.menu-toggle span:nth-child(3){top:22px;}
 
-/* ================= HERO ================= */
+nav.active span:nth-child(1){
+transform:rotate(45deg) translateY(11px);
+}
+nav.active span:nth-child(2){opacity:0;}
+nav.active span:nth-child(3){
+transform:rotate(-45deg) translateY(-11px);
+}
 
+@media(max-width:768px){
+
+.menu-toggle{display:block;margin:20px auto;}
+
+nav a{
+position:absolute;
+left:50%;
+transform:translateX(-50%) translateY(-20px);
+opacity:0;
+pointer-events:none;
+}
+
+nav a:nth-of-type(2){top:70px;}
+nav a:nth-of-type(3){top:120px;}
+nav a:nth-of-type(4){top:170px;}
+nav a:nth-of-type(5){top:220px;}
+
+nav.active a{
+opacity:1;
+pointer-events:auto;
+animation:goldReveal .9s forwards;
+}
+
+}
+
+@keyframes goldReveal{
+0%{
+opacity:0;
+filter:blur(18px);
+transform:translateX(-50%) translateY(30px) scale(.8);
+text-shadow:0 0 40px rgba(196,155,61,.9);
+}
+100%{
+opacity:1;
+filter:blur(0);
+transform:translateX(-50%) translateY(0);
+}
+}
+
+/* HERO */
 .hero{
 height:95vh;
 background:url('Etsá Ara.jpg') no-repeat center 38%;
@@ -113,20 +163,7 @@ align-items:center;
 justify-content:center;
 position:relative;
 overflow:hidden;
-}
-
-.hero::before{
-content:"";
-position:absolute;
-inset:0;
-background:url('Etsá Ara.jpg') no-repeat center 38%;
-background-size:cover;
-animation:slowZoom 28s infinite alternate;
-}
-
-@keyframes slowZoom{
-from{transform:scale(1);}
-to{transform:scale(1.06);}
+transform:translateZ(0);
 }
 
 .hero::after{
@@ -142,7 +179,7 @@ z-index:2;
 text-align:center;
 opacity:0;
 transform:translateX(-140px);
-transition:2.2s;
+transition:2s;
 }
 
 .hero-content.visible{
@@ -150,83 +187,23 @@ opacity:1;
 transform:translateX(0);
 }
 
-.hero-content.hidden{
-opacity:0;
-transform:translateX(-160px);
-}
-
 section{padding:160px 10%;}
 
-/* ================= MOBILE MENU ================= */
-/* ⭐ SOMENTE ISSO FOI ADICIONADO */
-
-.menu-toggle{
-display:none;
-width:32px;
-height:24px;
-cursor:pointer;
-margin:auto;
-position:relative;
-}
-
-/* linhas douradas */
-.menu-toggle span{
-position:absolute;
-width:32px;
-height:2px;
-background:#c49b3d;
-box-shadow:0 0 10px rgba(196,155,61,.8);
-}
-
-/* posição das linhas */
-.menu-toggle span:nth-child(1){top:0;}
-.menu-toggle span:nth-child(2){top:10px;}
-.menu-toggle span:nth-child(3){top:20px;}
-
-@media(max-width:768px){
-
-.menu-toggle{
-display:block;
-margin-bottom:20px;
-}
-
-nav{
-display:flex;
-flex-direction:column;
-align-items:center;
-}
-
-/* menu escondido inicialmente */
-nav a{
-display:none;
-margin:14px 0;
+/* GOLD DUST */
+#goldDust{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+pointer-events:none;
 opacity:0;
-transform:translateY(30px);
+transition:.6s;
+z-index:5;
 }
 
-/* revelação elegante */
-nav.active a{
-display:block;
-animation:goldReveal .9s forwards;
-}
-
-nav.active a:nth-of-type(2){animation-delay:.15s;}
-nav.active a:nth-of-type(3){animation-delay:.3s;}
-nav.active a:nth-of-type(4){animation-delay:.45s;}
-
-}
-
-@keyframes goldReveal{
-0%{
-opacity:0;
-filter:blur(18px);
-transform:translateY(30px) scale(.8);
-}
-100%{
+nav.active ~ #goldDust{
 opacity:1;
-filter:blur(0);
-transform:translateY(0);
-}
 }
 
 </style>
@@ -236,118 +213,123 @@ transform:translateY(0);
 
 <div class="topbar">
 <div class="socials">
-<a href="https://instagram.com/yuridosanjos.arte" target="_blank"><i class="fab fa-instagram"></i></a>
-<a href="https://www.facebook.com/yuridosanjos.arte/" target="_blank"><i class="fab fa-facebook"></i></a>
-<a href="https://www.youtube.com/@art.yuridosanjos" target="_blank"><i class="fab fa-youtube"></i></a>
+<a href="#"><i class="fab fa-instagram"></i></a>
+<a href="#"><i class="fab fa-facebook"></i></a>
 </div>
 </div>
 
 <header>
 <h1>YURI DOS ANJOS</h1>
-<p>Indigenous Contemporary Realism</p>
+<p>INDIGENOUS CONTEMPORARY REALISM</p>
 </header>
 
-<!-- ⭐ MENU -->
 <nav>
 
-<!-- BOTÃO HAMBURGER -->
 <div class="menu-toggle">
 <span></span>
 <span></span>
 <span></span>
 </div>
 
-<a href="#about">About</a>
-<a href="#gallery">Available Works</a>
-<a href="Galeria.html">Gallery</a>
-<a href="#contact">Contact</a>
+<a href="#">HOME</a>
+<a href="#about">ABOUT</a>
+<a href="#gallery">GALLERY</a>
+<a href="#contact">CONTACT</a>
 
 </nav>
 
+<canvas id="goldDust"></canvas>
+
 <section class="hero">
 <div class="hero-content">
-<h2>Ancestral Memory Through Realism</h2>
-<p>Oil paintings rooted in Tupi identity and spiritual memory.</p>
+<h2>Indigenous Contemporary Realism</h2>
 </div>
 </section>
 
 <section id="about">
-<div class="aboutcontainer">
-<img src="yuridosanjos.webp" class="about-image">
-<div class="about-text">
-<h2>About the Artist</h2>
-<p>Yuri dos Anjos (born 1992, Brazil) is a contemporary Indigenous Brazilian artist...</p>
-</div>
-</div>
+<h2>About</h2>
 </section>
 
 <section id="gallery">
-<h2>Available Works</h2>
-
-<div class="art-piece">
-<img src="Ipytuẽ.jpg">
-<h3>Ipytuẽ (Breathe)</h3>
-<p>Oil on canvas – 60x80 cm – 2026</p>
-<a class="button" href="#">Acquire Artwork – $5,500 USD</a>
-</div>
-
+<h2>Gallery</h2>
 </section>
 
 <section id="contact">
 <h2>Contact</h2>
-<p>Email: yuridosanjos.arte@gmail.com</p>
 </section>
 
-<footer>© 2026 Yuri dos Anjos</footer>
+<footer>
+© Yuri dos Anjos
+</footer>
 
 <script>
 
-/* ================= ORIGINAL OBSERVERS ================= */
-
+/* HERO ANIMATION */
 const hero=document.querySelector(".hero");
 const heroText=document.querySelector(".hero-content");
 
 new IntersectionObserver(entries=>{
 entries.forEach(entry=>{
 heroText.classList.toggle("visible",entry.isIntersecting);
-heroText.classList.toggle("hidden",!entry.isIntersecting);
 });
 },{threshold:.6}).observe(hero);
 
-const observer=new IntersectionObserver(entries=>{
-entries.forEach(entry=>{
-entry.target.classList.toggle("visible",entry.isIntersecting);
-});
-});
-
-document.querySelectorAll(".art-piece")
-.forEach(el=>observer.observe(el));
-
-/* =====================================================
-   ⭐ MENU PERMANENTE (NOVO COMPORTAMENTO)
-===================================================== */
-
+/* MENU */
 const toggle=document.querySelector(".menu-toggle");
 const nav=document.querySelector("nav");
 
-/* ✅ se usuário já abriu uma vez */
-if(localStorage.getItem("menuOpened")==="true"){
-nav.classList.add("active");
-toggle.style.display="none";
+toggle.addEventListener("click",()=>{
+nav.classList.toggle("active");
+createDust();
+});
+
+/* GOLD DUST */
+const canvas=document.getElementById("goldDust");
+const ctx=canvas.getContext("2d");
+
+function resizeCanvas(){
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+}
+resizeCanvas();
+window.addEventListener("resize",resizeCanvas);
+
+let particles=[];
+
+function createDust(){
+particles=[];
+for(let i=0;i<140;i++){
+particles.push({
+x:Math.random()*canvas.width,
+y:Math.random()*canvas.height,
+size:Math.random()*2+1,
+vx:(Math.random()-.5)*1.5,
+vy:(Math.random()-.5)*1.5,
+alpha:0
+});
+}
 }
 
-/* ✅ abre apenas UMA vez */
-toggle.addEventListener("click",()=>{
+function animate(){
+ctx.clearRect(0,0,canvas.width,canvas.height);
 
-nav.classList.add("active");
+particles.forEach(p=>{
+p.x+=p.vx;
+p.y+=p.vy;
+p.alpha=Math.min(p.alpha+.02,1);
 
-/* salva estado entre páginas */
-localStorage.setItem("menuOpened","true");
-
-/* remove hamburger */
-toggle.style.display="none";
-
+ctx.beginPath();
+ctx.arc(p.x,p.y,p.size,0,Math.PI*2);
+ctx.fillStyle=`rgba(196,155,61,${p.alpha})`;
+ctx.shadowColor="#c49b3d";
+ctx.shadowBlur=14;
+ctx.fill();
 });
+
+requestAnimationFrame(animate);
+}
+
+animate();
 
 </script>
 
