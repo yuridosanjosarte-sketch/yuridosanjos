@@ -401,9 +401,6 @@ Acquire Artwork – $1,500 USD
 </footer>
 
 /* Menu nasce invisível */
-.thanos-link{
-opacity:0;
-}  
 
 <script>
 
@@ -523,11 +520,13 @@ function regenerateMenu(){
 // controle de estado
 let lastScroll = window.scrollY;
 const scrollThreshold = 20;
-let menuState = "hidden"; // começa oculto
+let menuState = "hidden"; 
 
-// 🔥 COMEÇA INVISÍVEL E DESINTEGRADO
+// 🔥 Força nascer desintegrado antes de qualquer coisa
 applyRandomMovement();
+
 links.forEach(link=>{
+  link.classList.remove("regenerate");
   link.classList.add("disintegrate");
 });
 
@@ -538,7 +537,7 @@ window.addEventListener("load", ()=>{
   setTimeout(()=>{
     regenerateMenu();
     menuState = "visible";
-  }, 1500); // tempo dramático (ajuste se quiser)
+  }, 1500);
 
 });
 
@@ -578,3 +577,4 @@ links.forEach(link=>{
     setTimeout(regenerateMenu, 950);
   });
 });
+
