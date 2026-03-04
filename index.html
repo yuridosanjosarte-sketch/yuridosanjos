@@ -516,33 +516,45 @@ function regenerateMenu(){
 // EVENTOS
 // ===============================
 
-// Ao carregar
+// controle de estado
+let lastScroll = window.scrollY;
+const scrollThreshold = 20;
+let menuState = "hidden"; // começa oculto
+
+// Começa já desintegrado
+applyRandomMovement();
+links.forEach(link=>{
+  link.classList.add("disintegrate");
+});
+
+// Ao carregar (faz regeneração inicial)
 window.addEventListener("load", ()=>{
-  regenerateMenu();
+
+  setTimeout(()=>{
+    regenerateMenu();
+    menuState = "visible";
+  }, 900); // tempo cinematográfico
+
 });
 
 // Ao rolar
-let lastScroll = window.scrollY;
-const scrollThreshold = 20;
-let menuState = "visible"; // controle de estado
-
 window.addEventListener("scroll", ()=>{
 
   const currentScroll = window.scrollY;
 
   if(currentScroll <= 50){
-  regenerateMenu();
-  menuState = "visible";
-  lastScroll = currentScroll;
-  return;
+    regenerateMenu();
+    menuState = "visible";
+    lastScroll = currentScroll;
+    return;
   }
   
   const scrollDifference = currentScroll - lastScroll;
 
   // Descendo
   if(scrollDifference > scrollThreshold && menuState !== "hidden"){
-  disintegrateMenu();
-  menuState = "hidden";
+    disintegrateMenu();
+    menuState = "hidden";
   }
 
   // Subindo
@@ -561,12 +573,6 @@ links.forEach(link=>{
     setTimeout(regenerateMenu, 950);
   });
 });
-
-</script>
-  
-</body>
-</html>
-
 
 
 
