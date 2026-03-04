@@ -400,8 +400,6 @@ Acquire Artwork – $1,500 USD
 © 2026 Yuri dos Anjos
 </footer>
 
-/* Menu nasce invisível */
-
 <script>
 
 // ===============================
@@ -466,6 +464,7 @@ links.forEach(link=>{
     const span = document.createElement("span");
     span.textContent = letter;
 
+    // Movimento muito mais orgânico
     const randomX = (Math.random() - 0.5) * 90;
     const randomY = Math.random() * 90;
     const randomRotate = (Math.random() - 0.5) * 120;
@@ -496,6 +495,7 @@ function applyRandomMovement(){
 // 3️⃣ Desintegrar
 function disintegrateMenu(){
   applyRandomMovement();
+
   links.forEach(link=>{
     link.classList.add("disintegrate");
     link.classList.remove("regenerate");
@@ -508,7 +508,6 @@ function regenerateMenu(){
   links.forEach(link=>{
     link.classList.remove("disintegrate");
     link.classList.add("regenerate");
-    link.style.opacity = "1"; // revela o menu
   });
 }
 
@@ -517,50 +516,36 @@ function regenerateMenu(){
 // EVENTOS
 // ===============================
 
-// controle de estado
-let lastScroll = window.scrollY;
-const scrollThreshold = 20;
-let menuState = "hidden"; 
-
-// 🔥 Força nascer desintegrado antes de qualquer coisa
-applyRandomMovement();
-
-links.forEach(link=>{
-  link.classList.remove("regenerate");
-  link.classList.add("disintegrate");
-});
-
-
-// 🎬 Regeneração inicial cinematográfica
+// Ao carregar
 window.addEventListener("load", ()=>{
-
-  setTimeout(()=>{
-    regenerateMenu();
-    menuState = "visible";
-  }, 1500);
-
+  regenerateMenu();
 });
-
 
 // Ao rolar
+let lastScroll = window.scrollY;
+const scrollThreshold = 20;
+let menuState = "visible"; // controle de estado
+
 window.addEventListener("scroll", ()=>{
 
   const currentScroll = window.scrollY;
 
   if(currentScroll <= 50){
-    regenerateMenu();
-    menuState = "visible";
-    lastScroll = currentScroll;
-    return;
+  regenerateMenu();
+  menuState = "visible";
+  lastScroll = currentScroll;
+  return;
   }
   
   const scrollDifference = currentScroll - lastScroll;
 
+  // Descendo
   if(scrollDifference > scrollThreshold && menuState !== "hidden"){
-    disintegrateMenu();
-    menuState = "hidden";
+  disintegrateMenu();
+  menuState = "hidden";
   }
 
+  // Subindo
   if(scrollDifference < -scrollThreshold && menuState !== "visible"){
     regenerateMenu();
     menuState = "visible";
@@ -568,8 +553,7 @@ window.addEventListener("scroll", ()=>{
 
   lastScroll = currentScroll;
 });
-
-
+  
 // Ao clicar
 links.forEach(link=>{
   link.addEventListener("click", ()=>{
@@ -577,4 +561,11 @@ links.forEach(link=>{
     setTimeout(regenerateMenu, 950);
   });
 });
+
+</script>
+  
+</body>
+</html>
+
+
 
