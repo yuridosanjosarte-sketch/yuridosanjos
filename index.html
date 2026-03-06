@@ -311,8 +311,7 @@ opacity:1;
 transform:
 translate(var(--x), var(--y))
 rotate(var(--r))
-scale(0.3);
-filter:blur(0px);
+scale(0.15);
 }
 
 .thanos-link.regenerate span{
@@ -341,6 +340,14 @@ transition:opacity 0.6s ease;
 
 .thanos-link span{
 text-shadow:0 0 8px rgba(196,155,61,0.6);
+}
+
+.thanos-link span{
+display:inline-block;
+color:#c49b3d;
+text-shadow:
+0 0 8px rgba(196,155,61,0.6),
+0 0 18px rgba(196,155,61,0.35);
 }
   
 </style>
@@ -487,8 +494,10 @@ text.split("").forEach((letter,i)=>{
     span.textContent = letter;
 
     // Movimento muito mais orgânico
-    const randomX = (Math.random() - 0.5) * 260;
-    const randomY = (Math.random() - 0.5) * 220;
+
+    const randomX = (Math.random() - 0.5) * 180;
+    const randomY = 140 + Math.random() * 160;
+  
     const randomRotate = (Math.random() - 0.5) * 120;
 
     span.dataset.x = randomX;
@@ -607,6 +616,7 @@ links.forEach(link=>{
   
 </body>
 </html>
+
 
 
 
