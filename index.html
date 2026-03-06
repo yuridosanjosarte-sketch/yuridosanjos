@@ -300,13 +300,12 @@ color:#666;
 /* RESPONSIVO MOBILE CELULAR */
 
 .thanos-link span{
-display:inline-block;
 transition:
-transform 3s cubic-bezier(.19,1,.22,1),
-opacity 2.8s ease-out,
-filter 2.8s ease-out;
+transform 2.6s cubic-bezier(.19,1,.22,1),
+opacity 2.4s ease-out,
+filter 2.4s ease-out;
 }
-
+  
 .thanos-link.disintegrate span{
 opacity:0;
 transform:
@@ -516,9 +515,21 @@ function regenerateMenu(){
 // EVENTOS
 // ===============================
 
-// Ao carregar
+// Ao carregar → começa invisível e regenera
 window.addEventListener("load", ()=>{
-  regenerateMenu();
+
+  // começa desintegrado
+  links.forEach(link=>{
+    link.classList.add("disintegrate");
+  });
+
+  applyRandomMovement();
+
+  // pequena pausa para criar o efeito
+  setTimeout(()=>{
+    regenerateMenu();
+  }, 400);
+
 });
 
 // Ao rolar
@@ -566,6 +577,7 @@ links.forEach(link=>{
   
 </body>
 </html>
+
 
 
 
