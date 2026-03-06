@@ -311,8 +311,8 @@ opacity:0;
 transform:
 translate(var(--x), var(--y))
 rotate(var(--r))
-scale(0.5);
-filter:blur(12px);
+scale(0.3);
+filter:blur(0px);
 }
 
 .thanos-link.regenerate span{
@@ -482,8 +482,8 @@ links.forEach(link=>{
     span.textContent = letter;
 
     // Movimento muito mais orgânico
-    const randomX = (Math.random() - 0.5) * 90;
-    const randomY = Math.random() * 90;
+    const randomX = (Math.random() - 0.5) * 180;
+    const randomY = 120 + Math.random() * 120;
     const randomRotate = (Math.random() - 0.5) * 120;
 
     span.dataset.x = randomX;
@@ -602,6 +602,7 @@ links.forEach(link=>{
   
 </body>
 </html>
+
 
 
 
