@@ -329,6 +329,15 @@ gap:40px;
 opacity:0;
 transition:opacity 0.6s ease;
 }
+
+.nav-container{
+display:flex;
+justify-content:center;
+flex-wrap:wrap;
+gap:40px;
+opacity:0;
+transition:opacity 0.6s ease;
+}
   
 </style>
 </head>
@@ -527,22 +536,27 @@ function regenerateMenu(){
 // Ao carregar → começa invisível e regenera
 window.addEventListener("load", ()=>{
 
-  // começa invisível
+  // prepara partículas
+  applyRandomMovement();
+
+  // menu começa invisível e desintegrado
   links.forEach(link=>{
     link.classList.add("disintegrate");
   });
 
-  applyRandomMovement();
-
-  // mostra menu
-  document.querySelector(".nav-container").style.opacity = 1;
-
-  // regeneração
+  // espera 2 segundos
   setTimeout(()=>{
+
+    // mostra menu
+    document.querySelector(".nav-container").style.opacity = 1;
+
+    // inicia regeneração
     regenerateMenu();
-  }, 500);
+
+  },2000);
 
 });
+  
 // Ao rolar
 let lastScroll = window.scrollY;
 const scrollThreshold = 20;
@@ -588,6 +602,7 @@ links.forEach(link=>{
   
 </body>
 </html>
+
 
 
 
