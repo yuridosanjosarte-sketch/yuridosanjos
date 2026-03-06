@@ -307,7 +307,7 @@ filter 2.4s ease-out;
 }
   
 .thanos-link.disintegrate span{
-opacity:0;
+opacity:1;
 transform:
 translate(var(--x), var(--y))
 rotate(var(--r))
@@ -477,13 +477,15 @@ links.forEach(link=>{
   const text = link.textContent;
   link.textContent = "";
 
-  text.split("").forEach((letter,i)=>{
+  const letters = text.split("").sort(()=>Math.random()-0.5);
+
+  letters.forEach((letter,i)=>{
     const span = document.createElement("span");
     span.textContent = letter;
 
     // Movimento muito mais orgânico
-    const randomX = (Math.random() - 0.5) * 180;
-    const randomY = 120 + Math.random() * 120;
+    const randomX = (Math.random() - 0.5) * 260;
+    const randomY = (Math.random() - 0.5) * 220;
     const randomRotate = (Math.random() - 0.5) * 120;
 
     span.dataset.x = randomX;
@@ -602,6 +604,7 @@ links.forEach(link=>{
   
 </body>
 </html>
+
 
 
 
