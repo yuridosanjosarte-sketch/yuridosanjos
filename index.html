@@ -468,7 +468,7 @@ links.forEach(link=>{
   const text = link.textContent;
   link.textContent = "";
 
-  text.split("").forEach(letter=>{
+  text.split("").forEach((letter,i)=>{
     const span = document.createElement("span");
     span.textContent = letter;
 
@@ -481,7 +481,7 @@ links.forEach(link=>{
     span.dataset.y = randomY;
     span.dataset.r = randomRotate;
 
-    span.style.transitionDelay = (Math.random() * 2.2) + "s";
+    span.style.transitionDelay = (i * 0.05) + "s";
 
     link.appendChild(span);
   });
@@ -588,6 +588,7 @@ links.forEach(link=>{
   
 </body>
 </html>
+
 
 
 
