@@ -481,9 +481,8 @@ links.forEach(link=>{
   const text = link.textContent;
   link.textContent = "";
 
-  const letters = text.split("").sort(()=>Math.random()-0.5);
-
-  letters.forEach((letter,i)=>{
+text.split("").forEach((letter,i)=>{
+  
     const span = document.createElement("span");
     span.textContent = letter;
 
@@ -608,6 +607,7 @@ links.forEach(link=>{
   
 </body>
 </html>
+
 
 
 
