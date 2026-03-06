@@ -316,7 +316,7 @@ scale(0.15);
 
 .thanos-link.regenerate span{
 opacity:1;
-transform:translate(0,0) rotate(0deg) scale(1);
+animation:dustWind 2.2s cubic-bezier(.19,1,.22,1) forwards;
 filter:blur(0);
 }
 
@@ -348,6 +348,35 @@ color:#c49b3d;
 text-shadow:
 0 0 8px rgba(196,155,61,0.6),
 0 0 18px rgba(196,155,61,0.35);
+}
+
+@keyframes dustWind{
+
+0%{
+transform:
+translate(var(--x), var(--y))
+rotate(var(--r))
+scale(0.15);
+}
+
+40%{
+transform:
+translate(calc(var(--x) + 40px), calc(var(--y) - 20px))
+rotate(calc(var(--r) + 120deg))
+scale(0.2);
+}
+
+70%{
+transform:
+translate(calc(var(--x) - 20px), calc(var(--y) - 40px))
+rotate(calc(var(--r) + 260deg))
+scale(0.3);
+}
+
+100%{
+transform:translate(0,0) rotate(0deg) scale(1);
+}
+
 }
   
 </style>
@@ -504,7 +533,7 @@ text.split("").forEach((letter,i)=>{
     span.dataset.y = randomY;
     span.dataset.r = randomRotate;
 
-    span.style.transitionDelay = (i * 0.8) + "s";
+    span.style.animationDelay = (Math.random() * 0.6) + "s";
 
     link.appendChild(span);
   });
@@ -616,6 +645,7 @@ links.forEach(link=>{
   
 </body>
 </html>
+
 
 
 
