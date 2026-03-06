@@ -565,12 +565,30 @@ function disintegrateMenu(){
 
 // 4️⃣ Regenerar
 function regenerateMenu(){
-  links.forEach(link=>{
-    link.classList.remove("disintegrate");
-    link.classList.add("regenerate");
-  });
-}
 
+  // fase de vento
+  links.forEach(link=>{
+    link.querySelectorAll("span").forEach(span=>{
+
+      const windX = (Math.random()-0.5) * 60;
+      const windY = -40 - Math.random()*40;
+
+      span.style.transform =
+      `translate(${windX}px, ${windY}px) rotate(${(Math.random()*360)}deg) scale(0.2)`;
+
+    });
+  });
+
+  // pequena pausa para o vento
+  setTimeout(()=>{
+
+    links.forEach(link=>{
+      link.classList.remove("disintegrate");
+      link.classList.add("regenerate");
+    });
+
+  },350);
+}
 
 // ===============================
 // EVENTOS
@@ -645,6 +663,7 @@ links.forEach(link=>{
   
 </body>
 </html>
+
 
 
 
