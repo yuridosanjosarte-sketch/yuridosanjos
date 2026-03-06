@@ -12,9 +12,6 @@
 <style>
 
 /* RESET */
-
-<canvas id="dust-canvas"></canvas>
-  
 *{
 margin:0;
 padding:0;
@@ -303,133 +300,26 @@ color:#666;
 /* RESPONSIVO MOBILE CELULAR */
 
 .thanos-link span{
+display:inline-block;
 transition:
-transform 4.5s cubic-bezier(.19,1,.22,1),
-opacity 3.2s ease-out;
+transform 3s cubic-bezier(.19,1,.22,1),
+opacity 2.8s ease-out,
+filter 2.8s ease-out;
 }
-  
+
 .thanos-link.disintegrate span{
-opacity:1;
+opacity:0;
 transform:
 translate(var(--x), var(--y))
 rotate(var(--r))
-scale(0.15);
+scale(0.5);
+filter:blur(12px);
 }
 
 .thanos-link.regenerate span{
 opacity:1;
-animation:dustWind 2.2s cubic-bezier(.19,1,.22,1) forwards;
-filter:blur(0);
-}
-
-.nav-container{
-display:flex;
-justify-content:center;
-flex-wrap:wrap;
-gap:40px;
-opacity:0;
-transition:opacity 0.6s ease;
-}
-
-.nav-container{
-display:flex;
-justify-content:center;
-flex-wrap:wrap;
-gap:40px;
-opacity:0;
-transition:opacity 0.6s ease;
-}
-
-.thanos-link span{
-text-shadow:0 0 8px rgba(196,155,61,0.6);
-}
-
-.thanos-link span{
-display:inline-block;
-color:#c49b3d;
-text-shadow:
-0 0 8px rgba(196,155,61,0.6),
-0 0 18px rgba(196,155,61,0.35);
-}
-
-@keyframes dustWind{
-
-0%{
-transform:
-translate(var(--x), var(--y))
-rotate(var(--r))
-scale(0.15);
-}
-
-40%{
-transform:
-translate(calc(var(--x) + 40px), calc(var(--y) - 20px))
-rotate(calc(var(--r) + 120deg))
-scale(0.2);
-}
-
-70%{
-transform:
-translate(calc(var(--x) - 20px), calc(var(--y) - 40px))
-rotate(calc(var(--r) + 260deg))
-scale(0.3);
-}
-
-100%{
 transform:translate(0,0) rotate(0deg) scale(1);
-}
-
-}
-
-.thanos-menu{
-  opacity:0;
-  transition:opacity 1.5s ease;
-}
-
-.thanos-menu.show{
-  opacity:1;
-}
-
-.thanos-link{
-  display:inline-block;
-  position:relative;
-  letter-spacing:2px;
-}
-
-.thanos-letter{
-  display:inline-block;
-  opacity:0;
-  filter:blur(8px);
-  transform-origin:center;
-  will-change:transform, opacity, filter;
-}  
-
-#dust-canvas{
-  position:fixed;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  pointer-events:none;
-  z-index:1;
-}
-
-.thanos-menu{
-  opacity:0;
-  transition:opacity 1.5s ease;
-  position:relative;
-  z-index:2;
-}
-
-.thanos-menu.show{
-  opacity:1;
-}
-
-.thanos-letter{
-  display:inline-block;
-  opacity:0;
-  filter:blur(6px);
-  transform-origin:center;
+filter:blur(0);
 }
   
 </style>
@@ -450,7 +340,7 @@ transform:translate(0,0) rotate(0deg) scale(1);
 <p>Indigenous Contemporary Realism</p>
 </header>
 
-<nav class="thanos-menu">
+<nav>
   <div class="nav-container">
     <a href="#about" class="thanos-link">About</a>
     <a href="#gallery" class="thanos-link">Available Works</a>
@@ -513,163 +403,166 @@ Acquire Artwork – $1,500 USD
 <script>
 
 // ===============================
-// JAVA SCRIPT 
+// HERO INTERSECTION
 // ===============================
 
-// ===============================
-// 🌌 DUST PARTICLES
-// ===============================
+const hero = document.querySelector(".hero");
+const heroText = document.querySelector(".hero-content");
 
-const canvas = document.getElementById("dust-canvas");
-const ctx = canvas.getContext("2d");
+if(hero && heroText){
+  const heroObserver = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        heroText.classList.add("visible");
+        heroText.classList.remove("hidden");
+      } else {
+        heroText.classList.add("hidden");
+        heroText.classList.remove("visible");
+      }
+    });
+  },{ threshold:0.6 });
 
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-
-let particles = [];
-
-class Particle{
-
-  constructor(){
-    this.x = Math.random()*canvas.width;
-    this.y = Math.random()*canvas.height;
-
-    this.size = Math.random()*2+0.5;
-
-    this.vx = (Math.random()-0.5)*0.4;
-    this.vy = (Math.random()-0.5)*0.4;
-
-    this.alpha = Math.random();
-  }
-
-  move(){
-
-    this.x += this.vx;
-    this.y += this.vy;
-
-    if(this.x<0 || this.x>canvas.width) this.vx *= -1;
-    if(this.y<0 || this.y>canvas.height) this.vy *= -1;
-
-  }
-
-  draw(){
-
-    ctx.fillStyle = `rgba(255,215,120,${this.alpha})`;
-    ctx.beginPath();
-    ctx.arc(this.x,this.y,this.size,0,Math.PI*2);
-    ctx.fill();
-
-  }
-
+  heroObserver.observe(hero);
 }
 
-for(let i=0;i<220;i++){
-  particles.push(new Particle());
-}
 
-function animateDust(){
+// ===============================
+// ARTWORK SCROLL ANIMATION
+// ===============================
 
-  ctx.clearRect(0,0,canvas.width,canvas.height);
+const artObserver = new IntersectionObserver((entries)=>{
+  entries.forEach(entry=>{
+    const el = entry.target;
 
-  particles.forEach(p=>{
-    p.move();
-    p.draw();
+    if(entry.isIntersecting){
+      el.classList.add("visible");
+    } else {
+      const rect = el.getBoundingClientRect();
+      if(rect.bottom < 0 || rect.top > window.innerHeight){
+        el.classList.remove("visible");
+      }
+    }
   });
+},{ threshold:0.2 });
 
-  requestAnimationFrame(animateDust);
-
-}
-
-animateDust();
+document.querySelectorAll(".art-piece")
+.forEach(el=>artObserver.observe(el));
 
 
 // ===============================
-// 🌌 THANOS MENU
+// 🔥 ADVANCED THANOS MENU
 // ===============================
 
-const menu = document.querySelector(".thanos-menu");
 const links = document.querySelectorAll(".thanos-link");
 
-window.addEventListener("load",()=>{
-
-setTimeout(()=>{
-
-  menu.classList.add("show");
-  createMenu();
-
-},2000);
-
-});
-
-function createMenu(){
-
+// 1️⃣ Transformar texto em partículas
 links.forEach(link=>{
-
   const text = link.textContent;
   link.textContent = "";
 
-  const letters = [];
-
-  text.split("").forEach(char=>{
-
+  text.split("").forEach(letter=>{
     const span = document.createElement("span");
-    span.classList.add("thanos-letter");
-    span.textContent = char;
+    span.textContent = letter;
+
+    // Movimento muito mais orgânico
+    const randomX = (Math.random() - 0.5) * 90;
+    const randomY = Math.random() * 90;
+    const randomRotate = (Math.random() - 0.5) * 120;
+
+    span.dataset.x = randomX;
+    span.dataset.y = randomY;
+    span.dataset.r = randomRotate;
+
+    span.style.transitionDelay = (Math.random() * 2.2) + "s";
 
     link.appendChild(span);
-    letters.push(span);
-
   });
-
-  const shuffled = [...letters].sort(()=>Math.random()-0.5);
-
-  shuffled.forEach((letter,i)=>{
-
-    const x = (Math.random()-0.5)*500;
-    const y = (Math.random()-0.5)*300;
-    const r = Math.random()*720-360;
-
-    letter.style.transform =
-    `translate(${x}px,${y}px) rotate(${r}deg) scale(1.8)`;
-
-    const delay = i*160;
-
-    setTimeout(()=>{
-
-      letter.style.transition =
-      "transform 3s cubic-bezier(.19,1,.22,1), opacity 2s, filter 2s";
-
-      letter.style.opacity="1";
-      letter.style.filter="blur(0px)";
-      letter.style.transform="translate(0,0) rotate(0deg) scale(1)";
-
-    },delay);
-
-  });
-
 });
 
+
+// 2️⃣ Aplicar variáveis CSS
+function applyRandomMovement(){
+  links.forEach(link=>{
+    link.querySelectorAll("span").forEach(span=>{
+      span.style.setProperty("--x", span.dataset.x + "px");
+      span.style.setProperty("--y", span.dataset.y + "px");
+      span.style.setProperty("--r", span.dataset.r + "deg");
+    });
+  });
 }
+
+
+// 3️⃣ Desintegrar
+function disintegrateMenu(){
+  applyRandomMovement();
+
+  links.forEach(link=>{
+    link.classList.add("disintegrate");
+    link.classList.remove("regenerate");
+  });
+}
+
+
+// 4️⃣ Regenerar
+function regenerateMenu(){
+  links.forEach(link=>{
+    link.classList.remove("disintegrate");
+    link.classList.add("regenerate");
+  });
+}
+
+
+// ===============================
+// EVENTOS
+// ===============================
+
+// Ao carregar
+window.addEventListener("load", ()=>{
+  regenerateMenu();
+});
+
+// Ao rolar
+let lastScroll = window.scrollY;
+const scrollThreshold = 20;
+let menuState = "visible"; // controle de estado
+
+window.addEventListener("scroll", ()=>{
+
+  const currentScroll = window.scrollY;
+
+  if(currentScroll <= 50){
+  regenerateMenu();
+  menuState = "visible";
+  lastScroll = currentScroll;
+  return;
+  }
+  
+  const scrollDifference = currentScroll - lastScroll;
+
+  // Descendo
+  if(scrollDifference > scrollThreshold && menuState !== "hidden"){
+  disintegrateMenu();
+  menuState = "hidden";
+  }
+
+  // Subindo
+  if(scrollDifference < -scrollThreshold && menuState !== "visible"){
+    regenerateMenu();
+    menuState = "visible";
+  }
+
+  lastScroll = currentScroll;
+});
+  
+// Ao clicar
+links.forEach(link=>{
+  link.addEventListener("click", ()=>{
+    disintegrateMenu();
+    setTimeout(regenerateMenu, 950);
+  });
+});
+
 </script>
   
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
