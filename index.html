@@ -301,9 +301,8 @@ color:#666;
 
 .thanos-link span{
 transition:
-transform 2.6s cubic-bezier(.19,1,.22,1),
-opacity 2.4s ease-out,
-filter 2.4s ease-out;
+transform 4.5s cubic-bezier(.19,1,.22,1),
+opacity 3.2s ease-out;
 }
   
 .thanos-link.disintegrate span{
@@ -460,51 +459,8 @@ Acquire Artwork – $1,500 USD
 <script>
 
 // ===============================
-// JAVA SCRIPT - HERO  INTERSECTION
+// JAVA SCRIPT 
 // ===============================
-
-const hero = document.querySelector(".hero");
-const heroText = document.querySelector(".hero-content");
-
-if(hero && heroText){
-  const heroObserver = new IntersectionObserver((entries)=>{
-    entries.forEach(entry=>{
-      if(entry.isIntersecting){
-        heroText.classList.add("visible");
-        heroText.classList.remove("hidden");
-      } else {
-        heroText.classList.add("hidden");
-        heroText.classList.remove("visible");
-      }
-    });
-  },{ threshold:0.6 });
-
-  heroObserver.observe(hero);
-}
-
-
-// ===============================
-// ARTWORK SCROLL ANIMATION
-// ===============================
-
-const artObserver = new IntersectionObserver((entries)=>{
-  entries.forEach(entry=>{
-    const el = entry.target;
-
-    if(entry.isIntersecting){
-      el.classList.add("visible");
-    } else {
-      const rect = el.getBoundingClientRect();
-      if(rect.bottom < 0 || rect.top > window.innerHeight){
-        el.classList.remove("visible");
-      }
-    }
-  });
-},{ threshold:0.2 });
-
-document.querySelectorAll(".art-piece")
-.forEach(el=>artObserver.observe(el));
-
 
 // ===============================
 // 🔥 ADVANCED THANOS MENU
@@ -517,69 +473,75 @@ links.forEach(link=>{
   const text = link.textContent;
   link.textContent = "";
 
-text.split("").forEach((letter,i)=>{
-  
+  text.split("").forEach((letter,i)=>{
+
     const span = document.createElement("span");
     span.textContent = letter;
 
-    // Movimento muito mais orgânico
-
-    const randomX = (Math.random() - 0.5) * 180;
-    const randomY = 140 + Math.random() * 160;
-  
-    const randomRotate = (Math.random() - 0.5) * 120;
+    // Posição inicial espalhada (poeira)
+    const randomX = (Math.random() - 0.5) * 420;
+    const randomY = (Math.random() - 0.5) * 260;
+    const randomRotate = (Math.random() - 0.5) * 180;
 
     span.dataset.x = randomX;
     span.dataset.y = randomY;
     span.dataset.r = randomRotate;
 
-    span.style.animationDelay = (Math.random() * 0.6) + "s";
+    // Cada letra chega em tempo diferente
+    span.style.transitionDelay = (Math.random() * 1.8) + "s";
 
     link.appendChild(span);
+
   });
 });
 
 
 // 2️⃣ Aplicar variáveis CSS
 function applyRandomMovement(){
+
   links.forEach(link=>{
     link.querySelectorAll("span").forEach(span=>{
+
       span.style.setProperty("--x", span.dataset.x + "px");
       span.style.setProperty("--y", span.dataset.y + "px");
       span.style.setProperty("--r", span.dataset.r + "deg");
+
     });
   });
+
 }
 
 
 // 3️⃣ Desintegrar
 function disintegrateMenu(){
+
   applyRandomMovement();
 
   links.forEach(link=>{
     link.classList.add("disintegrate");
     link.classList.remove("regenerate");
   });
+
 }
 
 
 // 4️⃣ Regenerar
 function regenerateMenu(){
 
-  // fase de vento
+  // fase de vento (partículas se movem antes de formar letras)
   links.forEach(link=>{
     link.querySelectorAll("span").forEach(span=>{
 
-      const windX = (Math.random()-0.5) * 60;
-      const windY = -40 - Math.random()*40;
+      const windX = (Math.random()-0.5) * 80;
+      const windY = -60 - Math.random()*60;
 
       span.style.transform =
-      `translate(${windX}px, ${windY}px) rotate(${(Math.random()*360)}deg) scale(0.2)`;
+      `translate(${windX}px, ${windY}px) rotate(${Math.random()*360}deg) scale(0.12)`;
 
     });
   });
 
-  // pequena pausa para o vento
+  // tempo para ver a poeira
   setTimeout(()=>{
 
     links.forEach(link=>{
@@ -587,8 +549,10 @@ function regenerateMenu(){
       link.classList.add("regenerate");
     });
 
-  },350);
+  },1200);
+
 }
+
 
 // ===============================
 // EVENTOS
@@ -597,72 +561,76 @@ function regenerateMenu(){
 // Ao carregar → começa invisível e regenera
 window.addEventListener("load", ()=>{
 
-  // prepara partículas
   applyRandomMovement();
 
-  // menu começa invisível e desintegrado
+  // menu começa desintegrado
   links.forEach(link=>{
     link.classList.add("disintegrate");
   });
 
-  // espera 2 segundos
+  // espera 2 segundos antes de formar
   setTimeout(()=>{
 
-    // mostra menu
     document.querySelector(".nav-container").style.opacity = 1;
 
-    // inicia regeneração
     regenerateMenu();
 
   },2000);
 
 });
-  
-// Ao rolar
+
+
+// ===============================
+// SCROLL EFFECT
+// ===============================
+
 let lastScroll = window.scrollY;
 const scrollThreshold = 20;
-let menuState = "visible"; // controle de estado
+let menuState = "visible";
 
 window.addEventListener("scroll", ()=>{
 
   const currentScroll = window.scrollY;
 
   if(currentScroll <= 50){
-  regenerateMenu();
-  menuState = "visible";
-  lastScroll = currentScroll;
-  return;
+    regenerateMenu();
+    menuState = "visible";
+    lastScroll = currentScroll;
+    return;
   }
-  
+
   const scrollDifference = currentScroll - lastScroll;
 
-  // Descendo
   if(scrollDifference > scrollThreshold && menuState !== "hidden"){
-  disintegrateMenu();
-  menuState = "hidden";
+    disintegrateMenu();
+    menuState = "hidden";
   }
 
-  // Subindo
   if(scrollDifference < -scrollThreshold && menuState !== "visible"){
     regenerateMenu();
     menuState = "visible";
   }
 
   lastScroll = currentScroll;
+
 });
-  
-// Ao clicar
+
+
+// ===============================
+// CLICK EFFECT
+// ===============================
+
 links.forEach(link=>{
   link.addEventListener("click", ()=>{
     disintegrateMenu();
-    setTimeout(regenerateMenu, 950);
+    setTimeout(regenerateMenu, 1200);
   });
 });
-
 </script>
   
 </body>
 </html>
+
 
 
 
