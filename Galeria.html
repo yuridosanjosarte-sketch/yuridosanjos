@@ -92,80 +92,46 @@ transform:translateY(-2px);
 padding:140px 10%;
 }
 
-/* ART BLOCK */
+/* ART BLOCK — MESMO EFEITO DO INDEX */
 
 .art-piece{
 max-width:1000px;
 margin:0 auto 220px auto;
 text-align:center;
+
+opacity:0;
+transform:translateY(35px);
+filter:blur(6px);
+
+transition:
+opacity 2.4s cubic-bezier(.22,.61,.36,1),
+transform 2.4s cubic-bezier(.22,.61,.36,1),
+filter 2.4s cubic-bezier(.22,.61,.36,1);
 }
 
-/* IMAGE CONTAINER */
-
-.art-image{
-position:relative;
-overflow:hidden;
-cursor:pointer;
+.art-piece.visible{
+opacity:1;
+transform:translateY(0);
+filter:blur(0);
 }
 
-/* PAINT REVEAL MASK */
+/* IMAGE */
 
-.art-image img{
-
+.art-piece img{
 width:100%;
-display:block;
-transform-origin:50% 35%;
-filter:brightness(0.98);
-
-clip-path: inset(100% 0 0 0);
-
-transition:clip-path 1.8s cubic-bezier(.19,1,.22,1);
-
+margin-bottom:60px;
+transition:transform 3s ease;
 }
 
-/* WHEN VISIBLE */
-
-.art-piece.visible img{
-
-clip-path: inset(0 0 0 0);
-
-}
-
-/* BREATHING ZOOM */
-
-.art-image img{
-
-animation: contemplativeZoom 20s ease-in-out infinite alternate;
-
-}
-
-@keyframes contemplativeZoom{
-
-0%{transform:scale(1)}
-
-100%{transform:scale(1.02)}
-
+.art-piece img:hover{
+transform:scale(1.02);
 }
 
 /* TITLE */
 
 .art-piece h2{
-
-margin-top:40px;
 font-family:'Cinzel',serif;
 letter-spacing:4px;
-
-opacity:0;
-transform:translateY(20px);
-transition:all 1s ease 0.8s;
-
-}
-
-.art-piece.visible h2{
-
-opacity:1;
-transform:translateY(0);
-
 }
 
 /* LIGHTBOX */
@@ -244,6 +210,7 @@ letter-spacing:4px;
 
 </style>
 </head>
+
 <body>
 
 <canvas id="spiritCanvas"></canvas>
@@ -259,51 +226,37 @@ letter-spacing:4px;
 <section class="gallery">
 
 <div class="art-piece">
-<div class="art-image">
 <img src="etsa-ara.jpg" alt="Etsá Ara">
-</div>
 <h2>Etsá Ara – Eyes of the Sky</h2>
 </div>
 
 <div class="art-piece">
-<div class="art-image">
 <img src="o-espirito.png" alt="O Espírito">
-</div>
 <h2>The Spirit</h2>
 </div>
   
 <div class="art-piece">
-<div class="art-image">
 <img src="ipytue.jpg" alt="Ipytuẽ">
-</div>
 <h2>Ipytuẽ – Breathe</h2>
 </div>
 
 <div class="art-piece">
-<div class="art-image">
 <img src="kiririndju.jpg" alt="Kiririndju">
-</div>
 <h2>Kiririndju</h2>
 </div>
   
 <div class="art-piece">
-<div class="art-image">
 <img src="djera-poty.jpg" alt="Djera Poty">
-</div>
 <h2>Djera Poty</h2>
 </div>
 
 <div class="art-piece">
-<div class="art-image">
 <img src="mariposa.jpg" alt="Mariposa">
-</div>
 <h2>Mariposa</h2>
 </div>
 
 <div class="art-piece">
-<div class="art-image">
 <img src="obras-e-autor.jpg" alt="Artist and Works">
-</div>
 <h2>Artist & Works</h2>
 </div>
 
@@ -319,7 +272,7 @@ letter-spacing:4px;
 
 /* LIGHTBOX */
 
-const images=document.querySelectorAll(".art-image img")
+const images=document.querySelectorAll(".art-piece img")
 const titles=document.querySelectorAll(".art-piece h2")
 
 const lightbox=document.getElementById("lightbox")
@@ -345,21 +298,25 @@ lightbox.classList.remove("active")
 }
 })
 
-/* SCROLL REVEAL */
+/* SCROLL REVEAL (IGUAL AO INDEX) */
 
-const pieces=document.querySelectorAll(".art-piece")
-
-const observer=new IntersectionObserver(entries=>{
+const artObserver=new IntersectionObserver((entries)=>{
 entries.forEach(entry=>{
+const el=entry.target
+
 if(entry.isIntersecting){
-entry.target.classList.add("visible")
+el.classList.add("visible")
+}else{
+const rect=el.getBoundingClientRect()
+if(rect.bottom<0||rect.top>window.innerHeight){
+el.classList.remove("visible")
+}
 }
 })
-},{threshold:0.25})
+},{threshold:0.2})
 
-pieces.forEach(piece=>{
-observer.observe(piece)
-})
+document.querySelectorAll(".art-piece")
+.forEach(el=>artObserver.observe(el))
 
 /* SCROLL PROGRESS */
 
