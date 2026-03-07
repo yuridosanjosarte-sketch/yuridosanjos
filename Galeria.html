@@ -23,9 +23,25 @@ background:#0d0d0d;
 color:#f5f5f5;
 font-family:'Inter',sans-serif;
 overflow-x:hidden;
+
+/* 🌌 NEBULOSA DE ORION */
+background-image:url("orion.png");
+background-size:cover;
+background-position:center;
+background-attachment:fixed;
 }
 
-/* PARTICLES */
+/* VÉU ESCURO PARA DESTACAR AS OBRAS */
+
+body::before{
+content:"";
+position:fixed;
+inset:0;
+background:rgba(0,0,0,0.65);
+z-index:-2;
+}
+
+/* PARTICLES CANVAS */
 
 #spiritCanvas{
 position:fixed;
@@ -91,7 +107,7 @@ transform:translateY(-2px);
 padding:140px 10%;
 }
 
-/* ART BLOCK — MESMO EFEITO DO INDEX */
+/* ART BLOCK */
 
 .art-piece{
 max-width:1000px;
@@ -188,6 +204,10 @@ cursor:pointer;
 /* MOBILE */
 
 @media (max-width:480px){
+
+body{
+background-attachment:scroll;
+}
 
 .back-btn{
 top:12px;
@@ -297,7 +317,7 @@ lightbox.classList.remove("active")
 }
 })
 
-/* SCROLL REVEAL (IGUAL AO INDEX) */
+/* SCROLL REVEAL */
 
 const artObserver=new IntersectionObserver((entries)=>{
 entries.forEach(entry=>{
@@ -323,14 +343,13 @@ window.addEventListener("scroll",()=>{
 
 const scrollTop=document.documentElement.scrollTop
 const height=document.documentElement.scrollHeight-document.documentElement.clientHeight
-
 const progress=(scrollTop/height)*100
 
 document.querySelector(".scroll-progress").style.width=progress+"%"
 
 })
 
-/* PARTICLES */
+/* 🌌 STARS */
 
 const canvas=document.getElementById("spiritCanvas")
 const ctx=canvas.getContext("2d")
@@ -338,15 +357,16 @@ const ctx=canvas.getContext("2d")
 canvas.width=window.innerWidth
 canvas.height=window.innerHeight
 
-let particles=[]
+let stars=[]
 
-for(let i=0;i<60;i++){
+for(let i=0;i<120;i++){
 
-particles.push({
+stars.push({
 x:Math.random()*canvas.width,
 y:Math.random()*canvas.height,
-size:Math.random()*2,
-speed:Math.random()*0.3
+size:Math.random()*1.6,
+speed:Math.random()*0.15,
+alpha:Math.random()
 })
 
 }
@@ -355,15 +375,15 @@ function animate(){
 
 ctx.clearRect(0,0,canvas.width,canvas.height)
 
-particles.forEach(p=>{
+stars.forEach(s=>{
 
-p.y-=p.speed
+s.y-=s.speed
 
-if(p.y<0)p.y=canvas.height
+if(s.y<0)s.y=canvas.height
 
 ctx.beginPath()
-ctx.arc(p.x,p.y,p.size,0,Math.PI*2)
-ctx.fillStyle="rgba(196,155,61,0.25)"
+ctx.arc(s.x,s.y,s.size,0,Math.PI*2)
+ctx.fillStyle="rgba(255,255,255,"+s.alpha+")"
 ctx.fill()
 
 })
@@ -378,4 +398,3 @@ animate()
 
 </body>
 </html>
-```
