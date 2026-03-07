@@ -26,7 +26,7 @@ font-family:'Inter',sans-serif;
 overflow-x:hidden;
 }
 
-/* PARTICLE CANVAS */
+/* PARTICLES */
 
 #spiritCanvas{
 position:fixed;
@@ -98,18 +98,9 @@ padding:140px 10%;
 max-width:1000px;
 margin:0 auto 220px auto;
 text-align:center;
-
-opacity:0;
-transform:translateY(80px);
-transition:all 1.6s cubic-bezier(.19,1,.22,1);
 }
 
-.art-piece.visible{
-opacity:1;
-transform:translateY(0);
-}
-
-/* IMAGE */
+/* IMAGE CONTAINER */
 
 .art-image{
 position:relative;
@@ -117,54 +108,64 @@ overflow:hidden;
 cursor:pointer;
 }
 
-/* AURA */
-
-.art-image::after{
-content:"";
-position:absolute;
-inset:0;
-background:radial-gradient(circle at center,
-rgba(196,155,61,0.18),
-transparent 70%);
-opacity:0;
-transition:opacity 0.6s ease;
-pointer-events:none;
-}
-
-.art-image:hover::after{
-opacity:1;
-}
-
-/* IMAGE BREATH */
+/* PAINT REVEAL MASK */
 
 .art-image img{
+
 width:100%;
 display:block;
 transform-origin:50% 35%;
 filter:brightness(0.98);
+
+clip-path: inset(100% 0 0 0);
+
+transition:clip-path 1.8s cubic-bezier(.19,1,.22,1);
+
+}
+
+/* WHEN VISIBLE */
+
+.art-piece.visible img{
+
+clip-path: inset(0 0 0 0);
+
+}
+
+/* BREATHING ZOOM */
+
+.art-image img{
+
 animation: contemplativeZoom 20s ease-in-out infinite alternate;
-will-change: transform;
+
 }
 
 @keyframes contemplativeZoom{
-0%{transform:scale(1);}
-100%{transform:scale(1.02);}
+
+0%{transform:scale(1)}
+
+100%{transform:scale(1.02)}
+
 }
 
 /* TITLE */
 
 .art-piece h2{
+
 margin-top:40px;
 font-family:'Cinzel',serif;
 letter-spacing:4px;
+
 opacity:0;
 transform:translateY(20px);
-transition:all 1s ease 0.5s;
+transition:all 1s ease 0.8s;
+
 }
 
 .art-piece.visible h2{
+
 opacity:1;
 transform:translateY(0);
+
 }
 
 /* LIGHTBOX */
@@ -196,8 +197,8 @@ animation:cinemaZoom 40s ease-in-out infinite alternate;
 }
 
 @keyframes cinemaZoom{
-0%{transform:scale(1);}
-100%{transform:scale(1.18);}
+0%{transform:scale(1)}
+100%{transform:scale(1.18)}
 }
 
 #lightbox-title{
@@ -318,85 +319,70 @@ letter-spacing:4px;
 
 /* LIGHTBOX */
 
-const images = document.querySelectorAll(".art-image img");
-const titles = document.querySelectorAll(".art-piece h2");
+const images=document.querySelectorAll(".art-image img")
+const titles=document.querySelectorAll(".art-piece h2")
 
-const lightbox = document.getElementById("lightbox");
-const lightboxImg = document.getElementById("lightbox-img");
-const lightboxTitle = document.getElementById("lightbox-title");
-const closeBtn = document.querySelector(".close");
+const lightbox=document.getElementById("lightbox")
+const lightboxImg=document.getElementById("lightbox-img")
+const lightboxTitle=document.getElementById("lightbox-title")
+const closeBtn=document.querySelector(".close")
 
 images.forEach((img,i)=>{
 img.addEventListener("click",()=>{
-lightbox.classList.add("active");
-lightboxImg.src = img.src;
-lightboxTitle.textContent = titles[i].textContent;
-});
-});
+lightbox.classList.add("active")
+lightboxImg.src=img.src
+lightboxTitle.textContent=titles[i].textContent
+})
+})
 
 closeBtn.addEventListener("click",()=>{
-lightbox.classList.remove("active");
-});
+lightbox.classList.remove("active")
+})
 
 lightbox.addEventListener("click",(e)=>{
-if(e.target !== lightboxImg){
-lightbox.classList.remove("active");
+if(e.target!==lightboxImg){
+lightbox.classList.remove("active")
 }
-});
+})
 
 /* SCROLL REVEAL */
 
-const pieces = document.querySelectorAll(".art-piece");
+const pieces=document.querySelectorAll(".art-piece")
 
-const observer = new IntersectionObserver(entries=>{
+const observer=new IntersectionObserver(entries=>{
 entries.forEach(entry=>{
 if(entry.isIntersecting){
-entry.target.classList.add("visible");
+entry.target.classList.add("visible")
 }
-});
-},{
-threshold:0.25
-});
+})
+},{threshold:0.25})
 
 pieces.forEach(piece=>{
-observer.observe(piece);
-});
+observer.observe(piece)
+})
 
 /* SCROLL PROGRESS */
 
 window.addEventListener("scroll",()=>{
 
-const scrollTop = document.documentElement.scrollTop;
-const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+const scrollTop=document.documentElement.scrollTop
+const height=document.documentElement.scrollHeight-document.documentElement.clientHeight
 
-const progress = (scrollTop/height)*100;
+const progress=(scrollTop/height)*100
 
-document.querySelector(".scroll-progress").style.width = progress + "%";
+document.querySelector(".scroll-progress").style.width=progress+"%"
 
-});
+})
 
-/* PARALLAX */
+/* PARTICLES */
 
-document.addEventListener("mousemove",(e)=>{
+const canvas=document.getElementById("spiritCanvas")
+const ctx=canvas.getContext("2d")
 
-const x=(e.clientX/window.innerWidth-0.5)*6;
-const y=(e.clientY/window.innerHeight-0.5)*6;
+canvas.width=window.innerWidth
+canvas.height=window.innerHeight
 
-document.querySelectorAll(".art-image img").forEach(img=>{
-img.style.transform=`scale(1.02) translate(${x}px,${y}px)`
-});
-
-});
-
-/* SPIRIT PARTICLES */
-
-const canvas=document.getElementById("spiritCanvas");
-const ctx=canvas.getContext("2d");
-
-canvas.width=window.innerWidth;
-canvas.height=window.innerHeight;
-
-let particles=[];
+let particles=[]
 
 for(let i=0;i<60;i++){
 
@@ -405,32 +391,32 @@ x:Math.random()*canvas.width,
 y:Math.random()*canvas.height,
 size:Math.random()*2,
 speed:Math.random()*0.3
-});
+})
 
 }
 
 function animate(){
 
-ctx.clearRect(0,0,canvas.width,canvas.height);
+ctx.clearRect(0,0,canvas.width,canvas.height)
 
 particles.forEach(p=>{
 
-p.y-=p.speed;
+p.y-=p.speed
 
-if(p.y<0)p.y=canvas.height;
+if(p.y<0)p.y=canvas.height
 
-ctx.beginPath();
-ctx.arc(p.x,p.y,p.size,0,Math.PI*2);
-ctx.fillStyle="rgba(196,155,61,0.3)";
-ctx.fill();
+ctx.beginPath()
+ctx.arc(p.x,p.y,p.size,0,Math.PI*2)
+ctx.fillStyle="rgba(196,155,61,0.25)"
+ctx.fill()
 
-});
+})
 
-requestAnimationFrame(animate);
+requestAnimationFrame(animate)
 
 }
 
-animate();
+animate()
 
 </script>
 
