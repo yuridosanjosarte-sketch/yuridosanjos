@@ -91,7 +91,7 @@ transform:translateY(-2px);
 padding:140px 10%;
 }
 
-/* ART BLOCK — MESMO EFEITO DO INDEX */
+/* ART BLOCK */
 
 .art-piece{
 max-width:1000px;
@@ -114,8 +114,6 @@ transform:translateY(0);
 filter:blur(0);
 }
 
-/* IMAGE */
-
 .art-piece img{
 width:100%;
 margin-bottom:60px;
@@ -125,8 +123,6 @@ transition:transform 3s ease;
 .art-piece img:hover{
 transform:scale(1.02);
 }
-
-/* TITLE */
 
 .art-piece h2{
 font-family:'Cinzel',serif;
@@ -138,7 +134,7 @@ letter-spacing:4px;
 .lightbox{
 position:fixed;
 inset:0;
-background:rgba(0,0,0,0.97);
+background:radial-gradient(circle at center,#050505,#000);
 display:flex;
 flex-direction:column;
 justify-content:center;
@@ -155,16 +151,30 @@ opacity:1;
 visibility:visible;
 }
 
+/* IMAGE */
+
 .lightbox img{
 max-width:85%;
 max-height:80%;
-animation:cinemaZoom 40s ease-in-out infinite alternate;
+box-shadow:0 40px 120px rgba(0,0,0,0.9);
+border:1px solid rgba(255,255,255,0.08);
+cursor:zoom-in;
 }
 
-@keyframes cinemaZoom{
-0%{transform:scale(1)}
-100%{transform:scale(1.18)}
+/* MUSEUM LIGHT EFFECT */
+
+.lightbox::before{
+content:"";
+position:absolute;
+width:600px;
+height:600px;
+background:radial-gradient(circle, rgba(255,255,255,0.08), transparent 70%);
+pointer-events:none;
+mix-blend-mode:soft-light;
+transform:translate(-50%,-50%);
 }
+
+/* TITLE */
 
 #lightbox-title{
 margin-top:30px;
@@ -183,6 +193,33 @@ right:60px;
 font-size:40px;
 color:#fff;
 cursor:pointer;
+}
+
+/* NAVIGATION */
+
+.nav{
+position:absolute;
+top:50%;
+transform:translateY(-50%);
+font-size:45px;
+color:white;
+cursor:pointer;
+padding:20px;
+user-select:none;
+opacity:0.6;
+transition:0.3s;
+}
+
+.nav:hover{
+opacity:1;
+}
+
+.prev{
+left:40px;
+}
+
+.next{
+right:40px;
 }
 
 /* MOBILE */
@@ -233,7 +270,7 @@ letter-spacing:4px;
 <img src="o-espirito.png" alt="O Espírito">
 <h2>The Spirit</h2>
 </div>
-  
+
 <div class="art-piece">
 <img src="ipytue.jpg" alt="Ipytuẽ">
 <h2>Ipytuẽ – Breathe</h2>
@@ -243,7 +280,7 @@ letter-spacing:4px;
 <img src="kiririndju.jpg" alt="Kiririndju">
 <h2>Kiririndju</h2>
 </div>
-  
+
 <div class="art-piece">
 <img src="djera-poty.jpg" alt="Djera Poty">
 <h2>Djera Poty</h2>
@@ -262,9 +299,16 @@ letter-spacing:4px;
 </section>
 
 <div class="lightbox" id="lightbox">
+
 <span class="close">&times;</span>
+
+<div class="nav prev">&#10094;</div>
+<div class="nav next">&#10095;</div>
+
 <img src="" id="lightbox-img">
+
 <h3 id="lightbox-title"></h3>
+
 </div>
 
 <script>
@@ -277,13 +321,52 @@ const titles=document.querySelectorAll(".art-piece h2")
 const lightbox=document.getElementById("lightbox")
 const lightboxImg=document.getElementById("lightbox-img")
 const lightboxTitle=document.getElementById("lightbox-title")
+
 const closeBtn=document.querySelector(".close")
+const nextBtn=document.querySelector(".next")
+const prevBtn=document.querySelector(".prev")
+
+let currentIndex=0
+let zoom=false
+
+function openLightbox(index){
+
+currentIndex=index
+
+lightbox.classList.add("active")
+
+lightboxImg.src=images[index].src
+lightboxTitle.textContent=titles[index].textContent
+
+}
+
+function showNext(){
+
+currentIndex++
+
+if(currentIndex>=images.length){
+currentIndex=0
+}
+
+openLightbox(currentIndex)
+
+}
+
+function showPrev(){
+
+currentIndex--
+
+if(currentIndex<0){
+currentIndex=images.length-1
+}
+
+openLightbox(currentIndex)
+
+}
 
 images.forEach((img,i)=>{
 img.addEventListener("click",()=>{
-lightbox.classList.add("active")
-lightboxImg.src=img.src
-lightboxTitle.textContent=titles[i].textContent
+openLightbox(i)
 })
 })
 
@@ -291,13 +374,56 @@ closeBtn.addEventListener("click",()=>{
 lightbox.classList.remove("active")
 })
 
-lightbox.addEventListener("click",(e)=>{
-if(e.target!==lightboxImg){
-lightbox.classList.remove("active")
-}
+nextBtn.addEventListener("click",showNext)
+prevBtn.addEventListener("click",showPrev)
+
+/* KEYBOARD */
+
+document.addEventListener("keydown",(e)=>{
+
+if(!lightbox.classList.contains("active")) return
+
+if(e.key==="ArrowRight") showNext()
+if(e.key==="ArrowLeft") showPrev()
+if(e.key==="Escape") lightbox.classList.remove("active")
+
 })
 
-/* SCROLL REVEAL (IGUAL AO INDEX) */
+/* SWIPE */
+
+let startX=0
+
+lightbox.addEventListener("touchstart",(e)=>{
+startX=e.touches[0].clientX
+})
+
+lightbox.addEventListener("touchend",(e)=>{
+
+let endX=e.changedTouches[0].clientX
+let diff=startX-endX
+
+if(diff>50) showNext()
+if(diff<-50) showPrev()
+
+})
+
+/* ZOOM */
+
+lightboxImg.addEventListener("click",()=>{
+
+zoom=!zoom
+
+if(zoom){
+lightboxImg.style.transform="scale(2)"
+lightboxImg.style.cursor="zoom-out"
+}else{
+lightboxImg.style.transform="scale(1)"
+lightboxImg.style.cursor="zoom-in"
+}
+
+})
+
+/* SCROLL REVEAL */
 
 const artObserver=new IntersectionObserver((entries)=>{
 entries.forEach(entry=>{
@@ -305,11 +431,6 @@ const el=entry.target
 
 if(entry.isIntersecting){
 el.classList.add("visible")
-}else{
-const rect=el.getBoundingClientRect()
-if(rect.bottom<0||rect.top>window.innerHeight){
-el.classList.remove("visible")
-}
 }
 })
 },{threshold:0.2})
@@ -335,8 +456,14 @@ document.querySelector(".scroll-progress").style.width=progress+"%"
 const canvas=document.getElementById("spiritCanvas")
 const ctx=canvas.getContext("2d")
 
+function resizeCanvas(){
 canvas.width=window.innerWidth
 canvas.height=window.innerHeight
+}
+
+window.addEventListener("resize",resizeCanvas)
+
+resizeCanvas()
 
 let particles=[]
 
