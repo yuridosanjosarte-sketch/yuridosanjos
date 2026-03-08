@@ -4,8 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta name="google" content="notranslate">
-
 <title>Yuri dos Anjos | Indigenous Contemporary Realism</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
@@ -68,7 +66,7 @@ gap:18px;
 .thanos-link{
 font-size:12px;
 letter-spacing:2px;
-white-space:nowrap;
+white-space:normal;
 text-align:center;
 }
 
@@ -344,10 +342,10 @@ filter:blur(0);
 
 <nav>
   <div class="nav-container">
-    <a href="#about" class="thanos-link" translate="no">About</a>
-    <a href="#gallery" class="thanos-link" translate="no">Available Works</a>
-    <a href="Galeria.html" class="thanos-link" translate="no">Gallery</a>
-    <a href="#contact" class="thanos-link" translate="no">Contact</a>
+    <a href="#about" class="thanos-link">About</a>
+    <a href="#gallery" class="thanos-link">Available Works</a>
+    <a href="Galeria.html" class="thanos-link">Gallery</a>
+    <a href="#contact" class="thanos-link">Contact</a>
   </div>
 </nav>
 
@@ -404,9 +402,167 @@ Acquire Artwork – $1,500 USD
 
 <script>
 
-/* TODO O JAVASCRIPT ORIGINAL PERMANECE IGUAL */
+// ===============================
+// HERO INTERSECTION
+// ===============================
+
+const hero = document.querySelector(".hero");
+const heroText = document.querySelector(".hero-content");
+
+if(hero && heroText){
+  const heroObserver = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        heroText.classList.add("visible");
+        heroText.classList.remove("hidden");
+      } else {
+        heroText.classList.add("hidden");
+        heroText.classList.remove("visible");
+      }
+    });
+  },{ threshold:0.6 });
+
+  heroObserver.observe(hero);
+}
+
+
+// ===============================
+// ARTWORK SCROLL ANIMATION
+// ===============================
+
+const artObserver = new IntersectionObserver((entries)=>{
+  entries.forEach(entry=>{
+    const el = entry.target;
+
+    if(entry.isIntersecting){
+      el.classList.add("visible");
+    } else {
+      const rect = el.getBoundingClientRect();
+      if(rect.bottom < 0 || rect.top > window.innerHeight){
+        el.classList.remove("visible");
+      }
+    }
+  });
+},{ threshold:0.2 });
+
+document.querySelectorAll(".art-piece")
+.forEach(el=>artObserver.observe(el));
+
+
+// ===============================
+// 🔥 ADVANCED THANOS MENU
+// ===============================
+
+const links = document.querySelectorAll(".thanos-link");
+
+// 1️⃣ Transformar texto em partículas
+links.forEach(link=>{
+  const text = link.textContent;
+  link.textContent = "";
+
+  text.split("").forEach(letter=>{
+    const span = document.createElement("span");
+    span.textContent = letter;
+
+    // Movimento muito mais orgânico
+    const randomX = (Math.random() - 0.5) * 90;
+    const randomY = Math.random() * 90;
+    const randomRotate = (Math.random() - 0.5) * 120;
+
+    span.dataset.x = randomX;
+    span.dataset.y = randomY;
+    span.dataset.r = randomRotate;
+
+    span.style.transitionDelay = (Math.random() * 2.2) + "s";
+
+    link.appendChild(span);
+  });
+});
+
+
+// 2️⃣ Aplicar variáveis CSS
+function applyRandomMovement(){
+  links.forEach(link=>{
+    link.querySelectorAll("span").forEach(span=>{
+      span.style.setProperty("--x", span.dataset.x + "px");
+      span.style.setProperty("--y", span.dataset.y + "px");
+      span.style.setProperty("--r", span.dataset.r + "deg");
+    });
+  });
+}
+
+
+// 3️⃣ Desintegrar
+function disintegrateMenu(){
+  applyRandomMovement();
+
+  links.forEach(link=>{
+    link.classList.add("disintegrate");
+    link.classList.remove("regenerate");
+  });
+}
+
+
+// 4️⃣ Regenerar
+function regenerateMenu(){
+  links.forEach(link=>{
+    link.classList.remove("disintegrate");
+    link.classList.add("regenerate");
+  });
+}
+
+
+// ===============================
+// EVENTOS
+// ===============================
+
+// Ao carregar
+window.addEventListener("load", ()=>{
+  regenerateMenu();
+});
+
+// Ao rolar
+let lastScroll = window.scrollY;
+const scrollThreshold = 20;
+let menuState = "visible"; // controle de estado
+
+window.addEventListener("scroll", ()=>{
+
+  const currentScroll = window.scrollY;
+
+  if(currentScroll <= 50){
+  regenerateMenu();
+  menuState = "visible";
+  lastScroll = currentScroll;
+  return;
+  }
+  
+  const scrollDifference = currentScroll - lastScroll;
+
+  // Descendo
+  if(scrollDifference > scrollThreshold && menuState !== "hidden"){
+  disintegrateMenu();
+  menuState = "hidden";
+  }
+
+  // Subindo
+  if(scrollDifference < -scrollThreshold && menuState !== "visible"){
+    regenerateMenu();
+    menuState = "visible";
+  }
+
+  lastScroll = currentScroll;
+});
+  
+// Ao clicar
+links.forEach(link=>{
+  link.addEventListener("click", ()=>{
+    disintegrateMenu();
+    setTimeout(regenerateMenu, 950);
+  });
+});
 
 </script>
-
+  
 </body>
 </html>
