@@ -144,6 +144,7 @@ visibility:hidden;
 transition:opacity 0.6s ease;
 z-index:2000;
 backdrop-filter:blur(12px);
+overflow:hidden;
 }
 
 .lightbox.active{
@@ -159,6 +160,7 @@ max-height:80%;
 box-shadow:0 40px 120px rgba(0,0,0,0.9);
 border:1px solid rgba(255,255,255,0.08);
 cursor:zoom-in;
+transition:transform 0.2s ease;
 }
 
 /* MUSEUM LIGHT EFFECT */
@@ -327,7 +329,6 @@ const nextBtn=document.querySelector(".next")
 const prevBtn=document.querySelector(".prev")
 
 let currentIndex=0
-let zoom=false
 
 function openLightbox(index){
 
@@ -338,15 +339,14 @@ lightbox.classList.add("active")
 lightboxImg.src=images[index].src
 lightboxTitle.textContent=titles[index].textContent
 
+resetZoom()
+
 }
 
 function showNext(){
 
 currentIndex++
-
-if(currentIndex>=images.length){
-currentIndex=0
-}
+if(currentIndex>=images.length) currentIndex=0
 
 openLightbox(currentIndex)
 
@@ -355,10 +355,7 @@ openLightbox(currentIndex)
 function showPrev(){
 
 currentIndex--
-
-if(currentIndex<0){
-currentIndex=images.length-1
-}
+if(currentIndex<0) currentIndex=images.length-1
 
 openLightbox(currentIndex)
 
@@ -372,6 +369,7 @@ openLightbox(i)
 
 closeBtn.addEventListener("click",()=>{
 lightbox.classList.remove("active")
+resetZoom()
 })
 
 nextBtn.addEventListener("click",showNext)
@@ -385,41 +383,101 @@ if(!lightbox.classList.contains("active")) return
 
 if(e.key==="ArrowRight") showNext()
 if(e.key==="ArrowLeft") showPrev()
-if(e.key==="Escape") lightbox.classList.remove("active")
-
-})
-
-/* SWIPE */
-
-let startX=0
-
-lightbox.addEventListener("touchstart",(e)=>{
-startX=e.touches[0].clientX
-})
-
-lightbox.addEventListener("touchend",(e)=>{
-
-let endX=e.changedTouches[0].clientX
-let diff=startX-endX
-
-if(diff>50) showNext()
-if(diff<-50) showPrev()
-
-})
-
-/* ZOOM */
-
-lightboxImg.addEventListener("click",()=>{
-
-zoom=!zoom
-
-if(zoom){
-lightboxImg.style.transform="scale(2)"
-lightboxImg.style.cursor="zoom-out"
-}else{
-lightboxImg.style.transform="scale(1)"
-lightboxImg.style.cursor="zoom-in"
+if(e.key==="Escape"){
+lightbox.classList.remove("active")
+resetZoom()
 }
+
+})
+
+/* ========================= */
+/* ADVANCED ZOOM + DRAG */
+/* ========================= */
+
+let zoom=false
+let scale=2
+let posX=0
+let posY=0
+
+let dragging=false
+let startX=0
+let startY=0
+
+function updateTransform(){
+
+lightboxImg.style.transform=
+`translate(${posX}px, ${posY}px) scale(${zoom?scale:1})`
+
+}
+
+function resetZoom(){
+
+zoom=false
+posX=0
+posY=0
+
+lightboxImg.style.cursor="zoom-in"
+
+updateTransform()
+
+}
+
+lightboxImg.addEventListener("click",(e)=>{
+
+if(!zoom){
+
+zoom=true
+lightboxImg.style.cursor="grab"
+
+const rect=lightboxImg.getBoundingClientRect()
+
+const offsetX=e.clientX-rect.left
+const offsetY=e.clientY-rect.top
+
+posX=(rect.width/2-offsetX)
+posY=(rect.height/2-offsetY)
+
+updateTransform()
+
+}else{
+
+resetZoom()
+
+}
+
+})
+
+/* DRAG */
+
+lightboxImg.addEventListener("mousedown",(e)=>{
+
+if(!zoom) return
+
+dragging=true
+
+lightboxImg.style.cursor="grabbing"
+
+startX=e.clientX-posX
+startY=e.clientY-posY
+
+})
+
+window.addEventListener("mousemove",(e)=>{
+
+if(!dragging) return
+
+posX=e.clientX-startX
+posY=e.clientY-startY
+
+updateTransform()
+
+})
+
+window.addEventListener("mouseup",()=>{
+
+dragging=false
+
+if(zoom) lightboxImg.style.cursor="grab"
 
 })
 
@@ -427,10 +485,8 @@ lightboxImg.style.cursor="zoom-in"
 
 const artObserver=new IntersectionObserver((entries)=>{
 entries.forEach(entry=>{
-const el=entry.target
-
 if(entry.isIntersecting){
-el.classList.add("visible")
+entry.target.classList.add("visible")
 }
 })
 },{threshold:0.2})
