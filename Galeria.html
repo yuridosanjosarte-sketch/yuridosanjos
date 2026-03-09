@@ -448,21 +448,12 @@ updateTransform()
 })
 
 /* ========================= */
-/* DESATIVAR MENU DO BOTÃO DIREITO */
-/* ========================= */
-
-lightboxImg.addEventListener("contextmenu",(e)=>{
-e.preventDefault()
-})
-
-/* ========================= */
-/* ARRASTAR SOMENTE SEGURANDO */
-/* BOTÃO DIREITO */
+/* ARRASTAR COM BOTÃO ESQUERDO */
 /* ========================= */
 
 lightboxImg.addEventListener("mousedown",(e)=>{
 
-if(e.button !== 2) return
+if(e.button !== 0) return
 if(scale <= 1) return
 
 dragging = true
@@ -485,7 +476,7 @@ updateTransform()
 
 window.addEventListener("mouseup",(e)=>{
 
-if(e.button !== 2) return
+if(e.button !== 0) return
 
 dragging = false
 
