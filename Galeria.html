@@ -391,62 +391,38 @@ resetZoom()
 })
 
 /* ========================= */
-/* GOOGLE MAPS STYLE ZOOM */
+/* MUSEUM ZOOM SYSTEM */
 /* ========================= */
 
-let scale=1
-let minScale=1
-let maxScale=6
+let scale = 1
+let minScale = 1
+let maxScale = 6
 
-let posX=0
-let posY=0
+let posX = 0
+let posY = 0
 
-let dragging=false
-let startX=0
-let startY=0
+let isDragging = false
+let startX = 0
+let startY = 0
 
 function updateTransform(){
 
-lightboxImg.style.transform=
+lightboxImg.style.transform =
 `translate(${posX}px, ${posY}px) scale(${scale})`
 
 }
 
+/* RESET */
+
 function resetZoom(){
 
-scale=1
-posX=0
-posY=0
+scale = 1
+posX = 0
+posY = 0
 
 updateTransform()
 
 }
-
-/* CLICK ZOOM */
-
-lightboxImg.addEventListener("click",(e)=>{
-
-if(scale===1){
-
-scale=2
-
-const rect=lightboxImg.getBoundingClientRect()
-
-const offsetX=e.clientX-rect.left
-const offsetY=e.clientY-rect.top
-
-posX=(rect.width/2-offsetX)
-posY=(rect.height/2-offsetY)
-
-updateTransform()
-
-}else{
-
-resetZoom()
-
-}
-
-})
 
 /* SCROLL ZOOM */
 
@@ -454,23 +430,28 @@ lightboxImg.addEventListener("wheel",(e)=>{
 
 e.preventDefault()
 
-const zoomIntensity=0.15
+const zoomIntensity = 0.18
 
-const rect=lightboxImg.getBoundingClientRect()
+const rect = lightboxImg.getBoundingClientRect()
 
-const mouseX=e.clientX-rect.left
-const mouseY=e.clientY-rect.top
+const mouseX = e.clientX - rect.left
+const mouseY = e.clientY - rect.top
 
-const zoom=(e.deltaY<0)?1+zoomIntensity:1-zoomIntensity
+const zoom = (e.deltaY < 0) ? 1 + zoomIntensity : 1 - zoomIntensity
 
-const newScale=Math.min(maxScale,Math.max(minScale,scale*zoom))
+const newScale = Math.min(maxScale, Math.max(minScale, scale * zoom))
 
-const scaleFactor=newScale/scale
+const scaleFactor = newScale / scale
 
-posX-= (mouseX-rect.width/2-posX)*(scaleFactor-1)
-posY-= (mouseY-rect.height/2-posY)*(scaleFactor-1)
+posX -= (mouseX - rect.width/2 - posX) * (scaleFactor - 1)
+posY -= (mouseY - rect.height/2 - posY) * (scaleFactor - 1)
 
-scale=newScale
+scale = newScale
+
+if(scale === 1){
+posX = 0
+posY = 0
+}
 
 updateTransform()
 
@@ -480,21 +461,21 @@ updateTransform()
 
 lightboxImg.addEventListener("mousedown",(e)=>{
 
-if(scale<=1) return
+if(scale <= 1) return
 
-dragging=true
+isDragging = true
 
-startX=e.clientX-posX
-startY=e.clientY-posY
+startX = e.clientX - posX
+startY = e.clientY - posY
 
 })
 
 window.addEventListener("mousemove",(e)=>{
 
-if(!dragging) return
+if(!isDragging) return
 
-posX=e.clientX-startX
-posY=e.clientY-startY
+posX = e.clientX - startX
+posY = e.clientY - startY
 
 updateTransform()
 
@@ -502,7 +483,7 @@ updateTransform()
 
 window.addEventListener("mouseup",()=>{
 
-dragging=false
+isDragging = false
 
 })
 
