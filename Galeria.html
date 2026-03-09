@@ -391,7 +391,7 @@ resetZoom()
 })
 
 /* ========================= */
-/* MUSEUM ZOOM SYSTEM */
+/* GOOGLE MAPS STYLE ZOOM */
 /* ========================= */
 
 let scale=1
@@ -401,14 +401,14 @@ let maxScale=6
 let posX=0
 let posY=0
 
-let isDragging=false
+let dragging=false
 let startX=0
 let startY=0
 
 function updateTransform(){
 
 lightboxImg.style.transform=
-`translate(${posX}px,${posY}px) scale(${scale})`
+`translate(${posX}px, ${posY}px) scale(${scale})`
 
 }
 
@@ -417,8 +417,6 @@ function resetZoom(){
 scale=1
 posX=0
 posY=0
-
-lightboxImg.style.cursor="zoom-in"
 
 updateTransform()
 
@@ -439,8 +437,6 @@ const offsetY=e.clientY-rect.top
 
 posX=(rect.width/2-offsetX)
 posY=(rect.height/2-offsetY)
-
-lightboxImg.style.cursor="grab"
 
 updateTransform()
 
@@ -476,25 +472,17 @@ posY-= (mouseY-rect.height/2-posY)*(scaleFactor-1)
 
 scale=newScale
 
-if(scale>1){
-lightboxImg.style.cursor="grab"
-}else{
-lightboxImg.style.cursor="zoom-in"
-}
-
 updateTransform()
 
 })
 
-/* DRAG */
+/* DRAG PAN */
 
 lightboxImg.addEventListener("mousedown",(e)=>{
 
 if(scale<=1) return
 
-isDragging=true
-
-lightboxImg.style.cursor="grabbing"
+dragging=true
 
 startX=e.clientX-posX
 startY=e.clientY-posY
@@ -503,7 +491,7 @@ startY=e.clientY-posY
 
 window.addEventListener("mousemove",(e)=>{
 
-if(!isDragging) return
+if(!dragging) return
 
 posX=e.clientX-startX
 posY=e.clientY-startY
@@ -514,11 +502,7 @@ updateTransform()
 
 window.addEventListener("mouseup",()=>{
 
-isDragging=false
-
-if(scale>1){
-lightboxImg.style.cursor="grab"
-}
+dragging=false
 
 })
 
