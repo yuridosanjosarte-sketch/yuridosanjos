@@ -457,10 +457,11 @@ updateTransform()
 
 })
 
-/* DRAG PAN */
+/* DRAG PAN (BOTÃO ESQUERDO APENAS) */
 
 lightboxImg.addEventListener("mousedown",(e)=>{
 
+if(e.button !== 0) return  // apenas botão esquerdo
 if(scale <= 1) return
 
 isDragging = true
@@ -481,12 +482,13 @@ updateTransform()
 
 })
 
-window.addEventListener("mouseup",()=>{
+window.addEventListener("mouseup",(e)=>{
+
+if(e.button !== 0) return
 
 isDragging = false
 
 })
-
 /* SCROLL REVEAL */
 
 const artObserver=new IntersectionObserver((entries)=>{
