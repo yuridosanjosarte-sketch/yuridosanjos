@@ -402,75 +402,83 @@ let posX = 0
 let posY = 0
 
 let dragging = false
-let startX = 0
-let startY = 0
+let lastX = 0
+let lastY = 0
 
-function updateTransform() {
-  lightboxImg.style.transform =
-  `translate(${posX}px, ${posY}px) scale(${scale})`
+function updateTransform(){
+lightboxImg.style.transform =
+`translate(${posX}px, ${posY}px) scale(${scale})`
 }
 
+/* ========================= */
 /* ZOOM COM SCROLL */
+/* ========================= */
 
-lightboxImg.addEventListener("wheel", (e) => {
+lightboxImg.addEventListener("wheel",(e)=>{
 
-  e.preventDefault()
+e.preventDefault()
 
-  const zoomIntensity = 0.18
+const zoomIntensity = 0.18
+const rect = lightboxImg.getBoundingClientRect()
 
-  const rect = lightboxImg.getBoundingClientRect()
+const mouseX = e.clientX - rect.left
+const mouseY = e.clientY - rect.top
 
-  const mouseX = e.clientX - rect.left
-  const mouseY = e.clientY - rect.top
+const zoom = (e.deltaY < 0) ? 1 + zoomIntensity : 1 - zoomIntensity
+const newScale = Math.min(maxScale, Math.max(minScale, scale * zoom))
 
-  const zoom = (e.deltaY < 0) ? 1 + zoomIntensity : 1 - zoomIntensity
+const scaleFactor = newScale / scale
 
-  const newScale = Math.min(maxScale, Math.max(minScale, scale * zoom))
+posX -= (mouseX - rect.width/2 - posX) * (scaleFactor - 1)
+posY -= (mouseY - rect.height/2 - posY) * (scaleFactor - 1)
 
-  const scaleFactor = newScale / scale
+scale = newScale
 
-  posX -= (mouseX - rect.width/2 - posX) * (scaleFactor - 1)
-  posY -= (mouseY - rect.height/2 - posY) * (scaleFactor - 1)
+if(scale === 1){
+posX = 0
+posY = 0
+}
 
-  scale = newScale
-
-  if (scale === 1) {
-    posX = 0
-    posY = 0
-  }
-
-  updateTransform()
-
-})
-
-/* ARRASTAR APENAS ENQUANTO SEGURA O BOTÃO ESQUERDO */
-
-lightboxImg.addEventListener("mousedown", (e) => {
-
-  if (e.button !== 0) return
-  if (scale <= 1) return
-
-  dragging = true
-
-  startX = e.clientX - posX
-  startY = e.clientY - posY
+updateTransform()
 
 })
 
-window.addEventListener("mousemove", (e) => {
+/* ========================= */
+/* ARRASTAR NATURAL */
+/* ========================= */
 
-  if (!dragging) return
+lightboxImg.addEventListener("mousedown",(e)=>{
 
-  posX = e.clientX - startX
-  posY = e.clientY - startY
+if(e.button !== 0) return
+if(scale <= 1) return
 
-  updateTransform()
+dragging = true
+
+lastX = e.clientX
+lastY = e.clientY
 
 })
 
-window.addEventListener("mouseup", () => {
+window.addEventListener("mousemove",(e)=>{
 
-  dragging = false
+if(!dragging) return
+
+const dx = e.clientX - lastX
+const dy = e.clientY - lastY
+
+posX += dx
+posY += dy
+
+lastX = e.clientX
+lastY = e.clientY
+
+updateTransform()
+
+})
+
+window.addEventListener("mouseup",()=>{
+
+dragging = false
 
 })
 /* SCROLL REVEAL */
