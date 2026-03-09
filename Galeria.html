@@ -391,71 +391,74 @@ resetZoom()
 })
 
 /* ========================= */
-/* MUSEUM ZOOM SYSTEM */
+/* ADVANCED ZOOM + DRAG */
 /* ========================= */
 
-let scale = 1
-let minScale = 1
-let maxScale = 6
+let zoom=false
+let scale=2
+let posX=0
+let posY=0
 
-let posX = 0
-let posY = 0
-
-let dragging = false
-let lastX = 0
-let lastY = 0
+let dragging=false
+let startX=0
+let startY=0
 
 function updateTransform(){
-lightboxImg.style.transform =
-`translate(${posX}px, ${posY}px) scale(${scale})`
+
+lightboxImg.style.transform=
+`translate(${posX}px, ${posY}px) scale(${zoom?scale:1})`
+
 }
 
-/* ========================= */
-/* ZOOM COM SCROLL */
-/* ========================= */
+function resetZoom(){
 
-lightboxImg.addEventListener("wheel",(e)=>{
+zoom=false
+posX=0
+posY=0
 
-e.preventDefault()
-
-const zoomIntensity = 0.18
-const rect = lightboxImg.getBoundingClientRect()
-
-const mouseX = e.clientX - rect.left
-const mouseY = e.clientY - rect.top
-
-const zoom = (e.deltaY < 0) ? 1 + zoomIntensity : 1 - zoomIntensity
-const newScale = Math.min(maxScale, Math.max(minScale, scale * zoom))
-
-const scaleFactor = newScale / scale
-
-posX -= (mouseX - rect.width/2 - posX) * (scaleFactor - 1)
-posY -= (mouseY - rect.height/2 - posY) * (scaleFactor - 1)
-
-scale = newScale
-
-if(scale === 1){
-posX = 0
-posY = 0
-}
+lightboxImg.style.cursor="zoom-in"
 
 updateTransform()
 
+}
+
+lightboxImg.addEventListener("click",(e)=>{
+
+if(!zoom){
+
+zoom=true
+lightboxImg.style.cursor="grab"
+
+const rect=lightboxImg.getBoundingClientRect()
+
+const offsetX=e.clientX-rect.left
+const offsetY=e.clientY-rect.top
+
+posX=(rect.width/2-offsetX)
+posY=(rect.height/2-offsetY)
+
+updateTransform()
+
+}else{
+
+resetZoom()
+
+}
+
 })
 
-/* ========================= */
-/* ARRASTAR NATURAL */
-/* ========================= */
+/* DRAG */
 
 lightboxImg.addEventListener("mousedown",(e)=>{
 
-if(e.button !== 0) return
-if(scale <= 1) return
+if(!zoom) return
 
-dragging = true
+dragging=true
 
-lastX = e.clientX
-lastY = e.clientY
+lightboxImg.style.cursor="grabbing"
+
+startX=e.clientX-posX
+startY=e.clientY-posY
 
 })
 
@@ -463,14 +466,8 @@ window.addEventListener("mousemove",(e)=>{
 
 if(!dragging) return
 
-const dx = e.clientX - lastX
-const dy = e.clientY - lastY
-
-posX += dx
-posY += dy
-
-lastX = e.clientX
-lastY = e.clientY
+posX=e.clientX-startX
+posY=e.clientY-startY
 
 updateTransform()
 
@@ -478,9 +475,12 @@ updateTransform()
 
 window.addEventListener("mouseup",()=>{
 
-dragging = false
+dragging=false
+
+if(zoom) lightboxImg.style.cursor="grab"
 
 })
+
 /* SCROLL REVEAL */
 
 const artObserver=new IntersectionObserver((entries)=>{
