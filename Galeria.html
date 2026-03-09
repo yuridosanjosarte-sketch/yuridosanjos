@@ -405,80 +405,72 @@ let dragging = false
 let startX = 0
 let startY = 0
 
-function updateTransform(){
-
-lightboxImg.style.transform =
-`translate(${posX}px, ${posY}px) scale(${scale})`
-
+function updateTransform() {
+  lightboxImg.style.transform =
+  `translate(${posX}px, ${posY}px) scale(${scale})`
 }
 
-/* ========================= */
 /* ZOOM COM SCROLL */
-/* ========================= */
 
-lightboxImg.addEventListener("wheel",(e)=>{
+lightboxImg.addEventListener("wheel", (e) => {
 
-e.preventDefault()
+  e.preventDefault()
 
-const zoomIntensity = 0.18
+  const zoomIntensity = 0.18
 
-const rect = lightboxImg.getBoundingClientRect()
+  const rect = lightboxImg.getBoundingClientRect()
 
-const mouseX = e.clientX - rect.left
-const mouseY = e.clientY - rect.top
+  const mouseX = e.clientX - rect.left
+  const mouseY = e.clientY - rect.top
 
-const zoom = (e.deltaY < 0) ? 1 + zoomIntensity : 1 - zoomIntensity
+  const zoom = (e.deltaY < 0) ? 1 + zoomIntensity : 1 - zoomIntensity
 
-const newScale = Math.min(maxScale, Math.max(minScale, scale * zoom))
+  const newScale = Math.min(maxScale, Math.max(minScale, scale * zoom))
 
-const scaleFactor = newScale / scale
+  const scaleFactor = newScale / scale
 
-posX -= (mouseX - rect.width/2 - posX) * (scaleFactor - 1)
-posY -= (mouseY - rect.height/2 - posY) * (scaleFactor - 1)
+  posX -= (mouseX - rect.width/2 - posX) * (scaleFactor - 1)
+  posY -= (mouseY - rect.height/2 - posY) * (scaleFactor - 1)
 
-scale = newScale
+  scale = newScale
 
-if(scale === 1){
-posX = 0
-posY = 0
-}
+  if (scale === 1) {
+    posX = 0
+    posY = 0
+  }
 
-updateTransform()
-
-})
-
-/* ========================= */
-/* ARRASTAR COM BOTÃO ESQUERDO */
-/* ========================= */
-
-lightboxImg.addEventListener("mousedown",(e)=>{
-
-if(e.button !== 0) return
-if(scale <= 1) return
-
-dragging = true
-
-startX = e.clientX - posX
-startY = e.clientY - posY
+  updateTransform()
 
 })
 
-window.addEventListener("mousemove",(e)=>{
+/* ARRASTAR APENAS ENQUANTO SEGURA O BOTÃO ESQUERDO */
 
-if(!dragging) return
+lightboxImg.addEventListener("mousedown", (e) => {
 
-posX = e.clientX - startX
-posY = e.clientY - startY
+  if (e.button !== 0) return
+  if (scale <= 1) return
 
-updateTransform()
+  dragging = true
+
+  startX = e.clientX - posX
+  startY = e.clientY - posY
 
 })
 
-window.addEventListener("mouseup",(e)=>{
+window.addEventListener("mousemove", (e) => {
 
-if(e.button !== 0) return
+  if (!dragging) return
 
-dragging = false
+  posX = e.clientX - startX
+  posY = e.clientY - startY
+
+  updateTransform()
+
+})
+
+window.addEventListener("mouseup", () => {
+
+  dragging = false
 
 })
 /* SCROLL REVEAL */
