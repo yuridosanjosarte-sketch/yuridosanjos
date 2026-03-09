@@ -412,7 +412,9 @@ lightboxImg.style.transform =
 
 }
 
+/* ========================= */
 /* ZOOM COM SCROLL */
+/* ========================= */
 
 lightboxImg.addEventListener("wheel",(e)=>{
 
@@ -445,17 +447,22 @@ updateTransform()
 
 })
 
-/* DESATIVA MENU DO BOTÃO DIREITO */
+/* ========================= */
+/* DESATIVAR MENU DO BOTÃO DIREITO */
+/* ========================= */
 
 lightboxImg.addEventListener("contextmenu",(e)=>{
 e.preventDefault()
 })
 
-/* ARRASTAR COM BOTÃO DIREITO */
+/* ========================= */
+/* ARRASTAR SOMENTE SEGURANDO */
+/* BOTÃO DIREITO */
+/* ========================= */
 
 lightboxImg.addEventListener("mousedown",(e)=>{
 
-if(e.button !== 2) return   // apenas botão direito
+if(e.button !== 2) return
 if(scale <= 1) return
 
 dragging = true
