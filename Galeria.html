@@ -391,28 +391,30 @@ resetZoom()
 })
 
 /* ========================= */
-/* ADVANCED ZOOM + DRAG */
+/* MUSEUM ZOOM SYSTEM */
 /* ========================= */
 
-let zoom=false
-let scale=2
+let scale=1
+let minScale=1
+let maxScale=6
+
 let posX=0
 let posY=0
 
-let dragging=false
+let isDragging=false
 let startX=0
 let startY=0
 
 function updateTransform(){
 
 lightboxImg.style.transform=
-`translate(${posX}px, ${posY}px) scale(${zoom?scale:1})`
+`translate(${posX}px,${posY}px) scale(${scale})`
 
 }
 
 function resetZoom(){
 
-zoom=false
+scale=1
 posX=0
 posY=0
 
@@ -422,12 +424,13 @@ updateTransform()
 
 }
 
+/* CLICK ZOOM */
+
 lightboxImg.addEventListener("click",(e)=>{
 
-if(!zoom){
+if(scale===1){
 
-zoom=true
-lightboxImg.style.cursor="grab"
+scale=2
 
 const rect=lightboxImg.getBoundingClientRect()
 
@@ -436,6 +439,8 @@ const offsetY=e.clientY-rect.top
 
 posX=(rect.width/2-offsetX)
 posY=(rect.height/2-offsetY)
+
+lightboxImg.style.cursor="grab"
 
 updateTransform()
 
@@ -447,13 +452,47 @@ resetZoom()
 
 })
 
+/* SCROLL ZOOM */
+
+lightboxImg.addEventListener("wheel",(e)=>{
+
+e.preventDefault()
+
+const zoomIntensity=0.15
+
+const rect=lightboxImg.getBoundingClientRect()
+
+const mouseX=e.clientX-rect.left
+const mouseY=e.clientY-rect.top
+
+const zoom=(e.deltaY<0)?1+zoomIntensity:1-zoomIntensity
+
+const newScale=Math.min(maxScale,Math.max(minScale,scale*zoom))
+
+const scaleFactor=newScale/scale
+
+posX-= (mouseX-rect.width/2-posX)*(scaleFactor-1)
+posY-= (mouseY-rect.height/2-posY)*(scaleFactor-1)
+
+scale=newScale
+
+if(scale>1){
+lightboxImg.style.cursor="grab"
+}else{
+lightboxImg.style.cursor="zoom-in"
+}
+
+updateTransform()
+
+})
+
 /* DRAG */
 
 lightboxImg.addEventListener("mousedown",(e)=>{
 
-if(!zoom) return
+if(scale<=1) return
 
-dragging=true
+isDragging=true
 
 lightboxImg.style.cursor="grabbing"
 
@@ -464,7 +503,7 @@ startY=e.clientY-posY
 
 window.addEventListener("mousemove",(e)=>{
 
-if(!dragging) return
+if(!isDragging) return
 
 posX=e.clientX-startX
 posY=e.clientY-startY
@@ -475,9 +514,11 @@ updateTransform()
 
 window.addEventListener("mouseup",()=>{
 
-dragging=false
+isDragging=false
 
-if(zoom) lightboxImg.style.cursor="grab"
+if(scale>1){
+lightboxImg.style.cursor="grab"
+}
 
 })
 
