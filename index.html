@@ -627,7 +627,6 @@ setTimeout(regenerateMenu,950);
 
 /* ================= ART CURSOR ================= */
 
-/* ================= ART CURSOR (DESKTOP ONLY) ================= */
 
 if (window.matchMedia("(pointer: fine)").matches) {
 
@@ -720,7 +719,7 @@ if(p.y<0) p.y=height;
 let dx=p.x-mouse.x;
 let dy=p.y-mouse.y;
 let dist=Math.sqrt(dx*dx+dy*dy);
-let activeRadius=isMouseDown ? 150 : 80; // aumenta alcance quando pressionado
+let activeRadius = (typeof isMouseDown !== "undefined" && isMouseDown) ? 150 : 80;
 if(dist<activeRadius){
 let angle=Math.atan2(dy,dx);
 let force=(activeRadius-dist)/activeRadius;
@@ -750,4 +749,5 @@ animate();
 
 </body>
 </html>
+
 
