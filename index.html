@@ -687,9 +687,19 @@ alpha: Math.random()*0.9+0.3
 
 const mouse={x:-9999,y:-9999,radius:80};
 
+/* MOUSE - DESKTOP */
+
 window.addEventListener("mousemove",(e)=>{
 mouse.x=e.clientX;
 mouse.y=e.clientY;
+});
+
+/* TOUCH - MOBILE */
+
+window.addEventListener("touchmove",(e)=>{
+const touch = e.touches[0];
+mouse.x = touch.clientX;
+mouse.y = touch.clientY;
 });
 
 function animate(){
@@ -740,3 +750,4 @@ animate();
 
 </body>
 </html>
+
