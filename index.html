@@ -10,6 +10,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
+
+  
 <style>
 
 /* ================= RESET ================= */
@@ -403,6 +405,16 @@ pointer-events:none;
 background:#0d0d0d;
 }
 
+/* ================= REMOVE CURSOR NO MOBILE ================= */
+
+@media (hover: none) and (pointer: coarse) {
+
+.art-cursor{
+display:none !important;
+}
+
+}
+  
 </style>
 </head>
 
@@ -730,4 +742,3 @@ animate();
 
 </body>
 </html>
-
