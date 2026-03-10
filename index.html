@@ -403,6 +403,14 @@ pointer-events:none;
 background:#0d0d0d;
 }
 
+@media (pointer: coarse) {
+
+.art-cursor{
+display:none;
+}
+
+}
+  
 </style>
 </head>
 
@@ -619,6 +627,10 @@ setTimeout(regenerateMenu,950);
 
 /* ================= ART CURSOR ================= */
 
+/* ================= ART CURSOR (DESKTOP ONLY) ================= */
+
+if (window.matchMedia("(pointer: fine)").matches) {
+
 const cursor=document.querySelector(".art-cursor");
 let isMouseDown=false;
 
@@ -632,19 +644,21 @@ el.addEventListener("mouseenter",()=>{cursor.classList.add("expand");});
 el.addEventListener("mouseleave",()=>{cursor.classList.remove("expand");});
 });
 
-// SEGURAR BOTÃO ESQUERDO PARA EXPANDIR CURSOR
 window.addEventListener("mousedown",e=>{
 if(e.button===0){ 
 isMouseDown=true;
 cursor.classList.add("expand");
 }
 });
+
 window.addEventListener("mouseup",e=>{
 if(e.button===0){ 
 isMouseDown=false;
 cursor.classList.remove("expand");
 }
 });
+
+}
 
 /* ================= GOLD DUST BACKGROUND ================= */
 
@@ -726,5 +740,3 @@ animate();
 
 </body>
 </html>
-
-
