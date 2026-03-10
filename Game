@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Secret Space Invaders | Yuri dos Anjos</title>
+<link rel="stylesheet" href="game.css">
+</head>
+<body>
+
+<canvas id="gameCanvas"></canvas>
+
+<div id="scoreBoard">
+  Score: <span id="score">0</span>
+</div>
+
+<script src="game.js"></script>
+</body>
+</html>
+
+body {
+  margin:0;
+  overflow:hidden;
+  background:#000;
+  font-family:'Inter',sans-serif;
+}
+
+#gameCanvas {
+  display:block;
+  background:#000;
+}
+
+#scoreBoard {
+  position:fixed;
+  top:20px;
+  left:20px;
+  color:#c49b3d;
+  font-size:20px;
+  font-weight:600;
+  z-index:1000;
+}
+
+const canvas = document.getElementById("gameCanvas");
+const ctx = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+window.addEventListener("resize", () => {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+});
+
+// ---------------- PLAYER ----------------
+const player = {
+  x: canvas.width / 2,
+  y: canvas.height - 100,
+  width: 60,
+  height: 60,
+  speed: 7,
+  img: new Image()
+};
+player.img.src = "assets/player.png";
+
+// ---------------- BULLETS ----------------
+let bullets = [];
+const bulletSpeed = 9;
+const bulletSize = 10;
+
+// ---------------- ENEMIES ----------------
+let enemies = [];
+const enemyRows = 4;
+const enemyCols = 8;
+const enemySpacingX = 80;
+const enemySpacingY = 60;
+const enemyImg = new Image();
+enemyImg.src = "assets/enemy.png";
+
+// Spawn enemies
+for(let row=0; row<enemyRows; row++){
+  for(let col=0; col<enemyCols; col++){
+    enemies.push({
+      x: 100 + col*enemySpacingX,
+      y: 50 + row*enemySpacingY,
+      width:50,
+      height:50,
+      alive:true
+    });
+  }
+}
+
+// ---------------- INPUT ----------------
+const keys = {};
+window.addEventListener("keydown", e => keys[e.key] = true);
+window.addEventListener("keyup", e => keys[e.key] = false);
+
+// ---------------- SCORE ----------------
+let score = 0;
+const scoreDisplay = document.getElementById("score");
+
+// ---------------- GAME LOOP ----------------
+function gameLoop(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+
+  // Player movement
+  if(keys["ArrowLeft"] && player.x>0) player.x -= player.speed;
+  if(keys["ArrowRight"] && player.x<canvas.width-player.width) player.x += player.speed;
+
+  // Draw player
+  ctx.drawImage(player.img, player.x, player.y, player.width, player.height);
+
+  // Fire bullet
+  if(keys[" "] && bullets.length < 5){
+    bullets.push({x:player.x + player.width/2 - bulletSize/2, y:player.y - bulletSize, width:bulletSize, height:bulletSize});
+  }
+
+  // Update bullets
+  bullets.forEach((b,i)=>{
+    b.y -= bulletSpeed;
+    ctx.fillStyle = "#c49b3d";
+    ctx.fillRect(b.x, b.y, b.width, b.height);
+    if(b.y < 0) bullets.splice(i,1);
+  });
+
+  // Update enemies
+  enemies.forEach((e)=>{
+    if(!e.alive) return;
+    ctx.drawImage(enemyImg, e.x, e.y, e.width, e.height);
+
+    // Bullet collision
+    bullets.forEach((b,j)=>{
+      if(b.x < e.x + e.width && b.x + b.width > e.x &&
+         b.y < e.y + e.height && b.y + b.height > e.y){
+        e.alive = false;
+        bullets.splice(j,1);
+        score += 10;
+        scoreDisplay.textContent = score;
+      }
+    });
+  });
+
+  requestAnimationFrame(gameLoop);
+}
+
+gameLoop();
+
