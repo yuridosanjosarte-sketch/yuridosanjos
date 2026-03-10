@@ -26,6 +26,17 @@ color:#f5f5f5;
 font-family:'Inter',sans-serif;
 scroll-behavior:smooth;
 overflow-x:hidden;
+
+/* ================= CORREÇÃO CURSOR ================= */
+user-select: none; /* impede cursor de texto piscando */
+}
+
+a, button, input, textarea {
+user-select: auto; /* mantém seleção em links e inputs */
+}
+
+img {
+user-select: none;
 }
 
 /* ================= NAV ================= */
@@ -393,14 +404,29 @@ height:38px;
 background:rgba(196,155,61,0.15);
 }
 
-/* ================= GOLD DUST BACKGROUND ================= */
+/* ================= COSMIC BACKGROUND ================= */
 
-.gold-bg{
+.cosmic-bg{
 position:fixed;
 inset:0;
-z-index:-2;
-pointer-events:none;
+z-index:-1;
 background:#0d0d0d;
+overflow:hidden;
+}
+
+.star{
+position:absolute;
+width:2px;
+height:2px;
+background:#ffffff;
+opacity:.6;
+border-radius:50%;
+animation:starMove linear infinite;
+}
+
+@keyframes starMove{
+from{transform:translateY(0);}
+to{transform:translateY(-120vh);}
 }
 
 </style>
@@ -408,11 +434,11 @@ background:#0d0d0d;
 
 <body>
 
-<!-- GOLD DUST BACKGROUND -->
-<canvas class="gold-bg"></canvas>
-
 <!-- CURSOR -->
 <div class="art-cursor"></div>
+
+<!-- COSMIC BACKGROUND -->
+<div class="cosmic-bg"></div>
 
 <div class="topbar">
 <div class="socials">
@@ -618,8 +644,6 @@ setTimeout(regenerateMenu,950);
 /* ================= ART CURSOR ================= */
 
 const cursor=document.querySelector(".art-cursor");
-let isMouseDown=false;
-
 window.addEventListener("mousemove",e=>{
 cursor.style.left=e.clientX+"px";
 cursor.style.top=e.clientY+"px";
@@ -630,92 +654,17 @@ el.addEventListener("mouseenter",()=>{cursor.classList.add("expand");});
 el.addEventListener("mouseleave",()=>{cursor.classList.remove("expand");});
 });
 
-// SEGURAR BOTÃO ESQUERDO PARA EXPANDIR CURSOR
-window.addEventListener("mousedown",e=>{
-if(e.button===0){ 
-isMouseDown=true;
-cursor.classList.add("expand");
+/* ================= COSMIC BACKGROUND ================= */
+
+const bg=document.querySelector(".cosmic-bg");
+for(let i=0;i<80;i++){
+const star=document.createElement("div");
+star.className="star";
+star.style.left=Math.random()*100+"%";
+star.style.top=Math.random()*100+"%";
+star.style.animationDuration=(20+Math.random()*40)+"s";
+bg.appendChild(star);
 }
-});
-window.addEventListener("mouseup",e=>{
-if(e.button===0){ 
-isMouseDown=false;
-cursor.classList.remove("expand");
-}
-});
-
-/* ================= GOLD DUST BACKGROUND ================= */
-
-const canvas=document.querySelector(".gold-bg");
-const ctx=canvas.getContext("2d");
-let width=canvas.width=window.innerWidth;
-let height=canvas.height=window.innerHeight;
-
-window.addEventListener("resize",()=>{
-width=canvas.width=window.innerWidth;
-height=canvas.height=window.innerHeight;
-});
-
-const particles=[];
-const numParticles=80; 
-for(let i=0;i<numParticles;i++){
-particles.push({
-x: Math.random()*width,
-y: Math.random()*height,
-vx: (Math.random()-0.5)*0.25,
-vy: (Math.random()-0.5)*0.25,
-size: Math.random()*1.5+0.8,
-alpha: Math.random()*0.9+0.3
-});
-}
-
-const mouse={x:-9999,y:-9999,radius:80};
-
-window.addEventListener("mousemove",(e)=>{
-mouse.x=e.clientX;
-mouse.y=e.clientY;
-});
-
-function animate(){
-ctx.clearRect(0,0,width,height);
-
-particles.forEach(p=>{
-// Movimento leve
-p.x += p.vx + Math.sin(Date.now()*0.001+p.vx)*0.2;
-p.y += p.vy + Math.cos(Date.now()*0.001+p.vy)*0.2;
-
-// Reaparecer ao sair da tela
-if(p.x>width) p.x=0;
-if(p.x<0) p.x=width;
-if(p.y>height) p.y=0;
-if(p.y<0) p.y=height;
-
-// Interação com cursor expandido ou normal
-let dx=p.x-mouse.x;
-let dy=p.y-mouse.y;
-let dist=Math.sqrt(dx*dx+dy*dy);
-let activeRadius=isMouseDown ? 150 : 80; // aumenta alcance quando pressionado
-if(dist<activeRadius){
-let angle=Math.atan2(dy,dx);
-let force=(activeRadius-dist)/activeRadius;
-p.x += Math.cos(angle)*force*6;
-p.y += Math.sin(angle)*force*6;
-}
-
-// Desenhar partícula dourada
-ctx.beginPath();
-ctx.arc(p.x,p.y,p.size,0,Math.PI*2);
-ctx.fillStyle=`rgba(255,215,0,${p.alpha})`;
-ctx.shadowColor="rgba(255,215,0,0.9)";
-ctx.shadowBlur=6;
-ctx.fill();
-ctx.closePath();
-});
-
-requestAnimationFrame(animate);
-}
-
-animate();
 
 </script>
 
