@@ -12,7 +12,7 @@
 
 <style>
 
-/* RESET */
+/* ================= RESET ================= */
 
 *{
 margin:0;
@@ -28,7 +28,7 @@ scroll-behavior:smooth;
 overflow-x:hidden;
 }
 
-/* NAV CONTAINER FIX MOBILE */
+/* ================= NAV ================= */
 
 .nav-container{
 display:flex;
@@ -36,8 +36,6 @@ justify-content:center;
 flex-wrap:wrap;
 gap:40px;
 }
-
-/* LINKS */
 
 .thanos-link{
 position:relative;
@@ -54,7 +52,7 @@ white-space:nowrap;
 display:inline-block;
 }
 
-/* TOPBAR */
+/* ================= TOPBAR ================= */
 
 .topbar{
 background:#000;
@@ -64,8 +62,6 @@ justify-content:flex-end;
 align-items:center;
 border-bottom:1px solid #222;
 }
-
-/* SOCIAL */
 
 .socials{
 display:flex;
@@ -84,7 +80,7 @@ color:#c49b3d;
 transform:translateY(-3px);
 }
 
-/* HEADER */
+/* ================= HEADER ================= */
 
 header{
 text-align:center;
@@ -104,9 +100,7 @@ color:#aaa;
 letter-spacing:3px;
 }
 
-/* ========================= */
-/* MENU CINEMATOGRÁFICO */
-/* ========================= */
+/* ================= MENU CINEMATOGRÁFICO ================= */
 
 nav{
 background:#070707;
@@ -150,12 +144,10 @@ flex-wrap:wrap;
 }
 
 .menu-text{
-
 font-family:'Cinzel', serif;
 font-size:14px;
 letter-spacing:3px;
 text-transform:uppercase;
-
 background:linear-gradient(
 90deg,
 #8a6a25,
@@ -164,12 +156,9 @@ background:linear-gradient(
 #c49b3d,
 #8a6a25
 );
-
 background-size:200% auto;
-
 -webkit-background-clip:text;
 -webkit-text-fill-color:transparent;
-
 animation:goldFlow 8s linear infinite;
 }
 
@@ -178,8 +167,13 @@ animation:goldFlow 8s linear infinite;
 background:inherit;
 background-clip:text;
 -webkit-background-clip:text;
+display:inline-block;
+transition:
+transform 3s cubic-bezier(.19,1,.22,1),
+opacity 2.8s ease-out,
+filter 2.8s ease-out;
 }
-  
+
 @keyframes goldFlow{
 0%{background-position:0% center;}
 100%{background-position:200% center;}
@@ -215,7 +209,21 @@ transition:width .45s ease;
 width:100%;
 }
 
-/* HERO */
+/* THANOS EFFECT */
+
+.thanos-link.disintegrate .menu-text span{
+opacity:0;
+transform:translate(var(--x), var(--y)) rotate(var(--r)) scale(0.5);
+filter:blur(12px);
+}
+
+.thanos-link.regenerate .menu-text span{
+opacity:1;
+transform:translate(0,0) rotate(0deg) scale(1);
+filter:blur(0);
+}
+
+/* ================= HERO ================= */
 
 .hero{
 height:95vh;
@@ -264,13 +272,11 @@ opacity:0;
 transform:translateX(-160px);
 }
 
-/* SECTIONS */
+/* ================= SECTIONS ================= */
 
 section{
 padding:160px 10%;
 }
-
-/* ABOUT */
 
 #about{
 display:flex;
@@ -334,8 +340,6 @@ transition:transform 3s ease;
 transform:scale(1.02);
 }
 
-/* BUTTON */
-
 .button{
 display:inline-block;
 padding:14px 35px;
@@ -349,8 +353,6 @@ font-weight:600;
 background:#e0b94f;
 }
 
-/* CONTACT */
-
 #contact{
 text-align:center;
 }
@@ -358,8 +360,6 @@ text-align:center;
 #contact p{
 color:#ccc;
 }
-
-/* FOOTER */
 
 footer{
 text-align:center;
@@ -369,35 +369,65 @@ border-top:1px solid #222;
 color:#666;
 }
 
-/* THANOS EFFECT */
+/* ================= CURSOR ART ================= */
 
-.menu-text span{
-display:inline-block;
+.art-cursor{
+position:fixed;
+width:18px;
+height:18px;
+border:2px solid #c49b3d;
+border-radius:50%;
+pointer-events:none;
+transform:translate(-50%,-50%);
+z-index:9999;
 transition:
-transform 3s cubic-bezier(.19,1,.22,1),
-opacity 2.8s ease-out,
-filter 2.8s ease-out;
+transform .15s ease,
+width .25s ease,
+height .25s ease,
+background .25s ease;
 }
 
-.thanos-link.disintegrate .menu-text span{
-opacity:0;
-transform:
-translate(var(--x), var(--y))
-rotate(var(--r))
-scale(0.5);
-filter:blur(12px);
+.art-cursor.expand{
+width:38px;
+height:38px;
+background:rgba(196,155,61,0.15);
 }
 
-.thanos-link.regenerate .menu-text span{
-opacity:1;
-transform:translate(0,0) rotate(0deg) scale(1);
-filter:blur(0);
+/* ================= COSMIC BACKGROUND ================= */
+
+.cosmic-bg{
+position:fixed;
+inset:0;
+z-index:-1;
+background:#0d0d0d;
+overflow:hidden;
+}
+
+.star{
+position:absolute;
+width:2px;
+height:2px;
+background:#ffffff;
+opacity:.6;
+border-radius:50%;
+animation:starMove linear infinite;
+}
+
+@keyframes starMove{
+from{transform:translateY(0);}
+to{transform:translateY(-120vh);}
 }
 
 </style>
 </head>
 
 <body>
+
+<!-- CURSOR -->
+<div class="art-cursor"></div>
+
+<!-- COSMIC BACKGROUND -->
+<div class="cosmic-bg"></div>
 
 <div class="topbar">
 <div class="socials">
@@ -416,12 +446,10 @@ filter:blur(0);
 <nav>
 <div class="nav-container">
 <div class="menu" translate="no">
-
 <a href="#about" class="thanos-link"><span class="menu-text">About</span></a>
 <a href="#gallery" class="thanos-link"><span class="menu-text">Available Works</span></a>
 <a href="Galeria.html" class="thanos-link"><span class="menu-text">Gallery</span></a>
 <a href="#contact" class="thanos-link"><span class="menu-text">Contact</span></a>
-
 </div>
 </div>
 </nav>
@@ -435,23 +463,17 @@ filter:blur(0);
 
 <section id="about">
 <div class="aboutcontainer">
-
 <img src="yuridosanjos.webp" class="about-image">
-
 <div class="about-text">
-
 <h2>About the Artist</h2>
-
 <p>
 Born in 1992, Yuri dos Anjos is a descendant of the ancient Tupinambá Indigenous people of Brazil...
 </p>
-
 </div>
 </div>
 </section>
 
 <section id="gallery">
-
 <h2>Available Works</h2>
 
 <div class="art-piece">
@@ -485,17 +507,14 @@ Acquire Artwork – $1,500 USD
 
 <script>
 
-/* HERO */
+/* ================= HERO ================= */
 
 const hero=document.querySelector(".hero");
 const heroText=document.querySelector(".hero-content");
 
 if(hero && heroText){
-
 const heroObserver=new IntersectionObserver(entries=>{
-
 entries.forEach(entry=>{
-
 if(entry.isIntersecting){
 heroText.classList.add("visible");
 heroText.classList.remove("hidden");
@@ -503,190 +522,140 @@ heroText.classList.remove("hidden");
 heroText.classList.add("hidden");
 heroText.classList.remove("visible");
 }
-
 });
-
 },{threshold:0.6});
-
 heroObserver.observe(hero);
-
 }
 
-/* ARTWORK ANIMATION */
+/* ================= ARTWORK ANIMATION ================= */
 
 const artObserver=new IntersectionObserver(entries=>{
-
 entries.forEach(entry=>{
-
 const el=entry.target;
-
 if(entry.isIntersecting){
 el.classList.add("visible");
 }else{
-
 const rect=el.getBoundingClientRect();
-
 if(rect.bottom<0 || rect.top>window.innerHeight){
 el.classList.remove("visible");
 }
-
 }
-
 });
-
 },{threshold:0.2});
+document.querySelectorAll(".art-piece").forEach(el=>artObserver.observe(el));
 
-document.querySelectorAll(".art-piece")
-.forEach(el=>artObserver.observe(el));
-
-/* THANOS MENU */
+/* ================= THANOS MENU ================= */
 
 const links=document.querySelectorAll(".thanos-link");
 
 links.forEach(link=>{
-
 const textElement = link.querySelector(".menu-text");
 const text = textElement.textContent;
-
 textElement.innerHTML="";
-
 text.split("").forEach(letter=>{
-
 const span=document.createElement("span");
 span.textContent=letter;
-
 const randomX=(Math.random()-0.5)*90;
 const randomY=(Math.random()-0.5)*90;
 const randomRotate=(Math.random()-0.5)*120;
-
 span.dataset.x=randomX;
 span.dataset.y=randomY;
 span.dataset.r=randomRotate;
-
 span.style.transitionDelay=(Math.random()*2.2)+"s";
-
 textElement.appendChild(span);
-
 });
-
 });
 
 function applyRandomMovement(){
-
 links.forEach(link=>{
-
 link.querySelectorAll(".menu-text span").forEach(span=>{
-  
 span.style.setProperty("--x",span.dataset.x+"px");
 span.style.setProperty("--y",span.dataset.y+"px");
 span.style.setProperty("--r",span.dataset.r+"deg");
-
 });
-
 });
-
 }
 
 function disintegrateMenu(){
-
 applyRandomMovement();
-
 links.forEach(link=>{
 link.classList.add("disintegrate");
 link.classList.remove("regenerate");
 });
-
 }
 
 function regenerateMenu(){
-
 links.forEach(link=>{
 link.classList.remove("disintegrate");
 link.classList.add("regenerate");
 });
-
 }
 
 window.addEventListener("load",()=>{
-
 applyRandomMovement();
-
-/* espera o navegador renderizar */
-
 requestAnimationFrame(()=>{
-
-links.forEach(link=>{
-link.classList.add("disintegrate");
+links.forEach(link=>{link.classList.add("disintegrate");});
+setTimeout(()=>{regenerateMenu();},1400);
+});
 });
 
-/* depois reconstrói */
-
-setTimeout(()=>{
-regenerateMenu();
-},1400);
-
-});
-
-});
-  
 let lastScroll=window.scrollY;
 const scrollThreshold=20;
 let menuState="visible";
 
 window.addEventListener("scroll",()=>{
-
 const currentScroll=window.scrollY;
-
 if(currentScroll<=50){
-
 regenerateMenu();
 menuState="visible";
 lastScroll=currentScroll;
 return;
-
 }
-
 const scrollDifference=currentScroll-lastScroll;
-
 if(scrollDifference>scrollThreshold && menuState!=="hidden"){
-
 disintegrateMenu();
 menuState="hidden";
-
 }
-
 if(scrollDifference<-scrollThreshold && menuState!=="visible"){
-
 regenerateMenu();
 menuState="visible";
-
 }
-
 lastScroll=currentScroll;
-
 });
 
 links.forEach(link=>{
-
 link.addEventListener("click",()=>{
-
 disintegrateMenu();
-
 setTimeout(regenerateMenu,950);
-
+});
 });
 
+/* ================= ART CURSOR ================= */
+
+const cursor=document.querySelector(".art-cursor");
+window.addEventListener("mousemove",e=>{
+cursor.style.left=e.clientX+"px";
+cursor.style.top=e.clientY+"px";
 });
-  
+
+document.querySelectorAll("img,.button,.thanos-link").forEach(el=>{
+el.addEventListener("mouseenter",()=>{cursor.classList.add("expand");});
+el.addEventListener("mouseleave",()=>{cursor.classList.remove("expand");});
+});
+
+/* ================= COSMIC BACKGROUND ================= */
+
+const bg=document.querySelector(".cosmic-bg");
+for(let i=0;i<80;i++){
+const star=document.createElement("div");
+star.className="star";
+star.style.left=Math.random()*100+"%";
+star.style.top=Math.random()*100+"%";
+star.style.animationDuration=(20+Math.random()*40)+"s";
+bg.appendChild(star);
+}
+
 </script>
 
 </body>
 </html>
-
-
-
-
-
-
-
-
