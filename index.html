@@ -28,6 +28,32 @@ scroll-behavior:smooth;
 overflow-x:hidden;
 }
 
+/* NAV CONTAINER FIX MOBILE */
+
+.nav-container{
+display:flex;
+justify-content:center;
+flex-wrap:wrap;
+gap:40px;
+}
+
+/* LINKS */
+
+.thanos-link{
+position:relative;
+text-decoration:none;
+letter-spacing:3px;
+font-size:13px;
+cursor:pointer;
+display:inline-block;
+overflow:hidden;
+white-space:nowrap;
+}
+
+.thanos-link span{
+display:inline-block;
+}
+
 /* TOPBAR */
 
 .topbar{
@@ -115,12 +141,6 @@ opacity:.6;
 100%{transform:translateX(50%);}
 }
 
-.nav-container{
-display:flex;
-justify-content:center;
-flex-wrap:wrap;
-}
-
 .menu{
 display:flex;
 justify-content:center;
@@ -129,15 +149,9 @@ gap:90px;
 flex-wrap:wrap;
 }
 
-.thanos-link{
-position:relative;
-text-decoration:none;
-overflow:hidden;
-}
-
 .menu-text{
 
-font-family:'Cinzel',serif;
+font-family:'Cinzel', serif;
 font-size:14px;
 letter-spacing:3px;
 text-transform:uppercase;
@@ -158,8 +172,11 @@ background-size:200% auto;
 
 animation:goldFlow 8s linear infinite;
 
-transition:.4s;
+}
 
+@keyframes goldFlow{
+0%{background-position:0% center;}
+100%{background-position:200% center;}
 }
 
 .thanos-link:hover .menu-text{
@@ -190,11 +207,6 @@ transition:width .45s ease;
 
 .thanos-link:hover::after{
 width:100%;
-}
-
-@keyframes goldFlow{
-0%{background-position:0% center;}
-100%{background-position:200% center;}
 }
 
 /* HERO */
@@ -351,33 +363,29 @@ border-top:1px solid #222;
 color:#666;
 }
 
-/* MOBILE */
+/* THANOS EFFECT */
 
-@media (max-width:768px){
-
-.menu{
-gap:26px;
-flex-direction:column;
+.thanos-link span{
+display:inline-block;
+transition:
+transform 3s cubic-bezier(.19,1,.22,1),
+opacity 2.8s ease-out,
+filter 2.8s ease-out;
 }
 
-.menu-text{
-font-size:12px;
-letter-spacing:2px;
+.thanos-link.disintegrate span{
+opacity:0;
+transform:
+translate(var(--x), var(--y))
+rotate(var(--r))
+scale(0.5);
+filter:blur(12px);
 }
 
-nav{
-padding:18px 0;
-}
-
-section{
-padding:120px 8%;
-}
-
-header h1{
-font-size:36px;
-letter-spacing:6px;
-}
-
+.thanos-link.regenerate span{
+opacity:1;
+transform:translate(0,0) rotate(0deg) scale(1);
+filter:blur(0);
 }
 
 </style>
@@ -400,9 +408,7 @@ letter-spacing:6px;
 </header>
 
 <nav>
-
 <div class="nav-container">
-
 <div class="menu" translate="no">
 
 <a href="#about" class="thanos-link"><span class="menu-text">About</span></a>
@@ -411,9 +417,7 @@ letter-spacing:6px;
 <a href="#contact" class="thanos-link"><span class="menu-text">Contact</span></a>
 
 </div>
-
 </div>
-
 </nav>
 
 <section class="hero">
@@ -465,10 +469,8 @@ Acquire Artwork – $1,500 USD
 </section>
 
 <section id="contact">
-
 <h2>Contact</h2>
 <p>Email: yuridosanjos.arte@gmail.com</p>
-
 </section>
 
 <footer>
@@ -489,15 +491,11 @@ const heroObserver=new IntersectionObserver(entries=>{
 entries.forEach(entry=>{
 
 if(entry.isIntersecting){
-
 heroText.classList.add("visible");
 heroText.classList.remove("hidden");
-
 }else{
-
 heroText.classList.add("hidden");
 heroText.classList.remove("visible");
-
 }
 
 });
@@ -517,17 +515,13 @@ entries.forEach(entry=>{
 const el=entry.target;
 
 if(entry.isIntersecting){
-
 el.classList.add("visible");
-
 }else{
 
 const rect=el.getBoundingClientRect();
 
 if(rect.bottom<0 || rect.top>window.innerHeight){
-
 el.classList.remove("visible");
-
 }
 
 }
@@ -543,3 +537,4 @@ document.querySelectorAll(".art-piece")
 
 </body>
 </html>
+
