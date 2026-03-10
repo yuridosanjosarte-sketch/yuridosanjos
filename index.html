@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta name="p:domain_verify" 
-  content="2cdaf9ee90c97bd4261063a395e003fa"/>
+<meta name="p:domain_verify" content="2cdaf9ee90c97bd4261063a395e003fa"/>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -14,6 +13,7 @@
 <style>
 
 /* RESET */
+
 *{
 margin:0;
 padding:0;
@@ -28,66 +28,8 @@ scroll-behavior:smooth;
 overflow-x:hidden;
 }
 
-/* NAV CONTAINER FIX MOBILE */
-.nav-container{
-display:flex;
-justify-content:center;
-flex-wrap:wrap;
-gap:40px;
-}
-
-/* LINKS DOURADOS */
-.thanos-link{
-position:relative;
-color:#c49b3d;
-text-decoration:none;
-letter-spacing:3px;
-font-size:13px;
-cursor:pointer;
-display:inline-block;
-overflow:hidden;
-white-space:nowrap;
-}
-
-.thanos-link span{
-display:inline-block;
-}
-  
-nav a::after{
-display:none;
-}
-
-/* MOBILE */
-@media(max-width:768px){
-
-.nav-container{
-flex-direction:column;
-align-items:center;
-gap:18px;
-} 
-
-.thanos-link{
-font-size:12px;
-letter-spacing:2px;
-white-space:nowrap;
-text-align:center;
-}
-
-.art-piece{
-margin:0 auto 120px auto;
-}  
-   
-.hero{
-background-attachment:scroll;
-}
-
-.hero::before{
-background-position:center 20%;
-}  
-  
-}
-
 /* TOPBAR */
+
 .topbar{
 background:#000;
 padding:10px 6%;
@@ -97,7 +39,8 @@ align-items:center;
 border-bottom:1px solid #222;
 }
 
-/* SOCIAL ICONS */
+/* SOCIAL */
+
 .socials{
 display:flex;
 align-items:center;
@@ -116,6 +59,7 @@ transform:translateY(-3px);
 }
 
 /* HEADER */
+
 header{
 text-align:center;
 padding:60px 10%;
@@ -134,15 +78,127 @@ color:#aaa;
 letter-spacing:3px;
 }
 
-/* NAV */
+/* ========================= */
+/* MENU CINEMATOGRÁFICO */
+/* ========================= */
+
 nav{
-background:#111;
-padding:18px;
+background:#070707;
+padding:22px 0;
 text-align:center;
-border-bottom:1px solid #222;
+border-bottom:1px solid rgba(196,155,61,0.15);
+position:relative;
+overflow:hidden;
+}
+
+nav::after{
+content:"";
+position:absolute;
+bottom:0;
+left:-50%;
+width:200%;
+height:1px;
+background:linear-gradient(
+90deg,
+transparent,
+#c49b3d,
+#f3d98a,
+#c49b3d,
+transparent
+);
+animation:menuLight 6s linear infinite;
+opacity:.6;
+}
+
+@keyframes menuLight{
+0%{transform:translateX(0);}
+100%{transform:translateX(50%);}
+}
+
+.nav-container{
+display:flex;
+justify-content:center;
+flex-wrap:wrap;
+}
+
+.menu{
+display:flex;
+justify-content:center;
+align-items:center;
+gap:90px;
+flex-wrap:wrap;
+}
+
+.thanos-link{
+position:relative;
+text-decoration:none;
+overflow:hidden;
+}
+
+.menu-text{
+
+font-family:'Cinzel',serif;
+font-size:14px;
+letter-spacing:3px;
+text-transform:uppercase;
+
+background:linear-gradient(
+90deg,
+#8a6a25,
+#c49b3d,
+#f3d98a,
+#c49b3d,
+#8a6a25
+);
+
+background-size:200% auto;
+
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+
+animation:goldFlow 8s linear infinite;
+
+transition:.4s;
+
+}
+
+.thanos-link:hover .menu-text{
+text-shadow:
+0 0 10px rgba(196,155,61,0.6),
+0 0 22px rgba(196,155,61,0.45),
+0 0 40px rgba(196,155,61,0.25);
+}
+
+.thanos-link::after{
+content:"";
+position:absolute;
+left:50%;
+bottom:-8px;
+width:0%;
+height:1px;
+transform:translateX(-50%);
+background:linear-gradient(
+90deg,
+transparent,
+#c49b3d,
+#f3d98a,
+#c49b3d,
+transparent
+);
+transition:width .45s ease;
+}
+
+.thanos-link:hover::after{
+width:100%;
+}
+
+@keyframes goldFlow{
+0%{background-position:0% center;}
+100%{background-position:200% center;}
 }
 
 /* HERO */
+
 .hero{
 height:95vh;
 position:relative;
@@ -191,11 +247,13 @@ transform:translateX(-160px);
 }
 
 /* SECTIONS */
+
 section{
 padding:160px 10%;
 }
 
 /* ABOUT */
+
 #about{
 display:flex;
 justify-content:center;
@@ -222,6 +280,7 @@ line-height:1.8;
 }
 
 /* GALLERY */
+
 #gallery h2{
 text-align:center;
 font-family:'Cinzel',serif;
@@ -258,6 +317,7 @@ transform:scale(1.02);
 }
 
 /* BUTTON */
+
 .button{
 display:inline-block;
 padding:14px 35px;
@@ -272,6 +332,7 @@ background:#e0b94f;
 }
 
 /* CONTACT */
+
 #contact{
 text-align:center;
 }
@@ -281,6 +342,7 @@ color:#ccc;
 }
 
 /* FOOTER */
+
 footer{
 text-align:center;
 padding:50px;
@@ -289,154 +351,35 @@ border-top:1px solid #222;
 color:#666;
 }
 
-/* THANOS EFFECT */
-
-.thanos-link span{
-display:inline-block;
-transition:
-transform 3s cubic-bezier(.19,1,.22,1),
-opacity 2.8s ease-out,
-filter 2.8s ease-out;
-}
-
-.thanos-link.disintegrate span{
-opacity:0;
-transform:
-translate(var(--x), var(--y))
-rotate(var(--r))
-scale(0.5);
-filter:blur(12px);
-}
-
-.thanos-link.regenerate span{
-opacity:1;
-transform:translate(0,0) rotate(0deg) scale(1);
-filter:blur(0);
-}
-
-/* MENU */
-
-.menu{
-display:flex;
-justify-content:center;
-align-items:center;
-gap:50px;
-flex-wrap:wrap;
-}
-
-/* LINKS */
-
-.thanos-link{
-text-decoration:none;
-position:relative;
-}
-
-/* TEXTO */
-
-.menu-text{
-
-font-family:'Cinzel', serif;
-font-size:14px;
-letter-spacing:2px;
-text-transform:uppercase;
-
-/* OURO METÁLICO */
-
-background:linear-gradient(
-90deg,
-#b8962e,
-#f6e27a,
-#d4af37,
-#f6e27a,
-#b8962e
-);
-
-background-size:200% auto;
-
--webkit-background-clip:text;
--webkit-text-fill-color:transparent;
-
-animation:goldFlow 6s linear infinite;
-
-transition:all .4s ease;
-
-}
-
-/* BRILHO NO HOVER */
-
-.thanos-link:hover .menu-text{
-
-text-shadow:
-0 0 8px rgba(212,175,55,0.6),
-0 0 18px rgba(212,175,55,0.4);
-
-}
-
-/* LINHA DE GALERIA */
-
-.thanos-link::after{
-
-content:"";
-position:absolute;
-
-left:0;
-bottom:-6px;
-
-width:0%;
-height:1px;
-
-background:linear-gradient(
-90deg,
-transparent,
-#d4af37,
-transparent
-);
-
-transition:width .4s ease;
-
-}
-
-.thanos-link:hover::after{
-width:100%;
-}
-
-/* ANIMAÇÃO DO OURO */
-
-@keyframes goldFlow{
-
-0%{
-background-position:0% center;
-}
-
-100%{
-background-position:200% center;
-}
-
-}
-
 /* MOBILE */
 
 @media (max-width:768px){
 
 .menu{
-gap:22px;
-padding:10px 0;
+gap:26px;
+flex-direction:column;
 }
 
 .menu-text{
 font-size:12px;
-letter-spacing:1.5px;
+letter-spacing:2px;
+}
+
+nav{
+padding:18px 0;
+}
+
+section{
+padding:120px 8%;
+}
+
+header h1{
+font-size:36px;
+letter-spacing:6px;
 }
 
 }
 
-.dust{
-display:inline-block;
-transition:
-transform .8s ease,
-opacity .8s ease;
-}
-  
 </style>
 </head>
 
@@ -447,9 +390,7 @@ opacity .8s ease;
 <a href="https://instagram.com/yuridosanjos.arte" target="_blank"><i class="fab fa-instagram"></i></a>
 <a href="https://www.facebook.com/yuridosanjos.arte/" target="_blank"><i class="fab fa-facebook"></i></a>
 <a href="https://www.youtube.com/@art.yuridosanjos" target="_blank"><i class="fab fa-youtube"></i></a>
-<a href="https://pin.it/4lbBcvN9n" target="_blank" class="social-link">
-<i class="fab fa-pinterest"></i>
-</a>
+<a href="https://pin.it/4lbBcvN9n" target="_blank"><i class="fab fa-pinterest"></i></a>
 </div>
 </div>
 
@@ -464,21 +405,10 @@ opacity .8s ease;
 
 <div class="menu" translate="no">
 
-<a href="#about" class="thanos-link">
-<span class="menu-text">About</span>
-</a>
-
-<a href="#gallery" class="thanos-link">
-<span class="menu-text">Available Works</span>
-</a>
-
-<a href="Galeria.html" class="thanos-link">
-<span class="menu-text">Gallery</span>
-</a>
-
-<a href="#contact" class="thanos-link">
-<span class="menu-text">Contact</span>
-</a>
+<a href="#about" class="thanos-link"><span class="menu-text">About</span></a>
+<a href="#gallery" class="thanos-link"><span class="menu-text">Available Works</span></a>
+<a href="Galeria.html" class="thanos-link"><span class="menu-text">Gallery</span></a>
+<a href="#contact" class="thanos-link"><span class="menu-text">Contact</span></a>
 
 </div>
 
@@ -487,32 +417,31 @@ opacity .8s ease;
 </nav>
 
 <section class="hero">
-  <div class="hero-content">
-    <h2>Ancestral Memory Through Realism</h2>
-    <p>Oil paintings rooted in Tupi identity and spiritual memory.</p>
-  </div>
+<div class="hero-content">
+<h2>Ancestral Memory Through Realism</h2>
+<p>Oil paintings rooted in Tupi identity and spiritual memory.</p>
+</div>
 </section>
 
 <section id="about">
 <div class="aboutcontainer">
+
 <img src="yuridosanjos.webp" class="about-image">
+
 <div class="about-text">
+
 <h2>About the Artist</h2>
+
 <p>
-Born in 1992, Yuri dos Anjos is a descendant of the ancient Tupinambá Indigenous people of Brazil. His work emerges from the meeting of ancestral memory, imagination, and contemporary sensibility.
-
-In his work, the artist transcends the limits of reality to create portraits of Indigenous figures conceived through his own imagination, painted with mastery in oil on canvas. Each piece reveals a singular presence, marked by intense gazes that establish a silent dialogue with the viewer, awakening deep emotions and chills.
-
-Through a realistic painting of the ancestral Indigenous human figure, Yuri constructs images rich in symbolism, where memory, identity, and spirituality intertwine. His art seeks not only to represent, but also to evoke the strength of Brazil’s original roots.
-
-His work has already crossed borders, reaching private galleries in Switzerland.
-  
+Born in 1992, Yuri dos Anjos is a descendant of the ancient Tupinambá Indigenous people of Brazil...
 </p>
+
 </div>
 </div>
 </section>
 
 <section id="gallery">
+
 <h2>Available Works</h2>
 
 <div class="art-piece">
@@ -536,8 +465,10 @@ Acquire Artwork – $1,500 USD
 </section>
 
 <section id="contact">
+
 <h2>Contact</h2>
 <p>Email: yuridosanjos.arte@gmail.com</p>
+
 </section>
 
 <footer>
@@ -547,144 +478,66 @@ Acquire Artwork – $1,500 USD
 <script>
 
 /* HERO */
-const hero = document.querySelector(".hero");
-const heroText = document.querySelector(".hero-content");
+
+const hero=document.querySelector(".hero");
+const heroText=document.querySelector(".hero-content");
 
 if(hero && heroText){
-const heroObserver = new IntersectionObserver((entries)=>{
+
+const heroObserver=new IntersectionObserver(entries=>{
+
 entries.forEach(entry=>{
+
 if(entry.isIntersecting){
+
 heroText.classList.add("visible");
 heroText.classList.remove("hidden");
+
 }else{
+
 heroText.classList.add("hidden");
 heroText.classList.remove("visible");
+
 }
+
 });
+
 },{threshold:0.6});
 
 heroObserver.observe(hero);
+
 }
 
 /* ARTWORK ANIMATION */
 
-const artObserver = new IntersectionObserver((entries)=>{
+const artObserver=new IntersectionObserver(entries=>{
+
 entries.forEach(entry=>{
-const el = entry.target;
+
+const el=entry.target;
 
 if(entry.isIntersecting){
+
 el.classList.add("visible");
+
 }else{
-const rect = el.getBoundingClientRect();
-if(rect.bottom < 0 || rect.top > window.innerHeight){
+
+const rect=el.getBoundingClientRect();
+
+if(rect.bottom<0 || rect.top>window.innerHeight){
+
 el.classList.remove("visible");
+
 }
+
 }
+
 });
+
 },{threshold:0.2});
 
 document.querySelectorAll(".art-piece")
 .forEach(el=>artObserver.observe(el));
-
-
-/* THANOS MENU */
-
-const links=document.querySelectorAll(".thanos-link");
-
-links.forEach(link=>{
-
-const text=link.querySelector(".menu-text").textContent;
-
-link.innerHTML="";
-
-text.split("").forEach(letter=>{
-
-const span=document.createElement("span");
-span.textContent=letter;
-
-const randomX=(Math.random()-0.5)*90;
-const randomY=(Math.random()-0.5)*90;
-const randomRotate=(Math.random()-0.5)*120;
-
-span.dataset.x=randomX;
-span.dataset.y=randomY;
-span.dataset.r=randomRotate;
-
-span.style.transitionDelay=(Math.random()*2.2)+"s";
-
-link.appendChild(span);
-
-});
-
-});
-
-
-function applyRandomMovement(){
-links.forEach(link=>{
-link.querySelectorAll("span").forEach(span=>{
-span.style.setProperty("--x",span.dataset.x+"px");
-span.style.setProperty("--y",span.dataset.y+"px");
-span.style.setProperty("--r",span.dataset.r+"deg");
-});
-});
-}
-
-function disintegrateMenu(){
-applyRandomMovement();
-links.forEach(link=>{
-link.classList.add("disintegrate");
-link.classList.remove("regenerate");
-});
-}
-
-function regenerateMenu(){
-links.forEach(link=>{
-link.classList.remove("disintegrate");
-link.classList.add("regenerate");
-});
-}
-
-window.addEventListener("load",()=>{
-regenerateMenu();
-});
-
-let lastScroll=window.scrollY;
-const scrollThreshold=20;
-let menuState="visible";
-
-window.addEventListener("scroll",()=>{
-
-const currentScroll=window.scrollY;
-
-if(currentScroll<=50){
-regenerateMenu();
-menuState="visible";
-lastScroll=currentScroll;
-return;
-}
-
-const scrollDifference=currentScroll-lastScroll;
-
-if(scrollDifference>scrollThreshold && menuState!=="hidden"){
-disintegrateMenu();
-menuState="hidden";
-}
-
-if(scrollDifference<-scrollThreshold && menuState!=="visible"){
-regenerateMenu();
-menuState="visible";
-}
-
-lastScroll=currentScroll;
-
-});
-
-links.forEach(link=>{
-link.addEventListener("click",()=>{
-disintegrateMenu();
-setTimeout(regenerateMenu,950);
-});
-});
 
 </script>
 
