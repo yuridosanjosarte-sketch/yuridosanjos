@@ -254,6 +254,16 @@ header h1{
   }
 }
 
+/* ================= REMOVE CURSOR NO MOBILE ================= */
+
+@media (hover: none) and (pointer: coarse){
+
+.art-cursor{
+display:none !important;
+}
+
+}
+  
 </style>
 </head>
 
@@ -328,9 +338,13 @@ header h1{
 <script>
 
 /* ================= CURSOR ================= */
-const cursor=document.querySelector(".art-cursor");
+
 let mouseX=0, mouseY=0;
 let mouseDown=false;
+
+if (!('ontouchstart' in window)) {
+
+const cursor=document.querySelector(".art-cursor");
 
 window.addEventListener("mousemove",e=>{
   mouseX=e.clientX;
@@ -343,10 +357,13 @@ window.addEventListener("mousedown",()=>{
   mouseDown=true;
   cursor.classList.add("expand");
 });
+
 window.addEventListener("mouseup",()=>{ 
   mouseDown=false;
   cursor.classList.remove("expand");
 });
+
+}
 
 /* ================= PARTICLES ================= */
 const canvas=document.getElementById("spiritCanvas");
