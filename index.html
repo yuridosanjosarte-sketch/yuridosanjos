@@ -169,10 +169,9 @@ background-clip:text;
 -webkit-background-clip:text;
 display:inline-block;
 transition:
-transform 1.6s cubic-bezier(.19,1,.22,1),
-opacity 1.6s ease-out,
-filter 1.6s ease-out;
-transform-origin:center center;
+transform 3s cubic-bezier(.19,1,.22,1),
+opacity 2.8s ease-out,
+filter 2.8s ease-out;
 }
 
 @keyframes goldFlow{
@@ -214,8 +213,8 @@ width:100%;
 
 .thanos-link.disintegrate .menu-text span{
 opacity:0;
-transform:translate(var(--x), var(--y)) rotate(var(--r)) scale(0.2);
-filter:blur(10px);
+transform:translate(var(--x), var(--y)) rotate(var(--r)) scale(0.5);
+filter:blur(12px);
 }
 
 .thanos-link.regenerate .menu-text span{
@@ -394,29 +393,14 @@ height:38px;
 background:rgba(196,155,61,0.15);
 }
 
-/* ================= COSMIC BACKGROUND ================= */
+/* ================= GOLD DUST FIBONACCI BACKGROUND ================= */
 
-.cosmic-bg{
+.fib-bg{
 position:fixed;
 inset:0;
-z-index:-1;
+z-index:-2;
+pointer-events:none;
 background:#0d0d0d;
-overflow:hidden;
-}
-
-.star{
-position:absolute;
-width:2px;
-height:2px;
-background:#ffffff;
-opacity:.6;
-border-radius:50%;
-animation:starMove linear infinite;
-}
-
-@keyframes starMove{
-from{transform:translateY(0);}
-to{transform:translateY(-120vh);}
 }
 
 </style>
@@ -424,11 +408,11 @@ to{transform:translateY(-120vh);}
 
 <body>
 
+<!-- GOLD DUST BACKGROUND -->
+<canvas class="fib-bg"></canvas>
+
 <!-- CURSOR -->
 <div class="art-cursor"></div>
-
-<!-- COSMIC BACKGROUND -->
-<div class="cosmic-bg"></div>
 
 <div class="topbar">
 <div class="socials">
@@ -467,7 +451,9 @@ to{transform:translateY(-120vh);}
 <img src="yuridosanjos.webp" class="about-image">
 <div class="about-text">
 <h2>About the Artist</h2>
-<p>Born in 1992, Yuri dos Anjos is a descendant of the ancient Tupinambá Indigenous people of Brazil...</p>
+<p>
+Born in 1992, Yuri dos Anjos is a descendant of the ancient Tupinambá Indigenous people of Brazil...
+</p>
 </div>
 </div>
 </section>
@@ -560,7 +546,7 @@ const randomRotate=(Math.random()-0.5)*120;
 span.dataset.x=randomX;
 span.dataset.y=randomY;
 span.dataset.r=randomRotate;
-span.style.transitionDelay=(Math.random()*1.2)+"s";
+span.style.transitionDelay=(Math.random()*2.2)+"s";
 textElement.appendChild(span);
 });
 });
@@ -590,12 +576,11 @@ link.classList.add("regenerate");
 });
 }
 
-/* Inicializa com efeito Thanos estilo Marvel */
 window.addEventListener("load",()=>{
 applyRandomMovement();
 requestAnimationFrame(()=>{
 links.forEach(link=>{link.classList.add("disintegrate");});
-setTimeout(()=>{regenerateMenu();},1500);
+setTimeout(()=>{regenerateMenu();},1400);
 });
 });
 
@@ -643,19 +628,61 @@ el.addEventListener("mouseenter",()=>{cursor.classList.add("expand");});
 el.addEventListener("mouseleave",()=>{cursor.classList.remove("expand");});
 });
 
-/* ================= COSMIC BACKGROUND ================= */
+/* ================= GOLD DUST FIBONACCI BACKGROUND ================= */
 
-const bg=document.querySelector(".cosmic-bg");
-for(let i=0;i<80;i++){
-const star=document.createElement("div");
-star.className="star";
-star.style.left=Math.random()*100+"%";
-star.style.top=Math.random()*100+"%";
-star.style.animationDuration=(20+Math.random()*40)+"s";
-bg.appendChild(star);
+const canvas=document.querySelector(".fib-bg");
+const ctx=canvas.getContext("2d");
+let width=canvas.width=window.innerWidth;
+let height=canvas.height=window.innerHeight;
+
+window.addEventListener("resize",()=>{
+width=canvas.width=window.innerWidth;
+height=canvas.height=window.innerHeight;
+});
+
+const particles=[];
+const numParticles=250;
+const goldenRatio=(1+Math.sqrt(5))/2;
+
+for(let i=0;i<numParticles;i++){
+const angle=i*2*Math.PI/goldenRatio;
+const radius=Math.sqrt(i/numParticles)*Math.min(width,height)/2.2;
+const x=width/2 + radius*Math.cos(angle);
+const y=height/2 + radius*Math.sin(angle);
+particles.push({
+x,y,
+baseX:x,
+baseY:y,
+vx:(Math.random()-0.5)*0.4,
+vy:(Math.random()-0.5)*0.4,
+size:Math.random()*2+1,
+alpha:Math.random()*0.7+0.3,
+angleOffset:angle
+});
 }
+
+function animate(){
+ctx.clearRect(0,0,width,height);
+particles.forEach(p=>{
+// Movimento orgânico Fibonacci-like
+p.angleOffset += 0.002 + Math.random()*0.001;
+const radius = Math.sqrt(Math.random()*numParticles/numParticles)*Math.min(width,height)/2.2;
+p.x = width/2 + radius * Math.cos(p.angleOffset) + Math.sin(Date.now()*0.001+p.angleOffset*2)*15;
+p.y = height/2 + radius * Math.sin(p.angleOffset) + Math.cos(Date.now()*0.001+p.angleOffset*2)*15;
+
+ctx.beginPath();
+ctx.arc(p.x,p.y,p.size,0,Math.PI*2);
+ctx.fillStyle=`rgba(196,155,61,${p.alpha})`;
+ctx.fill();
+ctx.closePath();
+});
+requestAnimationFrame(animate);
+}
+
+animate();
 
 </script>
 
 </body>
 </html>
+
