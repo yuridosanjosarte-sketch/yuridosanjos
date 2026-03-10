@@ -569,8 +569,8 @@ function applyRandomMovement(){
 
 links.forEach(link=>{
 
-link.querySelectorAll("span").forEach(span=>{
-
+link.querySelectorAll(".menu-text span").forEach(span=>{
+  
 span.style.setProperty("--x",span.dataset.x+"px");
 span.style.setProperty("--y",span.dataset.y+"px");
 span.style.setProperty("--r",span.dataset.r+"deg");
@@ -666,6 +666,7 @@ setTimeout(regenerateMenu,950);
 
 </body>
 </html>
+
 
 
 
