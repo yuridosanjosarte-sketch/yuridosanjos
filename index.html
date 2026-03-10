@@ -13,390 +13,394 @@
 <style>
 
 /* ================= RESET ================= */
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  user-select: none; /* remove seleção de texto e cursor piscando */
-}
 
-input, textarea {
-  user-select: text;
-  cursor: text;
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
 }
 
 body{
-  background:#0d0d0d;
-  color:#f5f5f5;
-  font-family:'Inter',sans-serif;
-  scroll-behavior:smooth;
-  overflow-x:hidden;
-  cursor: none; /* mantém cursor artístico */
+background:#0d0d0d;
+color:#f5f5f5;
+font-family:'Inter',sans-serif;
+scroll-behavior:smooth;
+overflow-x:hidden;
 }
 
 /* ================= NAV ================= */
+
 .nav-container{
-  display:flex;
-  justify-content:center;
-  flex-wrap:wrap;
-  gap:40px;
+display:flex;
+justify-content:center;
+flex-wrap:wrap;
+gap:40px;
 }
 
 .thanos-link{
-  position:relative;
-  text-decoration:none;
-  letter-spacing:3px;
-  font-size:13px;
-  cursor:pointer;
-  display:inline-block;
-  overflow:hidden;
-  white-space:nowrap;
+position:relative;
+text-decoration:none;
+letter-spacing:3px;
+font-size:13px;
+cursor:pointer;
+display:inline-block;
+overflow:hidden;
+white-space:nowrap;
 }
 
 .thanos-link span{
-  display:inline-block;
+display:inline-block;
 }
 
 /* ================= TOPBAR ================= */
+
 .topbar{
-  background:#000;
-  padding:10px 6%;
-  display:flex;
-  justify-content:flex-end;
-  align-items:center;
-  border-bottom:1px solid #222;
+background:#000;
+padding:10px 6%;
+display:flex;
+justify-content:flex-end;
+align-items:center;
+border-bottom:1px solid #222;
 }
 
 .socials{
-  display:flex;
-  align-items:center;
-  gap:18px;
+display:flex;
+align-items:center;
+gap:18px;
 }
 
 .socials a{
-  color:#aaa;
-  font-size:18px;
-  transition:0.3s ease;
+color:#aaa;
+font-size:18px;
+transition:0.3s ease;
 }
 
 .socials a:hover{
-  color:#c49b3d;
-  transform:translateY(-3px);
+color:#c49b3d;
+transform:translateY(-3px);
 }
 
 /* ================= HEADER ================= */
+
 header{
-  text-align:center;
-  padding:60px 10%;
-  background:#000;
+text-align:center;
+padding:60px 10%;
+background:#000;
 }
 
 header h1{
-  font-family:'Cinzel',serif;
-  font-size:52px;
-  letter-spacing:8px;
+font-family:'Cinzel',serif;
+font-size:52px;
+letter-spacing:8px;
 }
 
 header p{
-  margin-top:15px;
-  color:#aaa;
-  letter-spacing:3px;
+margin-top:15px;
+color:#aaa;
+letter-spacing:3px;
 }
 
 /* ================= MENU CINEMATOGRÁFICO ================= */
+
 nav{
-  background:#070707;
-  padding:22px 0;
-  text-align:center;
-  border-bottom:1px solid rgba(196,155,61,0.15);
-  position:relative;
-  overflow:hidden;
+background:#070707;
+padding:22px 0;
+text-align:center;
+border-bottom:1px solid rgba(196,155,61,0.15);
+position:relative;
+overflow:hidden;
 }
 
 nav::after{
-  content:"";
-  position:absolute;
-  bottom:0;
-  left:-50%;
-  width:200%;
-  height:1px;
-  background:linear-gradient(
-    90deg,
-    transparent,
-    #c49b3d,
-    #f3d98a,
-    #c49b3d,
-    transparent
-  );
-  animation:menuLight 6s linear infinite;
-  opacity:.6;
+content:"";
+position:absolute;
+bottom:0;
+left:-50%;
+width:200%;
+height:1px;
+background:linear-gradient(
+90deg,
+transparent,
+#c49b3d,
+#f3d98a,
+#c49b3d,
+transparent
+);
+animation:menuLight 6s linear infinite;
+opacity:.6;
 }
 
 @keyframes menuLight{
-  0%{transform:translateX(0);}
-  100%{transform:translateX(50%);}
+0%{transform:translateX(0);}
+100%{transform:translateX(50%);}
 }
 
 .menu{
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  gap:90px;
-  flex-wrap:wrap;
+display:flex;
+justify-content:center;
+align-items:center;
+gap:90px;
+flex-wrap:wrap;
 }
 
 .menu-text{
-  font-family:'Cinzel', serif;
-  font-size:14px;
-  letter-spacing:3px;
-  text-transform:uppercase;
-  background:linear-gradient(
-    90deg,
-    #8a6a25,
-    #c49b3d,
-    #f3d98a,
-    #c49b3d,
-    #8a6a25
-  );
-  background-size:200% auto;
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-  animation:goldFlow 8s linear infinite;
+font-family:'Cinzel', serif;
+font-size:14px;
+letter-spacing:3px;
+text-transform:uppercase;
+background:linear-gradient(
+90deg,
+#8a6a25,
+#c49b3d,
+#f3d98a,
+#c49b3d,
+#8a6a25
+);
+background-size:200% auto;
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+animation:goldFlow 8s linear infinite;
 }
 
 .menu-text span{
-  -webkit-text-fill-color:transparent;
-  background:inherit;
-  background-clip:text;
-  -webkit-background-clip:text;
-  display:inline-block;
-  transition:
-    transform 3s cubic-bezier(.19,1,.22,1),
-    opacity 2.8s ease-out,
-    filter 2.8s ease-out;
+-webkit-text-fill-color:transparent;
+background:inherit;
+background-clip:text;
+-webkit-background-clip:text;
+display:inline-block;
+transition:
+transform 3s cubic-bezier(.19,1,.22,1),
+opacity 2.8s ease-out,
+filter 2.8s ease-out;
 }
 
 @keyframes goldFlow{
-  0%{background-position:0% center;}
-  100%{background-position:200% center;}
+0%{background-position:0% center;}
+100%{background-position:200% center;}
 }
 
 .thanos-link:hover .menu-text{
-  text-shadow:
-    0 0 10px rgba(196,155,61,0.6),
-    0 0 22px rgba(196,155,61,0.45),
-    0 0 40px rgba(196,155,61,0.25);
+text-shadow:
+0 0 10px rgba(196,155,61,0.6),
+0 0 22px rgba(196,155,61,0.45),
+0 0 40px rgba(196,155,61,0.25);
 }
 
 .thanos-link::after{
-  content:"";
-  position:absolute;
-  left:50%;
-  bottom:-8px;
-  width:0%;
-  height:1px;
-  transform:translateX(-50%);
-  background:linear-gradient(
-    90deg,
-    transparent,
-    #c49b3d,
-    #f3d98a,
-    #c49b3d,
-    transparent
-  );
-  transition:width .45s ease;
+content:"";
+position:absolute;
+left:50%;
+bottom:-8px;
+width:0%;
+height:1px;
+transform:translateX(-50%);
+background:linear-gradient(
+90deg,
+transparent,
+#c49b3d,
+#f3d98a,
+#c49b3d,
+transparent
+);
+transition:width .45s ease;
 }
 
 .thanos-link:hover::after{
-  width:100%;
+width:100%;
 }
 
 /* THANOS EFFECT */
+
 .thanos-link.disintegrate .menu-text span{
-  opacity:0;
-  transform:translate(var(--x), var(--y)) rotate(var(--r)) scale(0.5);
-  filter:blur(12px);
+opacity:0;
+transform:translate(var(--x), var(--y)) rotate(var(--r)) scale(0.5);
+filter:blur(12px);
 }
 
 .thanos-link.regenerate .menu-text span{
-  opacity:1;
-  transform:translate(0,0) rotate(0deg) scale(1);
-  filter:blur(0);
+opacity:1;
+transform:translate(0,0) rotate(0deg) scale(1);
+filter:blur(0);
 }
 
 /* ================= HERO ================= */
+
 .hero{
-  height:95vh;
-  position:relative;
-  overflow:hidden;
-  display:flex;
-  align-items:center;
-  justify-content:center;
+height:95vh;
+position:relative;
+overflow:hidden;
+display:flex;
+align-items:center;
+justify-content:center;
 }
 
 .hero::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  background-image:url('etsa-ara.jpg');
-  background-size:cover;
-  background-position:center 38%;
-  filter:brightness(0.55);
-  z-index:0;
-  animation:zoom 30s ease-in-out infinite alternate;
+content:"";
+position:absolute;
+inset:0;
+background-image:url('etsa-ara.jpg');
+background-size:cover;
+background-position:center 38%;
+filter:brightness(0.55);
+z-index:0;
+animation:zoom 30s ease-in-out infinite alternate;
 }
 
 @keyframes zoom{
-  from{transform:scale(1);}
-  to{transform:scale(1.06);}
+from{transform:scale(1);}
+to{transform:scale(1.06);}
 }
 
 .hero-content{
-  position:relative;
-  z-index:2;
-  text-align:center;
-  opacity:0;
-  transform:translateX(-140px);
-  transition:
-    transform 2.2s cubic-bezier(.22,.61,.36,1),
-    opacity 2.2s cubic-bezier(.22,.61,.36,1);
+position:relative;
+z-index:2;
+text-align:center;
+opacity:0;
+transform:translateX(-140px);
+transition:
+transform 2.2s cubic-bezier(.22,.61,.36,1),
+opacity 2.2s cubic-bezier(.22,.61,.36,1);
 }
 
 .hero-content.visible{
-  opacity:1;
-  transform:translateX(0);
+opacity:1;
+transform:translateX(0);
 }
 
 .hero-content.hidden{
-  opacity:0;
-  transform:translateX(-160px);
+opacity:0;
+transform:translateX(-160px);
 }
 
 /* ================= SECTIONS ================= */
+
 section{
-  padding:160px 10%;
+padding:160px 10%;
 }
 
 #about{
-  display:flex;
-  justify-content:center;
+display:flex;
+justify-content:center;
 }
 
 .aboutcontainer{
-  max-width:1100px;
-  display:flex;
-  gap:60px;
-  flex-wrap:wrap;
-  align-items:center;
+max-width:1100px;
+display:flex;
+gap:60px;
+flex-wrap:wrap;
+align-items:center;
 }
 
 .about-image{
-  width:320px;
-  border:2px solid #c49b3d;
+width:320px;
+border:2px solid #c49b3d;
 }
 
 .about-text{
-  flex:1;
-  min-width:300px;
-  color:#ccc;
-  line-height:1.8;
+flex:1;
+min-width:300px;
+color:#ccc;
+line-height:1.8;
 }
 
 /* GALLERY */
+
 #gallery h2{
-  text-align:center;
-  font-family:'Cinzel',serif;
-  margin-bottom:160px;
+text-align:center;
+font-family:'Cinzel',serif;
+margin-bottom:160px;
 }
 
 .art-piece{
-  max-width:1000px;
-  margin:0 auto 220px auto;
-  text-align:center;
-  opacity:0;
-  transform:translateY(35px);
-  filter:blur(6px);
-  transition:
-    opacity 2.4s cubic-bezier(.22,.61,.36,1),
-    transform 2.4s cubic-bezier(.22,.61,.36,1),
-    filter 2.4s cubic-bezier(.22,.61,.36,1);
+max-width:1000px;
+margin:0 auto 220px auto;
+text-align:center;
+opacity:0;
+transform:translateY(35px);
+filter:blur(6px);
+transition:
+opacity 2.4s cubic-bezier(.22,.61,.36,1),
+transform 2.4s cubic-bezier(.22,.61,.36,1),
+filter 2.4s cubic-bezier(.22,.61,.36,1);
 }
 
 .art-piece.visible{
-  opacity:1;
-  transform:translateY(0);
-  filter:blur(0);
+opacity:1;
+transform:translateY(0);
+filter:blur(0);
 }
 
 .art-piece img{
-  width:100%;
-  margin-bottom:60px;
-  transition:transform 3s ease;
+width:100%;
+margin-bottom:60px;
+transition:transform 3s ease;
 }
 
 .art-piece img:hover{
-  transform:scale(1.02);
+transform:scale(1.02);
 }
 
 .button{
-  display:inline-block;
-  padding:14px 35px;
-  background:#c49b3d;
-  color:#000;
-  text-decoration:none;
-  font-weight:600;
+display:inline-block;
+padding:14px 35px;
+background:#c49b3d;
+color:#000;
+text-decoration:none;
+font-weight:600;
 }
 
 .button:hover{
-  background:#e0b94f;
+background:#e0b94f;
 }
 
 #contact{
-  text-align:center;
+text-align:center;
 }
 
 #contact p{
-  color:#ccc;
+color:#ccc;
 }
 
 footer{
-  text-align:center;
-  padding:50px;
-  background:#000;
-  border-top:1px solid #222;
-  color:#666;
+text-align:center;
+padding:50px;
+background:#000;
+border-top:1px solid #222;
+color:#666;
 }
 
 /* ================= CURSOR ART ================= */
+
 .art-cursor{
-  position:fixed;
-  width:18px;
-  height:18px;
-  border:2px solid #c49b3d;
-  border-radius:50%;
-  pointer-events:none;
-  transform:translate(-50%,-50%);
-  z-index:9999;
-  transition:
-    transform .15s ease,
-    width .25s ease,
-    height .25s ease,
-    background .25s ease;
+position:fixed;
+width:18px;
+height:18px;
+border:2px solid #c49b3d;
+border-radius:50%;
+pointer-events:none;
+transform:translate(-50%,-50%);
+z-index:9999;
+transition:
+transform .15s ease,
+width .25s ease,
+height .25s ease,
+background .25s ease;
 }
 
 .art-cursor.expand{
-  width:38px;
-  height:38px;
-  background:rgba(196,155,61,0.15);
+width:38px;
+height:38px;
+background:rgba(196,155,61,0.15);
 }
 
 /* ================= GOLD DUST BACKGROUND ================= */
+
 .gold-bg{
-  position:fixed;
-  inset:0;
-  z-index:-2;
-  pointer-events:none;
-  background:#0d0d0d;
+position:fixed;
+inset:0;
+z-index:-2;
+pointer-events:none;
+background:#0d0d0d;
 }
 
 </style>
@@ -489,8 +493,10 @@ Acquire Artwork – $1,500 USD
 <script>
 
 /* ================= HERO ================= */
+
 const hero=document.querySelector(".hero");
 const heroText=document.querySelector(".hero-content");
+
 if(hero && heroText){
 const heroObserver=new IntersectionObserver(entries=>{
 entries.forEach(entry=>{
@@ -507,6 +513,7 @@ heroObserver.observe(hero);
 }
 
 /* ================= ARTWORK ANIMATION ================= */
+
 const artObserver=new IntersectionObserver(entries=>{
 entries.forEach(entry=>{
 const el=entry.target;
@@ -523,7 +530,9 @@ el.classList.remove("visible");
 document.querySelectorAll(".art-piece").forEach(el=>artObserver.observe(el));
 
 /* ================= THANOS MENU ================= */
+
 const links=document.querySelectorAll(".thanos-link");
+
 links.forEach(link=>{
 const textElement = link.querySelector(".menu-text");
 const text = textElement.textContent;
@@ -578,6 +587,7 @@ setTimeout(()=>{regenerateMenu();},1400);
 let lastScroll=window.scrollY;
 const scrollThreshold=20;
 let menuState="visible";
+
 window.addEventListener("scroll",()=>{
 const currentScroll=window.scrollY;
 if(currentScroll<=50){
@@ -606,6 +616,7 @@ setTimeout(regenerateMenu,950);
 });
 
 /* ================= ART CURSOR ================= */
+
 const cursor=document.querySelector(".art-cursor");
 let isMouseDown=false;
 
@@ -619,20 +630,22 @@ el.addEventListener("mouseenter",()=>{cursor.classList.add("expand");});
 el.addEventListener("mouseleave",()=>{cursor.classList.remove("expand");});
 });
 
+// SEGURAR BOTÃO ESQUERDO PARA EXPANDIR CURSOR
 window.addEventListener("mousedown",e=>{
-if(e.button===0){
+if(e.button===0){ 
 isMouseDown=true;
 cursor.classList.add("expand");
 }
 });
 window.addEventListener("mouseup",e=>{
-if(e.button===0){
+if(e.button===0){ 
 isMouseDown=false;
 cursor.classList.remove("expand");
 }
 });
 
 /* ================= GOLD DUST BACKGROUND ================= */
+
 const canvas=document.querySelector(".gold-bg");
 const ctx=canvas.getContext("2d");
 let width=canvas.width=window.innerWidth;
@@ -657,6 +670,7 @@ alpha: Math.random()*0.9+0.3
 }
 
 const mouse={x:-9999,y:-9999,radius:80};
+
 window.addEventListener("mousemove",(e)=>{
 mouse.x=e.clientX;
 mouse.y=e.clientY;
@@ -664,18 +678,46 @@ mouse.y=e.clientY;
 
 function animate(){
 ctx.clearRect(0,0,width,height);
+
 particles.forEach(p=>{
+// Movimento leve
 p.x += p.vx + Math.sin(Date.now()*0.001+p.vx)*0.2;
 p.y += p.vy + Math.cos(Date.now()*0.001+p.vy)*0.2;
+
+// Reaparecer ao sair da tela
 if(p.x>width) p.x=0;
 if(p.x<0) p.x=width;
 if(p.y>height) p.y=0;
 if(p.y<0) p.y=height;
 
+// Interação com cursor expandido ou normal
 let dx=p.x-mouse.x;
 let dy=p.y-mouse.y;
 let dist=Math.sqrt(dx*dx+dy*dy);
-let activeRadius=isMouseDown ? 150 : 80;
+let activeRadius=isMouseDown ? 150 : 80; // aumenta alcance quando pressionado
 if(dist<activeRadius){
 let angle=Math.atan2(dy,dx);
-let force=(activeRadius-dist
+let force=(activeRadius-dist)/activeRadius;
+p.x += Math.cos(angle)*force*6;
+p.y += Math.sin(angle)*force*6;
+}
+
+// Desenhar partícula dourada
+ctx.beginPath();
+ctx.arc(p.x,p.y,p.size,0,Math.PI*2);
+ctx.fillStyle=`rgba(255,215,0,${p.alpha})`;
+ctx.shadowColor="rgba(255,215,0,0.9)";
+ctx.shadowBlur=6;
+ctx.fill();
+ctx.closePath();
+});
+
+requestAnimationFrame(animate);
+}
+
+animate();
+
+</script>
+
+</body>
+</html>
