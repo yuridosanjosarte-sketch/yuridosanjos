@@ -171,9 +171,15 @@ background-size:200% auto;
 -webkit-text-fill-color:transparent;
 
 animation:goldFlow 8s linear infinite;
-
 }
 
+.menu-text span{
+-webkit-text-fill-color:transparent;
+background:inherit;
+background-clip:text;
+-webkit-background-clip:text;
+}
+  
 @keyframes goldFlow{
 0%{background-position:0% center;}
 100%{background-position:200% center;}
@@ -676,6 +682,7 @@ setTimeout(regenerateMenu,950);
 
 </body>
 </html>
+
 
 
 
