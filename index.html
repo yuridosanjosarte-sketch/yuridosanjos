@@ -12,7 +12,7 @@
 
 <style>
 
-/* ================= RESET ================= */
+/* RESET */
 
 *{
 margin:0;
@@ -28,7 +28,7 @@ scroll-behavior:smooth;
 overflow-x:hidden;
 }
 
-/* ================= NAV ================= */
+/* NAV CONTAINER FIX MOBILE */
 
 .nav-container{
 display:flex;
@@ -36,6 +36,8 @@ justify-content:center;
 flex-wrap:wrap;
 gap:40px;
 }
+
+/* LINKS */
 
 .thanos-link{
 position:relative;
@@ -52,7 +54,7 @@ white-space:nowrap;
 display:inline-block;
 }
 
-/* ================= TOPBAR ================= */
+/* TOPBAR */
 
 .topbar{
 background:#000;
@@ -62,6 +64,8 @@ justify-content:flex-end;
 align-items:center;
 border-bottom:1px solid #222;
 }
+
+/* SOCIAL */
 
 .socials{
 display:flex;
@@ -80,7 +84,7 @@ color:#c49b3d;
 transform:translateY(-3px);
 }
 
-/* ================= HEADER ================= */
+/* HEADER */
 
 header{
 text-align:center;
@@ -100,7 +104,9 @@ color:#aaa;
 letter-spacing:3px;
 }
 
-/* ================= MENU CINEMATOGRÁFICO ================= */
+/* ========================= */
+/* MENU CINEMATOGRÁFICO */
+/* ========================= */
 
 nav{
 background:#070707;
@@ -148,6 +154,7 @@ font-family:'Cinzel', serif;
 font-size:14px;
 letter-spacing:3px;
 text-transform:uppercase;
+
 background:linear-gradient(
 90deg,
 #8a6a25,
@@ -156,9 +163,12 @@ background:linear-gradient(
 #c49b3d,
 #8a6a25
 );
+
 background-size:200% auto;
+
 -webkit-background-clip:text;
 -webkit-text-fill-color:transparent;
+
 animation:goldFlow 8s linear infinite;
 }
 
@@ -167,11 +177,6 @@ animation:goldFlow 8s linear infinite;
 background:inherit;
 background-clip:text;
 -webkit-background-clip:text;
-display:inline-block;
-transition:
-transform 3s cubic-bezier(.19,1,.22,1),
-opacity 2.8s ease-out,
-filter 2.8s ease-out;
 }
 
 @keyframes goldFlow{
@@ -209,21 +214,7 @@ transition:width .45s ease;
 width:100%;
 }
 
-/* THANOS EFFECT */
-
-.thanos-link.disintegrate .menu-text span{
-opacity:0;
-transform:translate(var(--x), var(--y)) rotate(var(--r)) scale(0.5);
-filter:blur(12px);
-}
-
-.thanos-link.regenerate .menu-text span{
-opacity:1;
-transform:translate(0,0) rotate(0deg) scale(1);
-filter:blur(0);
-}
-
-/* ================= HERO ================= */
+/* HERO */
 
 .hero{
 height:95vh;
@@ -272,11 +263,13 @@ opacity:0;
 transform:translateX(-160px);
 }
 
-/* ================= SECTIONS ================= */
+/* SECTIONS */
 
 section{
 padding:160px 10%;
 }
+
+/* ABOUT */
 
 #about{
 display:flex;
@@ -340,6 +333,8 @@ transition:transform 3s ease;
 transform:scale(1.02);
 }
 
+/* BUTTON */
+
 .button{
 display:inline-block;
 padding:14px 35px;
@@ -353,6 +348,8 @@ font-weight:600;
 background:#e0b94f;
 }
 
+/* CONTACT */
+
 #contact{
 text-align:center;
 }
@@ -360,6 +357,8 @@ text-align:center;
 #contact p{
 color:#ccc;
 }
+
+/* FOOTER */
 
 footer{
 text-align:center;
@@ -369,65 +368,36 @@ border-top:1px solid #222;
 color:#666;
 }
 
-/* ================= CURSOR ART ================= */
+/* THANOS EFFECT */
 
-.art-cursor{
-position:fixed;
-width:18px;
-height:18px;
-border:2px solid #c49b3d;
-border-radius:50%;
-pointer-events:none;
-transform:translate(-50%,-50%);
-z-index:9999;
+.menu-text span{
+display:inline-block;
 transition:
-transform .15s ease,
-width .25s ease,
-height .25s ease,
-background .25s ease;
+transform 1.6s cubic-bezier(.19,1,.22,1),
+opacity 1.6s ease-out,
+filter 1.6s ease-out;
+transform-origin:center center;
 }
 
-.art-cursor.expand{
-width:38px;
-height:38px;
-background:rgba(196,155,61,0.15);
+.thanos-link.disintegrate .menu-text span{
+opacity:0;
+transform:
+translate(var(--x), var(--y))
+rotate(var(--r))
+scale(0.2);
+filter:blur(10px);
 }
 
-/* ================= COSMIC BACKGROUND ================= */
-
-.cosmic-bg{
-position:fixed;
-inset:0;
-z-index:-1;
-background:#0d0d0d;
-overflow:hidden;
-}
-
-.star{
-position:absolute;
-width:2px;
-height:2px;
-background:#ffffff;
-opacity:.6;
-border-radius:50%;
-animation:starMove linear infinite;
-}
-
-@keyframes starMove{
-from{transform:translateY(0);}
-to{transform:translateY(-120vh);}
+.thanos-link.regenerate .menu-text span{
+opacity:1;
+transform:translate(0,0) rotate(0deg) scale(1);
+filter:blur(0);
 }
 
 </style>
 </head>
 
 <body>
-
-<!-- CURSOR -->
-<div class="art-cursor"></div>
-
-<!-- COSMIC BACKGROUND -->
-<div class="cosmic-bg"></div>
 
 <div class="topbar">
 <div class="socials">
@@ -446,10 +416,12 @@ to{transform:translateY(-120vh);}
 <nav>
 <div class="nav-container">
 <div class="menu" translate="no">
+
 <a href="#about" class="thanos-link"><span class="menu-text">About</span></a>
 <a href="#gallery" class="thanos-link"><span class="menu-text">Available Works</span></a>
 <a href="Galeria.html" class="thanos-link"><span class="menu-text">Gallery</span></a>
 <a href="#contact" class="thanos-link"><span class="menu-text">Contact</span></a>
+
 </div>
 </div>
 </nav>
@@ -463,17 +435,23 @@ to{transform:translateY(-120vh);}
 
 <section id="about">
 <div class="aboutcontainer">
+
 <img src="yuridosanjos.webp" class="about-image">
+
 <div class="about-text">
+
 <h2>About the Artist</h2>
+
 <p>
 Born in 1992, Yuri dos Anjos is a descendant of the ancient Tupinambá Indigenous people of Brazil...
 </p>
+
 </div>
 </div>
 </section>
 
 <section id="gallery">
+
 <h2>Available Works</h2>
 
 <div class="art-piece">
@@ -507,7 +485,7 @@ Acquire Artwork – $1,500 USD
 
 <script>
 
-/* ================= HERO ================= */
+/* HERO */
 
 const hero=document.querySelector(".hero");
 const heroText=document.querySelector(".hero-content");
@@ -527,7 +505,7 @@ heroText.classList.remove("visible");
 heroObserver.observe(hero);
 }
 
-/* ================= ARTWORK ANIMATION ================= */
+/* ARTWORK ANIMATION */
 
 const artObserver=new IntersectionObserver(entries=>{
 entries.forEach(entry=>{
@@ -542,9 +520,10 @@ el.classList.remove("visible");
 }
 });
 },{threshold:0.2});
+
 document.querySelectorAll(".art-piece").forEach(el=>artObserver.observe(el));
 
-/* ================= THANOS MENU ================= */
+/* THANOS MENU */
 
 const links=document.querySelectorAll(".thanos-link");
 
@@ -555,13 +534,13 @@ textElement.innerHTML="";
 text.split("").forEach(letter=>{
 const span=document.createElement("span");
 span.textContent=letter;
-const randomX=(Math.random()-0.5)*90;
-const randomY=(Math.random()-0.5)*90;
-const randomRotate=(Math.random()-0.5)*120;
+const randomX=(Math.random()-0.5)*80;
+const randomY=(Math.random()-0.5)*80;
+const randomRotate=(Math.random()-0.5)*180;
 span.dataset.x=randomX;
 span.dataset.y=randomY;
 span.dataset.r=randomRotate;
-span.style.transitionDelay=(Math.random()*2.2)+"s";
+span.style.transitionDelay=(Math.random()*1.2)+"s";
 textElement.appendChild(span);
 });
 });
@@ -591,11 +570,16 @@ link.classList.add("regenerate");
 });
 }
 
+/* Inicializa com desintegração + reconstrução estilo Marvel */
 window.addEventListener("load",()=>{
 applyRandomMovement();
 requestAnimationFrame(()=>{
-links.forEach(link=>{link.classList.add("disintegrate");});
-setTimeout(()=>{regenerateMenu();},1400);
+links.forEach(link=>{
+link.classList.add("disintegrate");
+});
+setTimeout(()=>{
+regenerateMenu();
+},1500);
 });
 });
 
@@ -629,31 +613,6 @@ disintegrateMenu();
 setTimeout(regenerateMenu,950);
 });
 });
-
-/* ================= ART CURSOR ================= */
-
-const cursor=document.querySelector(".art-cursor");
-window.addEventListener("mousemove",e=>{
-cursor.style.left=e.clientX+"px";
-cursor.style.top=e.clientY+"px";
-});
-
-document.querySelectorAll("img,.button,.thanos-link").forEach(el=>{
-el.addEventListener("mouseenter",()=>{cursor.classList.add("expand");});
-el.addEventListener("mouseleave",()=>{cursor.classList.remove("expand");});
-});
-
-/* ================= COSMIC BACKGROUND ================= */
-
-const bg=document.querySelector(".cosmic-bg");
-for(let i=0;i<80;i++){
-const star=document.createElement("div");
-star.className="star";
-star.style.left=Math.random()*100+"%";
-star.style.top=Math.random()*100+"%";
-star.style.animationDuration=(20+Math.random()*40)+"s";
-bg.appendChild(star);
-}
 
 </script>
 
