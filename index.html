@@ -410,6 +410,12 @@ display:none;
 }
 
 }
+
+@media (hover: none) {
+.art-cursor{
+display:none;
+}
+}
   
 </style>
 </head>
@@ -639,10 +645,12 @@ if (!window.matchMedia("(pointer: coarse)").matches) {
 
 const cursor=document.querySelector(".art-cursor");
 
+if (!('ontouchstart' in window)) {
 window.addEventListener("mousemove",e=>{
 cursor.style.left=e.clientX+"px";
 cursor.style.top=e.clientY+"px";
 });
+}
 
 document.querySelectorAll("img,.button,.thanos-link").forEach(el=>{
 el.addEventListener("mouseenter",()=>cursor.classList.add("expand"));
@@ -752,6 +760,7 @@ animate();
 
 </body>
 </html>
+
 
 
 
