@@ -10,240 +10,248 @@
 
 <style>
 
-/* RESET */
-
+/* ================= RESET ================= */
 *{
-margin:0;
-padding:0;
-box-sizing:border-box;
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
 }
 
 body{
-background:#0d0d0d;
-color:#f5f5f5;
-font-family:'Inter',sans-serif;
-overflow-x:hidden;
+  background:#0d0d0d;
+  color:#f5f5f5;
+  font-family:'Inter',sans-serif;
+  overflow-x:hidden;
 }
 
-/* PARTICLES */
+/* ================= CURSOR ================= */
+.art-cursor{
+  position:fixed;
+  width:18px;
+  height:18px;
+  border:2px solid #c49b3d;
+  border-radius:50%;
+  pointer-events:none;
+  transform:translate(-50%,-50%);
+  z-index:9999;
+  transition:
+    transform .15s ease,
+    width .25s ease,
+    height .25s ease,
+    background .25s ease;
+}
 
+.art-cursor.expand{
+  width:38px;
+  height:38px;
+  background:rgba(196,155,61,0.15);
+}
+
+/* ================= PARTICLES ================= */
 #spiritCanvas{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-z-index:-1;
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  z-index:-1;
 }
 
 /* SCROLL PROGRESS */
-
 .scroll-progress{
-position:fixed;
-top:0;
-left:0;
-height:3px;
-background:#c49b3d;
-width:0%;
-z-index:3000;
+  position:fixed;
+  top:0;
+  left:0;
+  height:3px;
+  background:#c49b3d;
+  width:0%;
+  z-index:3000;
 }
 
 /* HEADER */
-
 header{
-text-align:center;
-padding:60px 10%;
-background:#000;
+  text-align:center;
+  padding:60px 10%;
+  background:#000;
 }
 
 header h1{
-font-family:'Cinzel',serif;
-font-size:42px;
-letter-spacing:6px;
+  font-family:'Cinzel',serif;
+  font-size:42px;
+  letter-spacing:6px;
 }
 
 /* BACK BUTTON */
-
 .back-btn{
-position:fixed;
-top:25px;
-left:25px;
-background:rgba(196,155,61,0.9);
-color:#000;
-padding:8px 18px;
-text-decoration:none;
-font-weight:500;
-font-size:14px;
-border-radius:30px;
-backdrop-filter: blur(6px);
-transition:all 0.3s ease;
-z-index:1000;
+  position:fixed;
+  top:25px;
+  left:25px;
+  background:rgba(196,155,61,0.9);
+  color:#000;
+  padding:8px 18px;
+  text-decoration:none;
+  font-weight:500;
+  font-size:14px;
+  border-radius:30px;
+  backdrop-filter: blur(6px);
+  transition:all 0.3s ease;
+  z-index:1000;
 }
 
 .back-btn:hover{
-background:#e0b94f;
-transform:translateY(-2px);
+  background:#e0b94f;
+  transform:translateY(-2px);
 }
 
 /* GALLERY */
-
 .gallery{
-padding:140px 10%;
+  padding:140px 10%;
 }
 
 /* ART BLOCK */
-
 .art-piece{
-max-width:1000px;
-margin:0 auto 220px auto;
-text-align:center;
-
-opacity:0;
-transform:translateY(35px);
-filter:blur(6px);
-
-transition:
-opacity 2.4s cubic-bezier(.22,.61,.36,1),
-transform 2.4s cubic-bezier(.22,.61,.36,1),
-filter 2.4s cubic-bezier(.22,.61,.36,1);
+  max-width:1000px;
+  margin:0 auto 220px auto;
+  text-align:center;
+  opacity:0;
+  transform:translateY(35px);
+  filter:blur(6px);
+  transition:
+    opacity 2.4s cubic-bezier(.22,.61,.36,1),
+    transform 2.4s cubic-bezier(.22,.61,.36,1),
+    filter 2.4s cubic-bezier(.22,.61,.36,1);
 }
 
 .art-piece.visible{
-opacity:1;
-transform:translateY(0);
-filter:blur(0);
+  opacity:1;
+  transform:translateY(0);
+  filter:blur(0);
 }
 
 .art-piece img{
-width:100%;
-margin-bottom:60px;
-transition:transform 3s ease;
+  width:100%;
+  margin-bottom:60px;
+  transition:transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .art-piece img:hover{
-transform:scale(1.02);
+  transform:scale(1.02);
+  box-shadow: 0 20px 60px rgba(196,155,61,0.25);
 }
 
 .art-piece h2{
-font-family:'Cinzel',serif;
-letter-spacing:4px;
+  font-family:'Cinzel',serif;
+  letter-spacing:4px;
 }
 
 /* LIGHTBOX */
-
 .lightbox{
-position:fixed;
-inset:0;
-background:radial-gradient(circle at center,#050505,#000);
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-opacity:0;
-visibility:hidden;
-transition:opacity 0.6s ease;
-z-index:2000;
-backdrop-filter:blur(12px);
-overflow:hidden;
+  position:fixed;
+  inset:0;
+  background:radial-gradient(circle at center,#050505,#000);
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  opacity:0;
+  visibility:hidden;
+  transition:opacity 0.6s ease;
+  z-index:2000;
+  backdrop-filter:blur(12px);
+  overflow:hidden;
 }
 
 .lightbox.active{
-opacity:1;
-visibility:visible;
+  opacity:1;
+  visibility:visible;
 }
-
-/* IMAGE */
 
 .lightbox img{
-max-width:85%;
-max-height:80%;
-box-shadow:0 40px 120px rgba(0,0,0,0.9);
-border:1px solid rgba(255,255,255,0.08);
-cursor:zoom-in;
-transition:transform 0.2s ease;
+  max-width:85%;
+  max-height:80%;
+  box-shadow:0 40px 120px rgba(0,0,0,0.9);
+  border:1px solid rgba(255,255,255,0.08);
+  cursor:zoom-in;
+  transition:transform 0.3s ease, opacity 0.3s ease;
+  transform:scale(0.95);
+  opacity:0;
 }
 
-/* MUSEUM LIGHT EFFECT */
+.lightbox.active img{
+  transform:scale(1);
+  opacity:1;
+}
 
+/* LIGHT EFFECT */
 .lightbox::before{
-content:"";
-position:absolute;
-width:600px;
-height:600px;
-background:radial-gradient(circle, rgba(255,255,255,0.08), transparent 70%);
-pointer-events:none;
-mix-blend-mode:soft-light;
-transform:translate(-50%,-50%);
+  content:"";
+  position:absolute;
+  width:600px;
+  height:600px;
+  background:radial-gradient(circle, rgba(255,255,255,0.08), transparent 70%);
+  pointer-events:none;
+  mix-blend-mode:soft-light;
+  transform:translate(-50%,-50%);
 }
-
-/* TITLE */
 
 #lightbox-title{
-margin-top:30px;
-font-family:'Cinzel',serif;
-letter-spacing:4px;
-font-size:20px;
-opacity:0.85;
+  margin-top:30px;
+  font-family:'Cinzel',serif;
+  letter-spacing:4px;
+  font-size:20px;
+  opacity:0.85;
 }
 
-/* CLOSE */
-
 .close{
-position:absolute;
-top:40px;
-right:60px;
-font-size:40px;
-color:#fff;
-cursor:pointer;
+  position:absolute;
+  top:40px;
+  right:60px;
+  font-size:40px;
+  color:#fff;
+  cursor:pointer;
 }
 
 /* NAVIGATION */
-
 .nav{
-position:absolute;
-top:50%;
-transform:translateY(-50%);
-font-size:45px;
-color:white;
-cursor:pointer;
-padding:20px;
-user-select:none;
-opacity:0.6;
-transition:0.3s;
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  font-size:45px;
+  color:white;
+  cursor:pointer;
+  padding:20px;
+  user-select:none;
+  opacity:0.6;
+  transition:0.3s;
 }
 
 .nav:hover{
-opacity:1;
+  opacity:1;
 }
 
 .prev{
-left:40px;
+  left:40px;
 }
 
 .next{
-right:40px;
+  right:40px;
 }
 
 /* MOBILE */
-
 @media (max-width:480px){
-
-.back-btn{
-top:12px;
-left:12px;
-padding:5px 12px;
-font-size:11px;
-}
-
-header{
-padding:90px 8% 40px 8%;
-}
-
-header h1{
-font-size:30px;
-letter-spacing:4px;
-}
-
+  .back-btn{
+    top:12px;
+    left:12px;
+    padding:5px 12px;
+    font-size:11px;
+  }
+  header{
+    padding:90px 8% 40px 8%;
+  }
+  header h1{
+    font-size:30px;
+    letter-spacing:4px;
+  }
 }
 
 </style>
@@ -251,6 +259,10 @@ letter-spacing:4px;
 
 <body>
 
+<!-- CURSOR -->
+<div class="art-cursor"></div>
+
+<!-- PARTICLE CANVAS -->
 <canvas id="spiritCanvas"></canvas>
 
 <div class="scroll-progress"></div>
@@ -315,247 +327,199 @@ letter-spacing:4px;
 
 <script>
 
-/* LIGHTBOX */
-
-const images=document.querySelectorAll(".art-piece img")
-const titles=document.querySelectorAll(".art-piece h2")
-
-const lightbox=document.getElementById("lightbox")
-const lightboxImg=document.getElementById("lightbox-img")
-const lightboxTitle=document.getElementById("lightbox-title")
-
-const closeBtn=document.querySelector(".close")
-const nextBtn=document.querySelector(".next")
-const prevBtn=document.querySelector(".prev")
-
-let currentIndex=0
-
-function openLightbox(index){
-
-currentIndex=index
-
-lightbox.classList.add("active")
-
-lightboxImg.src=images[index].src
-lightboxTitle.textContent=titles[index].textContent
-
-resetZoom()
-
-}
-
-function showNext(){
-
-currentIndex++
-if(currentIndex>=images.length) currentIndex=0
-
-openLightbox(currentIndex)
-
-}
-
-function showPrev(){
-
-currentIndex--
-if(currentIndex<0) currentIndex=images.length-1
-
-openLightbox(currentIndex)
-
-}
-
-images.forEach((img,i)=>{
-img.addEventListener("click",()=>{
-openLightbox(i)
-})
-})
-
-closeBtn.addEventListener("click",()=>{
-lightbox.classList.remove("active")
-resetZoom()
-})
-
-nextBtn.addEventListener("click",showNext)
-prevBtn.addEventListener("click",showPrev)
-
-/* KEYBOARD */
-
-document.addEventListener("keydown",(e)=>{
-
-if(!lightbox.classList.contains("active")) return
-
-if(e.key==="ArrowRight") showNext()
-if(e.key==="ArrowLeft") showPrev()
-if(e.key==="Escape"){
-lightbox.classList.remove("active")
-resetZoom()
-}
-
-})
-
-/* ========================= */
-/* ADVANCED ZOOM + DRAG */
-/* ========================= */
-
-let zoom=false
-let scale=2
-let posX=0
-let posY=0
-
-let dragging=false
-let startX=0
-let startY=0
-
-function updateTransform(){
-
-lightboxImg.style.transform=
-`translate(${posX}px, ${posY}px) scale(${zoom?scale:1})`
-
-}
-
-function resetZoom(){
-
-zoom=false
-posX=0
-posY=0
-
-lightboxImg.style.cursor="zoom-in"
-
-updateTransform()
-
-}
-
-lightboxImg.addEventListener("click",(e)=>{
-
-if(!zoom){
-
-zoom=true
-lightboxImg.style.cursor="grab"
-
-const rect=lightboxImg.getBoundingClientRect()
-
-const offsetX=e.clientX-rect.left
-const offsetY=e.clientY-rect.top
-
-posX=(rect.width/2-offsetX)
-posY=(rect.height/2-offsetY)
-
-updateTransform()
-
-}else{
-
-resetZoom()
-
-}
-
-})
-
-/* DRAG */
-
-lightboxImg.addEventListener("mousedown",(e)=>{
-
-if(!zoom) return
-
-dragging=true
-
-lightboxImg.style.cursor="grabbing"
-
-startX=e.clientX-posX
-startY=e.clientY-posY
-
-})
-
-window.addEventListener("mousemove",(e)=>{
-
-if(!dragging) return
-
-posX=e.clientX-startX
-posY=e.clientY-startY
-
-updateTransform()
-
-})
-
-window.addEventListener("mouseup",()=>{
-
-dragging=false
-
-if(zoom) lightboxImg.style.cursor="grab"
-
-})
-
-/* SCROLL REVEAL */
-
-const artObserver=new IntersectionObserver((entries)=>{
-entries.forEach(entry=>{
-if(entry.isIntersecting){
-entry.target.classList.add("visible")
-}
-})
-},{threshold:0.2})
-
-document.querySelectorAll(".art-piece")
-.forEach(el=>artObserver.observe(el))
-
-/* SCROLL PROGRESS */
-
-window.addEventListener("scroll",()=>{
-
-const scrollTop=document.documentElement.scrollTop
-const height=document.documentElement.scrollHeight-document.documentElement.clientHeight
-
-const progress=(scrollTop/height)*100
-
-document.querySelector(".scroll-progress").style.width=progress+"%"
-
-})
-
-/* PARTICLES */
-
-const canvas=document.getElementById("spiritCanvas")
-const ctx=canvas.getContext("2d")
+/* ================= CURSOR ================= */
+const cursor=document.querySelector(".art-cursor");
+let mouseX=0, mouseY=0;
+let mouseDown=false;
+
+window.addEventListener("mousemove",e=>{
+  mouseX=e.clientX;
+  mouseY=e.clientY;
+  cursor.style.left=mouseX+"px";
+  cursor.style.top=mouseY+"px";
+});
+
+window.addEventListener("mousedown",()=>{ 
+  mouseDown=true;
+  cursor.classList.add("expand");
+});
+window.addEventListener("mouseup",()=>{ 
+  mouseDown=false;
+  cursor.classList.remove("expand");
+});
+
+/* ================= PARTICLES ================= */
+const canvas=document.getElementById("spiritCanvas");
+const ctx=canvas.getContext("2d");
 
 function resizeCanvas(){
-canvas.width=window.innerWidth
-canvas.height=window.innerHeight
+  canvas.width=window.innerWidth;
+  canvas.height=window.innerHeight;
+}
+window.addEventListener("resize",resizeCanvas);
+resizeCanvas();
+
+class Particle{
+  constructor(){
+    this.x=Math.random()*canvas.width;
+    this.y=Math.random()*canvas.height;
+    this.size=1+Math.random()*2;
+    this.baseSize=this.size;
+    this.speed=0.2+Math.random()*0.3;
+    this.angle=Math.random()*Math.PI*2;
+    this.color="rgba(255,215,0,0.8)"; // ouro reluzente
+  }
+  draw(){
+    ctx.beginPath();
+    ctx.arc(this.x,this.y,this.size,0,Math.PI*2);
+    ctx.fillStyle=this.color;
+    ctx.shadowColor="#f3d98a";
+    ctx.shadowBlur=4;
+    ctx.fill();
+  }
+  update(){
+    this.angle+=Math.random()*0.02-0.01;
+    this.x+=Math.cos(this.angle)*0.3;
+    this.y+=Math.sin(this.angle)*0.3 - this.speed;
+    if(this.y<0) this.y=canvas.height;
+    if(this.y>canvas.height) this.y=0;
+    if(this.x<0) this.x=canvas.width;
+    if(this.x>canvas.width) this.x=0;
+
+    // interação com cursor
+    let dx=this.x-mouseX;
+    let dy=this.y-mouseY;
+    let dist=Math.sqrt(dx*dx+dy*dy);
+    if(dist<60+cursor.offsetWidth/2){
+      let force=(60+cursor.offsetWidth/2-dist)/60;
+      this.x+=dx*0.05*force*(mouseDown?2:1);
+      this.y+=dy*0.05*force*(mouseDown?2:1);
+    }
+  }
 }
 
-window.addEventListener("resize",resizeCanvas)
-
-resizeCanvas()
-
-let particles=[]
-
-for(let i=0;i<60;i++){
-
-particles.push({
-x:Math.random()*canvas.width,
-y:Math.random()*canvas.height,
-size:Math.random()*2,
-speed:Math.random()*0.3
-})
-
+let particles=[];
+for(let i=0;i<40;i++){
+  particles.push(new Particle());
 }
 
 function animate(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  particles.forEach(p=>{
+    p.update();
+    p.draw();
+  });
+  requestAnimationFrame(animate);
+}
+animate();
 
-ctx.clearRect(0,0,canvas.width,canvas.height)
+/* ================= ART PIECE SCROLL ================= */
+const artObserver=new IntersectionObserver(entries=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      entry.target.classList.add("visible")
+    }
+  })
+},{threshold:0.2})
+document.querySelectorAll(".art-piece").forEach(el=>artObserver.observe(el));
 
-particles.forEach(p=>{
+/* ================= SCROLL PROGRESS ================= */
+window.addEventListener("scroll",()=>{
+  const scrollTop=document.documentElement.scrollTop;
+  const height=document.documentElement.scrollHeight-document.documentElement.clientHeight;
+  const progress=(scrollTop/height)*100;
+  document.querySelector(".scroll-progress").style.width=progress+"%";
+});
 
-p.y-=p.speed
+/* ================= LIGHTBOX ================= */
+const images=document.querySelectorAll(".art-piece img");
+const titles=document.querySelectorAll(".art-piece h2");
+const lightbox=document.getElementById("lightbox");
+const lightboxImg=document.getElementById("lightbox-img");
+const lightboxTitle=document.getElementById("lightbox-title");
+const closeBtn=document.querySelector(".close");
+const nextBtn=document.querySelector(".next");
+const prevBtn=document.querySelector(".prev");
+let currentIndex=0;
 
-if(p.y<0)p.y=canvas.height
-
-ctx.beginPath()
-ctx.arc(p.x,p.y,p.size,0,Math.PI*2)
-ctx.fillStyle="rgba(196,155,61,0.25)"
-ctx.fill()
-
-})
-
-requestAnimationFrame(animate)
-
+function openLightbox(index){
+  currentIndex=index;
+  lightbox.classList.add("active");
+  lightboxImg.src=images[index].src;
+  lightboxTitle.textContent=titles[index].textContent;
+  resetZoom();
 }
 
-animate()
+function showNext(){
+  currentIndex++;
+  if(currentIndex>=images.length) currentIndex=0;
+  openLightbox(currentIndex);
+}
+
+function showPrev(){
+  currentIndex--;
+  if(currentIndex<0) currentIndex=images.length-1;
+  openLightbox(currentIndex);
+}
+
+images.forEach((img,i)=>img.addEventListener("click",()=>openLightbox(i)));
+closeBtn.addEventListener("click",()=>{lightbox.classList.remove("active"); resetZoom();});
+nextBtn.addEventListener("click",showNext);
+prevBtn.addEventListener("click",showPrev);
+
+document.addEventListener("keydown",(e)=>{
+  if(!lightbox.classList.contains("active")) return;
+  if(e.key==="ArrowRight") showNext();
+  if(e.key==="ArrowLeft") showPrev();
+  if(e.key==="Escape") lightbox.classList.remove("active");
+});
+
+/* ================= LIGHTBOX ZOOM + DRAG ================= */
+let zoom=false;
+let scale=2;
+let posX=0,posY=0;
+let dragging=false,startX=0,startY=0;
+
+function updateTransform(){
+  lightboxImg.style.transform=`translate(${posX}px,${posY}px) scale(${zoom?scale:1})`;
+}
+
+function resetZoom(){
+  zoom=false;
+  posX=0; posY=0;
+  lightboxImg.style.cursor="zoom-in";
+  updateTransform();
+}
+
+lightboxImg.addEventListener("click",(e)=>{
+  if(!zoom){
+    zoom=true;
+    lightboxImg.style.cursor="grab";
+    const rect=lightboxImg.getBoundingClientRect();
+    const offsetX=e.clientX-rect.left;
+    const offsetY=e.clientY-rect.top;
+    posX=(rect.width/2-offsetX);
+    posY=(rect.height/2-offsetY);
+    updateTransform();
+  }else{
+    resetZoom();
+  }
+});
+
+lightboxImg.addEventListener("mousedown",(e)=>{
+  if(!zoom) return;
+  dragging=true;
+  lightboxImg.style.cursor="grabbing";
+  startX=e.clientX-posX;
+  startY=e.clientY-posY;
+});
+window.addEventListener("mousemove",(e)=>{
+  if(!dragging) return;
+  posX=e.clientX-startX;
+  posY=e.clientY-startY;
+  updateTransform();
+});
+window.addEventListener("mouseup",()=>{dragging=false;if(zoom) lightboxImg.style.cursor="grab";});
 
 </script>
 
