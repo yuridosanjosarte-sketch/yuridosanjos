@@ -603,18 +603,26 @@ link.classList.add("regenerate");
 
 window.addEventListener("load",()=>{
 
-applyRandomMovement();   // <- aplica os vetores de poeira
+applyRandomMovement();
+
+/* espera o navegador renderizar */
+
+requestAnimationFrame(()=>{
 
 links.forEach(link=>{
 link.classList.add("disintegrate");
 });
 
+/* depois reconstrói */
+
 setTimeout(()=>{
 regenerateMenu();
-},900);
+},1400);
 
 });
 
+});
+  
 let lastScroll=window.scrollY;
 const scrollThreshold=20;
 let menuState="visible";
@@ -668,6 +676,7 @@ setTimeout(regenerateMenu,950);
 
 </body>
 </html>
+
 
 
 
