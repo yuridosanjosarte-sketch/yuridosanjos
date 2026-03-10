@@ -567,17 +567,14 @@ Acquire Artwork – $1,500 USD
 
 <script>
 
-/* HERO */
 
+/* HERO */
 const hero = document.querySelector(".hero");
 const heroText = document.querySelector(".hero-content");
 
 if(hero && heroText){
-
 const heroObserver = new IntersectionObserver((entries)=>{
-
 entries.forEach(entry=>{
-
 if(entry.isIntersecting){
 heroText.classList.add("visible");
 heroText.classList.remove("hidden");
@@ -585,40 +582,27 @@ heroText.classList.remove("hidden");
 heroText.classList.add("hidden");
 heroText.classList.remove("visible");
 }
-
 });
-
 },{threshold:0.6});
 
 heroObserver.observe(hero);
-
 }
-
 
 /* ARTWORK ANIMATION */
 
 const artObserver = new IntersectionObserver((entries)=>{
-
 entries.forEach(entry=>{
-
 const el = entry.target;
 
 if(entry.isIntersecting){
-
 el.classList.add("visible");
-
 }else{
-
 const rect = el.getBoundingClientRect();
-
 if(rect.bottom < 0 || rect.top > window.innerHeight){
 el.classList.remove("visible");
 }
-
 }
-
 });
-
 },{threshold:0.2});
 
 document.querySelectorAll(".art-piece")
@@ -638,7 +622,6 @@ link.innerHTML="";
 text.split("").forEach(letter=>{
 
 const span=document.createElement("span");
-
 span.textContent=letter;
 
 const randomX=(Math.random()-0.5)*90;
@@ -659,161 +642,78 @@ link.appendChild(span);
 
 
 function applyRandomMovement(){
-
 links.forEach(link=>{
-
 link.querySelectorAll("span").forEach(span=>{
-
 span.style.setProperty("--x",span.dataset.x+"px");
 span.style.setProperty("--y",span.dataset.y+"px");
 span.style.setProperty("--r",span.dataset.r+"deg");
-
 });
-
 });
-
 }
-
 
 function disintegrateMenu(){
-
 applyRandomMovement();
-
 links.forEach(link=>{
-
 link.classList.add("disintegrate");
 link.classList.remove("regenerate");
-
 });
-
 }
-
 
 function regenerateMenu(){
-
 links.forEach(link=>{
-
 link.classList.remove("disintegrate");
 link.classList.add("regenerate");
-
 });
-
 }
 
-
 window.addEventListener("load",()=>{
-
 regenerateMenu();
-
 });
-
 
 let lastScroll=window.scrollY;
 const scrollThreshold=20;
 let menuState="visible";
-
 
 window.addEventListener("scroll",()=>{
 
 const currentScroll=window.scrollY;
 
 if(currentScroll<=50){
-
 regenerateMenu();
 menuState="visible";
 lastScroll=currentScroll;
 return;
-
 }
 
 const scrollDifference=currentScroll-lastScroll;
 
-
 if(scrollDifference>scrollThreshold && menuState!=="hidden"){
-
 disintegrateMenu();
 menuState="hidden";
-
 }
 
-
 if(scrollDifference<-scrollThreshold && menuState!=="visible"){
-
 regenerateMenu();
 menuState="visible";
-
 }
 
 lastScroll=currentScroll;
 
 });
 
-
 links.forEach(link=>{
-
 link.addEventListener("click",()=>{
-
 disintegrateMenu();
-
 setTimeout(regenerateMenu,950);
-
+});
 });
 
-});
-
-
-/* PARALLAX HERO */
-
-const heroSection = document.querySelector(".hero");
-
-if(heroSection){
-
-window.addEventListener("scroll",()=>{
-
-const offset = window.scrollY * 0.15;
-
-heroSection.style.backgroundPosition =
-"center calc(38% + "+offset+"px)";
-
-});
-
-}
-
-
-/* ARTWORK DEPTH */
-
-document.querySelectorAll(".art-piece img")
-.forEach(img=>{
-
-img.addEventListener("mousemove",(e)=>{
-
-const rect = img.getBoundingClientRect();
-
-const x = (e.clientX - rect.left) / rect.width - 0.5;
-const y = (e.clientY - rect.top) / rect.height - 0.5;
-
-img.style.transform = `
-scale(1.04)
-rotateY(${x*6}deg)
-rotateX(${y*-6}deg)
-`;
-
-});
-
-
-img.addEventListener("mouseleave",()=>{
-
-img.style.transform="scale(1)";
-img.style.transition="transform 0.8s ease";
-
-});
-
-});
 
 </script>
 
 </body>
 </html>
+
 
 
 
