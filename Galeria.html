@@ -11,54 +11,239 @@
 <style>
 
 /* RESET */
-*{margin:0;padding:0;box-sizing:border-box;}
-body{background:#0d0d0d;color:#f5f5f5;font-family:'Inter',sans-serif;overflow-x:hidden;}
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+background:#0d0d0d;
+color:#f5f5f5;
+font-family:'Inter',sans-serif;
+overflow-x:hidden;
+}
 
 /* PARTICLES */
-#spiritCanvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;}
 
-/* CURSOR ARTISTICO */
-.art-cursor{position:fixed;width:18px;height:18px;border:2px solid #c49b3d;border-radius:50%;pointer-events:none;transform:translate(-50%,-50%);z-index:9999;transition:transform .15s ease,width .25s ease,height .25s ease,background .25s ease;}
-.art-cursor.expand{width:38px;height:38px;background:rgba(196,155,61,0.15);}
+#spiritCanvas{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+z-index:-1;
+}
 
 /* SCROLL PROGRESS */
-.scroll-progress{position:fixed;top:0;left:0;height:3px;background:#c49b3d;width:0%;z-index:3000;}
+
+.scroll-progress{
+position:fixed;
+top:0;
+left:0;
+height:3px;
+background:#c49b3d;
+width:0%;
+z-index:3000;
+}
 
 /* HEADER */
-header{text-align:center;padding:60px 10%;background:#000;}
-header h1{font-family:'Cinzel',serif;font-size:42px;letter-spacing:6px;}
+
+header{
+text-align:center;
+padding:60px 10%;
+background:#000;
+}
+
+header h1{
+font-family:'Cinzel',serif;
+font-size:42px;
+letter-spacing:6px;
+}
 
 /* BACK BUTTON */
-.back-btn{position:fixed;top:25px;left:25px;background:rgba(196,155,61,0.9);color:#000;padding:8px 18px;text-decoration:none;font-weight:500;font-size:14px;border-radius:30px;backdrop-filter: blur(6px);transition:all 0.3s ease;z-index:1000;}
-.back-btn:hover{background:#e0b94f;transform:translateY(-2px);}
+
+.back-btn{
+position:fixed;
+top:25px;
+left:25px;
+background:rgba(196,155,61,0.9);
+color:#000;
+padding:8px 18px;
+text-decoration:none;
+font-weight:500;
+font-size:14px;
+border-radius:30px;
+backdrop-filter: blur(6px);
+transition:all 0.3s ease;
+z-index:1000;
+}
+
+.back-btn:hover{
+background:#e0b94f;
+transform:translateY(-2px);
+}
 
 /* GALLERY */
-.gallery{padding:140px 10%;}
+
+.gallery{
+padding:140px 10%;
+}
 
 /* ART BLOCK */
-.art-piece{max-width:1000px;margin:0 auto 220px auto;text-align:center;opacity:0;transform:translateY(35px);filter:blur(6px);transition:opacity 2.4s cubic-bezier(.22,.61,.36,1),transform 2.4s cubic-bezier(.22,.61,.36,1),filter 2.4s cubic-bezier(.22,.61,.36,1);}
-.art-piece.visible{opacity:1;transform:translateY(0);filter:blur(0);}
-.art-piece img{width:100%;margin-bottom:60px;transition:transform 3s ease;}
-.art-piece img:hover{transform:scale(1.02);}
-.art-piece h2{font-family:'Cinzel',serif;letter-spacing:4px;}
+
+.art-piece{
+max-width:1000px;
+margin:0 auto 220px auto;
+text-align:center;
+
+opacity:0;
+transform:translateY(35px);
+filter:blur(6px);
+
+transition:
+opacity 2.4s cubic-bezier(.22,.61,.36,1),
+transform 2.4s cubic-bezier(.22,.61,.36,1),
+filter 2.4s cubic-bezier(.22,.61,.36,1);
+}
+
+.art-piece.visible{
+opacity:1;
+transform:translateY(0);
+filter:blur(0);
+}
+
+.art-piece img{
+width:100%;
+margin-bottom:60px;
+transition:transform 3s ease;
+}
+
+.art-piece img:hover{
+transform:scale(1.02);
+}
+
+.art-piece h2{
+font-family:'Cinzel',serif;
+letter-spacing:4px;
+}
 
 /* LIGHTBOX */
-.lightbox{position:fixed;inset:0;background:radial-gradient(circle at center,#050505,#000);display:flex;flex-direction:column;justify-content:center;align-items:center;opacity:0;visibility:hidden;transition:opacity 0.6s ease;z-index:2000;backdrop-filter:blur(12px);overflow:hidden;}
-.lightbox.active{opacity:1;visibility:visible;}
-.lightbox img{max-width:85%;max-height:80%;box-shadow:0 40px 120px rgba(0,0,0,0.9);border:1px solid rgba(255,255,255,0.08);cursor:zoom-in;transition:transform 0.2s ease;}
-.lightbox::before{content:"";position:absolute;width:600px;height:600px;background:radial-gradient(circle, rgba(255,255,255,0.08), transparent 70%);pointer-events:none;mix-blend-mode:soft-light;transform:translate(-50%,-50%);}
-#lightbox-title{margin-top:30px;font-family:'Cinzel',serif;letter-spacing:4px;font-size:20px;opacity:0.85;}
-.close{position:absolute;top:40px;right:60px;font-size:40px;color:#fff;cursor:pointer;}
-.nav{position:absolute;top:50%;transform:translateY(-50%);font-size:45px;color:white;cursor:pointer;padding:20px;user-select:none;opacity:0.6;transition:0.3s;}
-.nav:hover{opacity:1;}
-.prev{left:40px;}
-.next{right:40px;}
+
+.lightbox{
+position:fixed;
+inset:0;
+background:radial-gradient(circle at center,#050505,#000);
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+opacity:0;
+visibility:hidden;
+transition:opacity 0.6s ease;
+z-index:2000;
+backdrop-filter:blur(12px);
+overflow:hidden;
+}
+
+.lightbox.active{
+opacity:1;
+visibility:visible;
+}
+
+/* IMAGE */
+
+.lightbox img{
+max-width:85%;
+max-height:80%;
+box-shadow:0 40px 120px rgba(0,0,0,0.9);
+border:1px solid rgba(255,255,255,0.08);
+cursor:zoom-in;
+transition:transform 0.2s ease;
+}
+
+/* MUSEUM LIGHT EFFECT */
+
+.lightbox::before{
+content:"";
+position:absolute;
+width:600px;
+height:600px;
+background:radial-gradient(circle, rgba(255,255,255,0.08), transparent 70%);
+pointer-events:none;
+mix-blend-mode:soft-light;
+transform:translate(-50%,-50%);
+}
+
+/* TITLE */
+
+#lightbox-title{
+margin-top:30px;
+font-family:'Cinzel',serif;
+letter-spacing:4px;
+font-size:20px;
+opacity:0.85;
+}
+
+/* CLOSE */
+
+.close{
+position:absolute;
+top:40px;
+right:60px;
+font-size:40px;
+color:#fff;
+cursor:pointer;
+}
+
+/* NAVIGATION */
+
+.nav{
+position:absolute;
+top:50%;
+transform:translateY(-50%);
+font-size:45px;
+color:white;
+cursor:pointer;
+padding:20px;
+user-select:none;
+opacity:0.6;
+transition:0.3s;
+}
+
+.nav:hover{
+opacity:1;
+}
+
+.prev{
+left:40px;
+}
+
+.next{
+right:40px;
+}
 
 /* MOBILE */
+
 @media (max-width:480px){
-.back-btn{top:12px;left:12px;padding:5px 12px;font-size:11px;}
-header{padding:90px 8% 40px 8%;}
-header h1{font-size:30px;letter-spacing:4px;}
+
+.back-btn{
+top:12px;
+left:12px;
+padding:5px 12px;
+font-size:11px;
+}
+
+header{
+padding:90px 8% 40px 8%;
+}
+
+header h1{
+font-size:30px;
+letter-spacing:4px;
+}
+
 }
 
 </style>
@@ -66,16 +251,15 @@ header h1{font-size:30px;letter-spacing:4px;}
 
 <body>
 
-<!-- CURSOR -->
-<div class="art-cursor"></div>
-
-<!-- CANVAS PARTICULAS -->
 <canvas id="spiritCanvas"></canvas>
 
 <div class="scroll-progress"></div>
+
 <a href="index.html" class="back-btn">Back to Home</a>
 
-<header><h1>Gallery</h1></header>
+<header>
+<h1>Gallery</h1>
+</header>
 
 <section class="gallery">
 
@@ -83,26 +267,32 @@ header h1{font-size:30px;letter-spacing:4px;}
 <img src="etsa-ara.jpg" alt="Etsá Ara">
 <h2>Etsá Ara – Eyes of the Sky</h2>
 </div>
+
 <div class="art-piece">
 <img src="o-espirito.png" alt="O Espírito">
 <h2>The Spirit</h2>
 </div>
+
 <div class="art-piece">
 <img src="ipytue.jpg" alt="Ipytuẽ">
 <h2>Ipytuẽ – Breathe</h2>
 </div>
+
 <div class="art-piece">
 <img src="kiririndju.jpg" alt="Kiririndju">
 <h2>Kiririndju</h2>
 </div>
+
 <div class="art-piece">
 <img src="djera-poty.jpg" alt="Djera Poty">
 <h2>Djera Poty</h2>
 </div>
+
 <div class="art-piece">
 <img src="mariposa.jpg" alt="Mariposa">
 <h2>Mariposa</h2>
 </div>
+
 <div class="art-piece">
 <img src="obras-e-autor.jpg" alt="Artist and Works">
 <h2>Artist & Works</h2>
@@ -111,170 +301,261 @@ header h1{font-size:30px;letter-spacing:4px;}
 </section>
 
 <div class="lightbox" id="lightbox">
+
 <span class="close">&times;</span>
+
 <div class="nav prev">&#10094;</div>
 <div class="nav next">&#10095;</div>
+
 <img src="" id="lightbox-img">
+
 <h3 id="lightbox-title"></h3>
+
 </div>
 
 <script>
 
 /* LIGHTBOX */
+
 const images=document.querySelectorAll(".art-piece img")
 const titles=document.querySelectorAll(".art-piece h2")
+
 const lightbox=document.getElementById("lightbox")
 const lightboxImg=document.getElementById("lightbox-img")
 const lightboxTitle=document.getElementById("lightbox-title")
+
 const closeBtn=document.querySelector(".close")
 const nextBtn=document.querySelector(".next")
 const prevBtn=document.querySelector(".prev")
+
 let currentIndex=0
 
 function openLightbox(index){
+
 currentIndex=index
+
 lightbox.classList.add("active")
+
 lightboxImg.src=images[index].src
 lightboxTitle.textContent=titles[index].textContent
+
+resetZoom()
+
+}
+
+function showNext(){
+
+currentIndex++
+if(currentIndex>=images.length) currentIndex=0
+
+openLightbox(currentIndex)
+
+}
+
+function showPrev(){
+
+currentIndex--
+if(currentIndex<0) currentIndex=images.length-1
+
+openLightbox(currentIndex)
+
+}
+
+images.forEach((img,i)=>{
+img.addEventListener("click",()=>{
+openLightbox(i)
+})
+})
+
+closeBtn.addEventListener("click",()=>{
+lightbox.classList.remove("active")
+resetZoom()
+})
+
+nextBtn.addEventListener("click",showNext)
+prevBtn.addEventListener("click",showPrev)
+
+/* KEYBOARD */
+
+document.addEventListener("keydown",(e)=>{
+
+if(!lightbox.classList.contains("active")) return
+
+if(e.key==="ArrowRight") showNext()
+if(e.key==="ArrowLeft") showPrev()
+if(e.key==="Escape"){
+lightbox.classList.remove("active")
 resetZoom()
 }
 
-function showNext(){currentIndex++; if(currentIndex>=images.length) currentIndex=0; openLightbox(currentIndex)}
-function showPrev(){currentIndex--; if(currentIndex<0) currentIndex=images.length-1; openLightbox(currentIndex)}
-
-images.forEach((img,i)=>{img.addEventListener("click",()=>{openLightbox(i)})})
-closeBtn.addEventListener("click",()=>{lightbox.classList.remove("active"); resetZoom()})
-nextBtn.addEventListener("click",showNext)
-prevBtn.addEventListener("click",showPrev)
-document.addEventListener("keydown",(e)=>{
-if(!lightbox.classList.contains("active")) return
-if(e.key==="ArrowRight") showNext()
-if(e.key==="ArrowLeft") showPrev()
-if(e.key==="Escape"){lightbox.classList.remove("active"); resetZoom()}
 })
 
-/* ZOOM + DRAG */
-let zoom=false, scale=2, posX=0, posY=0, dragging=false, startX=0, startY=0;
-function updateTransform(){lightboxImg.style.transform=`translate(${posX}px,${posY}px) scale(${zoom?scale:1})`}
-function resetZoom(){zoom=false; posX=0; posY=0; lightboxImg.style.cursor="zoom-in"; updateTransform()}
+/* ========================= */
+/* ADVANCED ZOOM + DRAG */
+/* ========================= */
+
+let zoom=false
+let scale=2
+let posX=0
+let posY=0
+
+let dragging=false
+let startX=0
+let startY=0
+
+function updateTransform(){
+
+lightboxImg.style.transform=
+`translate(${posX}px, ${posY}px) scale(${zoom?scale:1})`
+
+}
+
+function resetZoom(){
+
+zoom=false
+posX=0
+posY=0
+
+lightboxImg.style.cursor="zoom-in"
+
+updateTransform()
+
+}
+
 lightboxImg.addEventListener("click",(e)=>{
-if(!zoom){zoom=true; lightboxImg.style.cursor="grab"; const rect=lightboxImg.getBoundingClientRect(); const offsetX=e.clientX-rect.left; const offsetY=e.clientY-rect.top; posX=(rect.width/2-offsetX); posY=(rect.height/2-offsetY); updateTransform()}else{resetZoom()}
+
+if(!zoom){
+
+zoom=true
+lightboxImg.style.cursor="grab"
+
+const rect=lightboxImg.getBoundingClientRect()
+
+const offsetX=e.clientX-rect.left
+const offsetY=e.clientY-rect.top
+
+posX=(rect.width/2-offsetX)
+posY=(rect.height/2-offsetY)
+
+updateTransform()
+
+}else{
+
+resetZoom()
+
+}
+
 })
-lightboxImg.addEventListener("mousedown",(e)=>{if(!zoom) return; dragging=true; lightboxImg.style.cursor="grabbing"; startX=e.clientX-posX; startY=e.clientY-posY})
-window.addEventListener("mousemove",(e)=>{if(!dragging) return; posX=e.clientX-startX; posY=e.clientY-startY; updateTransform()})
-window.addEventListener("mouseup",()=>{dragging=false; if(zoom) lightboxImg.style.cursor="grab"})
+
+/* DRAG */
+
+lightboxImg.addEventListener("mousedown",(e)=>{
+
+if(!zoom) return
+
+dragging=true
+
+lightboxImg.style.cursor="grabbing"
+
+startX=e.clientX-posX
+startY=e.clientY-posY
+
+})
+
+window.addEventListener("mousemove",(e)=>{
+
+if(!dragging) return
+
+posX=e.clientX-startX
+posY=e.clientY-startY
+
+updateTransform()
+
+})
+
+window.addEventListener("mouseup",()=>{
+
+dragging=false
+
+if(zoom) lightboxImg.style.cursor="grab"
+
+})
 
 /* SCROLL REVEAL */
-const artObserver=new IntersectionObserver(entries=>{
-entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add("visible")}})
+
+const artObserver=new IntersectionObserver((entries)=>{
+entries.forEach(entry=>{
+if(entry.isIntersecting){
+entry.target.classList.add("visible")
+}
+})
 },{threshold:0.2})
-document.querySelectorAll(".art-piece").forEach(el=>artObserver.observe(el))
+
+document.querySelectorAll(".art-piece")
+.forEach(el=>artObserver.observe(el))
 
 /* SCROLL PROGRESS */
+
 window.addEventListener("scroll",()=>{
+
 const scrollTop=document.documentElement.scrollTop
 const height=document.documentElement.scrollHeight-document.documentElement.clientHeight
-document.querySelector(".scroll-progress").style.width=(scrollTop/height*100)+"%"
+
+const progress=(scrollTop/height)*100
+
+document.querySelector(".scroll-progress").style.width=progress+"%"
+
 })
 
-/* ================= PARTICULAS DOURADAS ================= */
+/* PARTICLES */
+
 const canvas=document.getElementById("spiritCanvas")
 const ctx=canvas.getContext("2d")
-function resizeCanvas(){canvas.width=window.innerWidth; canvas.height=window.innerHeight}
+
+function resizeCanvas(){
+canvas.width=window.innerWidth
+canvas.height=window.innerHeight
+}
+
 window.addEventListener("resize",resizeCanvas)
+
 resizeCanvas()
 
 let particles=[]
-let specialParticle=null
 
-// partículas regulares
-for(let i=0;i<35;i++){
+for(let i=0;i<60;i++){
+
 particles.push({
 x:Math.random()*canvas.width,
 y:Math.random()*canvas.height,
-size:1+Math.random()*2,
-speed:0.15+Math.random()*0.25,
-alpha:0.4+Math.random()*0.4
-})}
-
-// partícula especial dourada
-function createSpecialParticle(){
-specialParticle={
-x:Math.random()*canvas.width,
-y:Math.random()*canvas.height,
-size:4+Math.random()*2,
-alpha:1,
-blink:true
-}
-}
-setInterval(createSpecialParticle,60000) // a cada 1 minuto
-
-let mouse={x:0,y:0,isDown:false}
-
-window.addEventListener("mousemove",e=>{mouse.x=e.clientX; mouse.y=e.clientY})
-window.addEventListener("mousedown",()=>{mouse.isDown=true})
-window.addEventListener("mouseup",()=>{mouse.isDown=false})
-
-function animate(){
-ctx.clearRect(0,0,canvas.width,canvas.height)
-
-// partículas regulares
-particles.forEach(p=>{
-p.y-=p.speed
-if(p.y<0) p.y=canvas.height
-ctx.beginPath()
-ctx.arc(p.x,p.y,p.size,0,Math.PI*2)
-ctx.fillStyle=`rgba(196,155,61,${p.alpha})`
-ctx.shadowBlur=2
-ctx.shadowColor="#fff"
-ctx.fill()
-
-// interação com cursor
-let dx=p.x-mouse.x, dy=p.y-mouse.y
-let dist=Math.sqrt(dx*dx+dy*dy)
-if(dist<80){
-let angle=Math.atan2(dy,dx)
-let force=(80-dist)/6
-p.x+=Math.cos(angle)*force*(mouse.isDown?2:1)
-p.y+=Math.sin(angle)*force*(mouse.isDown?2:1)
-}
+size:Math.random()*2,
+speed:Math.random()*0.3
 })
 
-// partícula especial
-if(specialParticle){
-ctx.beginPath()
-ctx.arc(specialParticle.x,specialParticle.y,specialParticle.size,0,Math.PI*2)
-ctx.fillStyle=`rgba(255,215,0,${specialParticle.alpha})`
-ctx.shadowBlur=6
-ctx.shadowColor="#fff"
-ctx.fill()
-if(specialParticle.blink) specialParticle.alpha-=0.02
-else specialParticle.alpha+=0.02
-if(specialParticle.alpha<=0.3) specialParticle.blink=false
-if(specialParticle.alpha>=1) specialParticle.blink=true
-// clique redireciona
-if(mouse.x>=specialParticle.x-specialParticle.size && mouse.x<=specialParticle.x+specialParticle.size &&
-mouse.y>=specialParticle.y-specialParticle.size && mouse.y<=specialParticle.y+specialParticle.size &&
-mouse.isDown){
-window.location.href="game/index.html"
-specialParticle=null
-}
 }
 
+function animate(){
+
+ctx.clearRect(0,0,canvas.width,canvas.height)
+
+particles.forEach(p=>{
+
+p.y-=p.speed
+
+if(p.y<0)p.y=canvas.height
+
+ctx.beginPath()
+ctx.arc(p.x,p.y,p.size,0,Math.PI*2)
+ctx.fillStyle="rgba(196,155,61,0.25)"
+ctx.fill()
+
+})
+
 requestAnimationFrame(animate)
+
 }
 
 animate()
-
-/* CURSOR ARTISTICO */
-const cursor=document.querySelector(".art-cursor")
-window.addEventListener("mousemove",e=>{cursor.style.left=e.clientX+"px"; cursor.style.top=e.clientY+"px"})
-document.querySelectorAll("img,.back-btn").forEach(el=>{
-el.addEventListener("mouseenter",()=>{cursor.classList.add("expand")})
-el.addEventListener("mouseleave",()=>{cursor.classList.remove("expand")})
-})
-window.addEventListener("mousedown",()=>{cursor.classList.add("expand")})
-window.addEventListener("mouseup",()=>{cursor.classList.remove("expand")})
 
 </script>
 
