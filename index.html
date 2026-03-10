@@ -420,7 +420,11 @@ display:none;
 <canvas class="gold-bg"></canvas>
 
 <!-- CURSOR -->
-<div class="art-cursor"></div>
+<script>
+if (!window.matchMedia("(pointer: coarse)").matches) {
+document.write('<div class="art-cursor"></div>');
+}
+</script>
 
 <div class="topbar">
 <div class="socials">
@@ -502,6 +506,10 @@ Acquire Artwork – $1,500 USD
 
 <script>
 
+if (window.matchMedia("(pointer: coarse)").matches) {
+document.querySelector(".art-cursor").remove();
+}
+  
 /* ================= HERO ================= */
 
 const hero=document.querySelector(".hero");
@@ -744,6 +752,7 @@ animate();
 
 </body>
 </html>
+
 
 
 
