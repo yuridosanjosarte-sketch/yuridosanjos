@@ -627,11 +627,9 @@ setTimeout(regenerateMenu,950);
 
 /* ================= ART CURSOR ================= */
 
-
-if (window.matchMedia("(pointer: fine)").matches) {
+if (!window.matchMedia("(pointer: coarse)").matches) {
 
 const cursor=document.querySelector(".art-cursor");
-let isMouseDown=false;
 
 window.addEventListener("mousemove",e=>{
 cursor.style.left=e.clientX+"px";
@@ -639,22 +637,18 @@ cursor.style.top=e.clientY+"px";
 });
 
 document.querySelectorAll("img,.button,.thanos-link").forEach(el=>{
-el.addEventListener("mouseenter",()=>{cursor.classList.add("expand");});
-el.addEventListener("mouseleave",()=>{cursor.classList.remove("expand");});
+el.addEventListener("mouseenter",()=>cursor.classList.add("expand"));
+el.addEventListener("mouseleave",()=>cursor.classList.remove("expand"));
 });
 
-window.addEventListener("mousedown",e=>{
-if(e.button===0){ 
+window.addEventListener("mousedown",()=>{
 isMouseDown=true;
 cursor.classList.add("expand");
-}
 });
 
-window.addEventListener("mouseup",e=>{
-if(e.button===0){ 
+window.addEventListener("mouseup",()=>{
 isMouseDown=false;
 cursor.classList.remove("expand");
-}
 });
 
 }
@@ -716,10 +710,11 @@ if(p.y>height) p.y=0;
 if(p.y<0) p.y=height;
 
 // Interação com cursor expandido ou normal
+let isMouseDown=false;  
 let dx=p.x-mouse.x;
 let dy=p.y-mouse.y;
 let dist=Math.sqrt(dx*dx+dy*dy);
-let activeRadius = (typeof isMouseDown !== "undefined" && isMouseDown) ? 150 : 80;
+let activeRadius=isMouseDown ? 150 : 80;
 if(dist<activeRadius){
 let angle=Math.atan2(dy,dx);
 let force=(activeRadius-dist)/activeRadius;
@@ -749,5 +744,6 @@ animate();
 
 </body>
 </html>
+
 
 
