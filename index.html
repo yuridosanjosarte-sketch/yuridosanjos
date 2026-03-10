@@ -365,7 +365,7 @@ color:#666;
 
 /* THANOS EFFECT */
 
-.thanos-link span{
+.menu-text span{
 display:inline-block;
 transition:
 transform 3s cubic-bezier(.19,1,.22,1),
@@ -373,7 +373,7 @@ opacity 2.8s ease-out,
 filter 2.8s ease-out;
 }
 
-.thanos-link.disintegrate span{
+.thanos-link.disintegrate .menu-text span{
 opacity:0;
 transform:
 translate(var(--x), var(--y))
@@ -382,7 +382,7 @@ scale(0.5);
 filter:blur(12px);
 }
 
-.thanos-link.regenerate span{
+.thanos-link.regenerate .menu-text span{
 opacity:1;
 transform:translate(0,0) rotate(0deg) scale(1);
 filter:blur(0);
@@ -666,6 +666,7 @@ setTimeout(regenerateMenu,950);
 
 </body>
 </html>
+
 
 
 
