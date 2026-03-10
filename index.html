@@ -539,9 +539,10 @@ const links=document.querySelectorAll(".thanos-link");
 
 links.forEach(link=>{
 
-const text=link.querySelector(".menu-text").textContent;
+const textElement = link.querySelector(".menu-text");
+const text = textElement.textContent;
 
-link.innerHTML="";
+textElement.innerHTML="";
 
 text.split("").forEach(letter=>{
 
@@ -558,7 +559,7 @@ span.dataset.r=randomRotate;
 
 span.style.transitionDelay=(Math.random()*2.2)+"s";
 
-link.appendChild(span);
+textElement.appendChild(span);
 
 });
 
@@ -665,5 +666,6 @@ setTimeout(regenerateMenu,950);
 
 </body>
 </html>
+
 
 
