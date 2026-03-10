@@ -14,384 +14,389 @@
 
 /* ================= RESET ================= */
 *{
-margin:0;
-padding:0;
-box-sizing:border-box;
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  user-select: none; /* remove seleção de texto e cursor piscando */
+}
+
+input, textarea {
+  user-select: text;
+  cursor: text;
 }
 
 body{
-background:#0d0d0d;
-color:#f5f5f5;
-font-family:'Inter',sans-serif;
-scroll-behavior:smooth;
-overflow-x:hidden;
-/* remove cursor de texto piscando */
-cursor: none;
+  background:#0d0d0d;
+  color:#f5f5f5;
+  font-family:'Inter',sans-serif;
+  scroll-behavior:smooth;
+  overflow-x:hidden;
+  cursor: none; /* mantém cursor artístico */
 }
 
 /* ================= NAV ================= */
 .nav-container{
-display:flex;
-justify-content:center;
-flex-wrap:wrap;
-gap:40px;
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:40px;
 }
 
 .thanos-link{
-position:relative;
-text-decoration:none;
-letter-spacing:3px;
-font-size:13px;
-cursor:pointer;
-display:inline-block;
-overflow:hidden;
-white-space:nowrap;
+  position:relative;
+  text-decoration:none;
+  letter-spacing:3px;
+  font-size:13px;
+  cursor:pointer;
+  display:inline-block;
+  overflow:hidden;
+  white-space:nowrap;
 }
 
 .thanos-link span{
-display:inline-block;
+  display:inline-block;
 }
 
 /* ================= TOPBAR ================= */
 .topbar{
-background:#000;
-padding:10px 6%;
-display:flex;
-justify-content:flex-end;
-align-items:center;
-border-bottom:1px solid #222;
+  background:#000;
+  padding:10px 6%;
+  display:flex;
+  justify-content:flex-end;
+  align-items:center;
+  border-bottom:1px solid #222;
 }
 
 .socials{
-display:flex;
-align-items:center;
-gap:18px;
+  display:flex;
+  align-items:center;
+  gap:18px;
 }
 
 .socials a{
-color:#aaa;
-font-size:18px;
-transition:0.3s ease;
+  color:#aaa;
+  font-size:18px;
+  transition:0.3s ease;
 }
 
 .socials a:hover{
-color:#c49b3d;
-transform:translateY(-3px);
+  color:#c49b3d;
+  transform:translateY(-3px);
 }
 
 /* ================= HEADER ================= */
 header{
-text-align:center;
-padding:60px 10%;
-background:#000;
+  text-align:center;
+  padding:60px 10%;
+  background:#000;
 }
 
 header h1{
-font-family:'Cinzel',serif;
-font-size:52px;
-letter-spacing:8px;
+  font-family:'Cinzel',serif;
+  font-size:52px;
+  letter-spacing:8px;
 }
 
 header p{
-margin-top:15px;
-color:#aaa;
-letter-spacing:3px;
+  margin-top:15px;
+  color:#aaa;
+  letter-spacing:3px;
 }
 
 /* ================= MENU CINEMATOGRÁFICO ================= */
 nav{
-background:#070707;
-padding:22px 0;
-text-align:center;
-border-bottom:1px solid rgba(196,155,61,0.15);
-position:relative;
-overflow:hidden;
+  background:#070707;
+  padding:22px 0;
+  text-align:center;
+  border-bottom:1px solid rgba(196,155,61,0.15);
+  position:relative;
+  overflow:hidden;
 }
 
 nav::after{
-content:"";
-position:absolute;
-bottom:0;
-left:-50%;
-width:200%;
-height:1px;
-background:linear-gradient(
-90deg,
-transparent,
-#c49b3d,
-#f3d98a,
-#c49b3d,
-transparent
-);
-animation:menuLight 6s linear infinite;
-opacity:.6;
+  content:"";
+  position:absolute;
+  bottom:0;
+  left:-50%;
+  width:200%;
+  height:1px;
+  background:linear-gradient(
+    90deg,
+    transparent,
+    #c49b3d,
+    #f3d98a,
+    #c49b3d,
+    transparent
+  );
+  animation:menuLight 6s linear infinite;
+  opacity:.6;
 }
 
 @keyframes menuLight{
-0%{transform:translateX(0);}
-100%{transform:translateX(50%);}
+  0%{transform:translateX(0);}
+  100%{transform:translateX(50%);}
 }
 
 .menu{
-display:flex;
-justify-content:center;
-align-items:center;
-gap:90px;
-flex-wrap:wrap;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:90px;
+  flex-wrap:wrap;
 }
 
 .menu-text{
-font-family:'Cinzel', serif;
-font-size:14px;
-letter-spacing:3px;
-text-transform:uppercase;
-background:linear-gradient(
-90deg,
-#8a6a25,
-#c49b3d,
-#f3d98a,
-#c49b3d,
-#8a6a25
-);
-background-size:200% auto;
--webkit-background-clip:text;
--webkit-text-fill-color:transparent;
-animation:goldFlow 8s linear infinite;
+  font-family:'Cinzel', serif;
+  font-size:14px;
+  letter-spacing:3px;
+  text-transform:uppercase;
+  background:linear-gradient(
+    90deg,
+    #8a6a25,
+    #c49b3d,
+    #f3d98a,
+    #c49b3d,
+    #8a6a25
+  );
+  background-size:200% auto;
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  animation:goldFlow 8s linear infinite;
 }
 
 .menu-text span{
--webkit-text-fill-color:transparent;
-background:inherit;
-background-clip:text;
--webkit-background-clip:text;
-display:inline-block;
-transition:
-transform 3s cubic-bezier(.19,1,.22,1),
-opacity 2.8s ease-out,
-filter 2.8s ease-out;
+  -webkit-text-fill-color:transparent;
+  background:inherit;
+  background-clip:text;
+  -webkit-background-clip:text;
+  display:inline-block;
+  transition:
+    transform 3s cubic-bezier(.19,1,.22,1),
+    opacity 2.8s ease-out,
+    filter 2.8s ease-out;
 }
 
 @keyframes goldFlow{
-0%{background-position:0% center;}
-100%{background-position:200% center;}
+  0%{background-position:0% center;}
+  100%{background-position:200% center;}
 }
 
 .thanos-link:hover .menu-text{
-text-shadow:
-0 0 10px rgba(196,155,61,0.6),
-0 0 22px rgba(196,155,61,0.45),
-0 0 40px rgba(196,155,61,0.25);
+  text-shadow:
+    0 0 10px rgba(196,155,61,0.6),
+    0 0 22px rgba(196,155,61,0.45),
+    0 0 40px rgba(196,155,61,0.25);
 }
 
 .thanos-link::after{
-content:"";
-position:absolute;
-left:50%;
-bottom:-8px;
-width:0%;
-height:1px;
-transform:translateX(-50%);
-background:linear-gradient(
-90deg,
-transparent,
-#c49b3d,
-#f3d98a,
-#c49b3d,
-transparent
-);
-transition:width .45s ease;
+  content:"";
+  position:absolute;
+  left:50%;
+  bottom:-8px;
+  width:0%;
+  height:1px;
+  transform:translateX(-50%);
+  background:linear-gradient(
+    90deg,
+    transparent,
+    #c49b3d,
+    #f3d98a,
+    #c49b3d,
+    transparent
+  );
+  transition:width .45s ease;
 }
 
 .thanos-link:hover::after{
-width:100%;
+  width:100%;
 }
 
 /* THANOS EFFECT */
 .thanos-link.disintegrate .menu-text span{
-opacity:0;
-transform:translate(var(--x), var(--y)) rotate(var(--r)) scale(0.5);
-filter:blur(12px);
+  opacity:0;
+  transform:translate(var(--x), var(--y)) rotate(var(--r)) scale(0.5);
+  filter:blur(12px);
 }
 
 .thanos-link.regenerate .menu-text span{
-opacity:1;
-transform:translate(0,0) rotate(0deg) scale(1);
-filter:blur(0);
+  opacity:1;
+  transform:translate(0,0) rotate(0deg) scale(1);
+  filter:blur(0);
 }
 
 /* ================= HERO ================= */
 .hero{
-height:95vh;
-position:relative;
-overflow:hidden;
-display:flex;
-align-items:center;
-justify-content:center;
+  height:95vh;
+  position:relative;
+  overflow:hidden;
+  display:flex;
+  align-items:center;
+  justify-content:center;
 }
 
 .hero::before{
-content:"";
-position:absolute;
-inset:0;
-background-image:url('etsa-ara.jpg');
-background-size:cover;
-background-position:center 38%;
-filter:brightness(0.55);
-z-index:0;
-animation:zoom 30s ease-in-out infinite alternate;
+  content:"";
+  position:absolute;
+  inset:0;
+  background-image:url('etsa-ara.jpg');
+  background-size:cover;
+  background-position:center 38%;
+  filter:brightness(0.55);
+  z-index:0;
+  animation:zoom 30s ease-in-out infinite alternate;
 }
 
 @keyframes zoom{
-from{transform:scale(1);}
-to{transform:scale(1.06);}
+  from{transform:scale(1);}
+  to{transform:scale(1.06);}
 }
 
 .hero-content{
-position:relative;
-z-index:2;
-text-align:center;
-opacity:0;
-transform:translateX(-140px);
-transition:
-transform 2.2s cubic-bezier(.22,.61,.36,1),
-opacity 2.2s cubic-bezier(.22,.61,.36,1);
+  position:relative;
+  z-index:2;
+  text-align:center;
+  opacity:0;
+  transform:translateX(-140px);
+  transition:
+    transform 2.2s cubic-bezier(.22,.61,.36,1),
+    opacity 2.2s cubic-bezier(.22,.61,.36,1);
 }
 
 .hero-content.visible{
-opacity:1;
-transform:translateX(0);
+  opacity:1;
+  transform:translateX(0);
 }
 
 .hero-content.hidden{
-opacity:0;
-transform:translateX(-160px);
+  opacity:0;
+  transform:translateX(-160px);
 }
 
 /* ================= SECTIONS ================= */
 section{
-padding:160px 10%;
+  padding:160px 10%;
 }
 
 #about{
-display:flex;
-justify-content:center;
+  display:flex;
+  justify-content:center;
 }
 
 .aboutcontainer{
-max-width:1100px;
-display:flex;
-gap:60px;
-flex-wrap:wrap;
-align-items:center;
+  max-width:1100px;
+  display:flex;
+  gap:60px;
+  flex-wrap:wrap;
+  align-items:center;
 }
 
 .about-image{
-width:320px;
-border:2px solid #c49b3d;
+  width:320px;
+  border:2px solid #c49b3d;
 }
 
 .about-text{
-flex:1;
-min-width:300px;
-color:#ccc;
-line-height:1.8;
+  flex:1;
+  min-width:300px;
+  color:#ccc;
+  line-height:1.8;
 }
 
 /* GALLERY */
 #gallery h2{
-text-align:center;
-font-family:'Cinzel',serif;
-margin-bottom:160px;
+  text-align:center;
+  font-family:'Cinzel',serif;
+  margin-bottom:160px;
 }
 
 .art-piece{
-max-width:1000px;
-margin:0 auto 220px auto;
-text-align:center;
-opacity:0;
-transform:translateY(35px);
-filter:blur(6px);
-transition:
-opacity 2.4s cubic-bezier(.22,.61,.36,1),
-transform 2.4s cubic-bezier(.22,.61,.36,1),
-filter 2.4s cubic-bezier(.22,.61,.36,1);
+  max-width:1000px;
+  margin:0 auto 220px auto;
+  text-align:center;
+  opacity:0;
+  transform:translateY(35px);
+  filter:blur(6px);
+  transition:
+    opacity 2.4s cubic-bezier(.22,.61,.36,1),
+    transform 2.4s cubic-bezier(.22,.61,.36,1),
+    filter 2.4s cubic-bezier(.22,.61,.36,1);
 }
 
 .art-piece.visible{
-opacity:1;
-transform:translateY(0);
-filter:blur(0);
+  opacity:1;
+  transform:translateY(0);
+  filter:blur(0);
 }
 
 .art-piece img{
-width:100%;
-margin-bottom:60px;
-transition:transform 3s ease;
+  width:100%;
+  margin-bottom:60px;
+  transition:transform 3s ease;
 }
 
 .art-piece img:hover{
-transform:scale(1.02);
+  transform:scale(1.02);
 }
 
 .button{
-display:inline-block;
-padding:14px 35px;
-background:#c49b3d;
-color:#000;
-text-decoration:none;
-font-weight:600;
+  display:inline-block;
+  padding:14px 35px;
+  background:#c49b3d;
+  color:#000;
+  text-decoration:none;
+  font-weight:600;
 }
 
 .button:hover{
-background:#e0b94f;
+  background:#e0b94f;
 }
 
 #contact{
-text-align:center;
+  text-align:center;
 }
 
 #contact p{
-color:#ccc;
+  color:#ccc;
 }
 
 footer{
-text-align:center;
-padding:50px;
-background:#000;
-border-top:1px solid #222;
-color:#666;
+  text-align:center;
+  padding:50px;
+  background:#000;
+  border-top:1px solid #222;
+  color:#666;
 }
 
 /* ================= CURSOR ART ================= */
 .art-cursor{
-position:fixed;
-width:18px;
-height:18px;
-border:2px solid #c49b3d;
-border-radius:50%;
-pointer-events:none;
-transform:translate(-50%,-50%);
-z-index:9999;
-transition:
-transform .15s ease,
-width .25s ease,
-height .25s ease,
-background .25s ease;
+  position:fixed;
+  width:18px;
+  height:18px;
+  border:2px solid #c49b3d;
+  border-radius:50%;
+  pointer-events:none;
+  transform:translate(-50%,-50%);
+  z-index:9999;
+  transition:
+    transform .15s ease,
+    width .25s ease,
+    height .25s ease,
+    background .25s ease;
 }
 
 .art-cursor.expand{
-width:38px;
-height:38px;
-background:rgba(196,155,61,0.15);
+  width:38px;
+  height:38px;
+  background:rgba(196,155,61,0.15);
 }
 
 /* ================= GOLD DUST BACKGROUND ================= */
 .gold-bg{
-position:fixed;
-inset:0;
-z-index:-2;
-pointer-events:none;
-background:#0d0d0d;
+  position:fixed;
+  inset:0;
+  z-index:-2;
+  pointer-events:none;
+  background:#0d0d0d;
 }
 
 </style>
@@ -443,10 +448,7 @@ background:#0d0d0d;
 <div class="about-text">
 <h2>About the Artist</h2>
 <p>
-Born in Brazil in 1992, Yuri Dos Anjos is a contemporary artist specializing in mastery-level oil painting.
-With a focus on realism, his work explores the depth and soul of indigenous portraiture. 
-As a descendant of the Tupinambá people, Yuri weaves his heritage into every brushstroke, creating evocative pieces that command attention.
-His art has gained international recognition, reaching private collections in Switzerland.
+Born in 1992, Yuri dos Anjos is a descendant of the ancient Tupinambá Indigenous people of Brazil...
 </p>
 </div>
 </div>
@@ -676,30 +678,4 @@ let dist=Math.sqrt(dx*dx+dy*dy);
 let activeRadius=isMouseDown ? 150 : 80;
 if(dist<activeRadius){
 let angle=Math.atan2(dy,dx);
-let force=(activeRadius-dist)/activeRadius;
-p.x += Math.cos(angle)*force*6;
-p.y += Math.sin(angle)*force*6;
-}
-
-ctx.beginPath();
-ctx.arc(p.x,p.y,p.size,0,Math.PI*2);
-ctx.fillStyle=`rgba(255,215,0,${p.alpha})`;
-ctx.shadowColor="rgba(255,215,0,0.9)";
-ctx.shadowBlur=6;
-ctx.fill();
-ctx.closePath();
-});
-
-requestAnimationFrame(animate);
-}
-
-animate();
-
-</script>
-
-</body>
-</html>
-</body>
-</html>
-
-
+let force=(activeRadius-dist
