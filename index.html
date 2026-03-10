@@ -13,7 +13,6 @@
 <style>
 
 /* ================= RESET ================= */
-
 *{
 margin:0;
 padding:0;
@@ -26,21 +25,11 @@ color:#f5f5f5;
 font-family:'Inter',sans-serif;
 scroll-behavior:smooth;
 overflow-x:hidden;
-
-/* ================= CORREÇÃO CURSOR ================= */
-user-select: none; /* impede cursor de texto piscando */
-}
-
-a, button, input, textarea {
-user-select: auto; /* mantém seleção em links e inputs */
-}
-
-img {
-user-select: none;
+/* remove cursor de texto piscando */
+cursor: none;
 }
 
 /* ================= NAV ================= */
-
 .nav-container{
 display:flex;
 justify-content:center;
@@ -64,7 +53,6 @@ display:inline-block;
 }
 
 /* ================= TOPBAR ================= */
-
 .topbar{
 background:#000;
 padding:10px 6%;
@@ -92,7 +80,6 @@ transform:translateY(-3px);
 }
 
 /* ================= HEADER ================= */
-
 header{
 text-align:center;
 padding:60px 10%;
@@ -112,7 +99,6 @@ letter-spacing:3px;
 }
 
 /* ================= MENU CINEMATOGRÁFICO ================= */
-
 nav{
 background:#070707;
 padding:22px 0;
@@ -221,7 +207,6 @@ width:100%;
 }
 
 /* THANOS EFFECT */
-
 .thanos-link.disintegrate .menu-text span{
 opacity:0;
 transform:translate(var(--x), var(--y)) rotate(var(--r)) scale(0.5);
@@ -235,7 +220,6 @@ filter:blur(0);
 }
 
 /* ================= HERO ================= */
-
 .hero{
 height:95vh;
 position:relative;
@@ -284,7 +268,6 @@ transform:translateX(-160px);
 }
 
 /* ================= SECTIONS ================= */
-
 section{
 padding:160px 10%;
 }
@@ -315,7 +298,6 @@ line-height:1.8;
 }
 
 /* GALLERY */
-
 #gallery h2{
 text-align:center;
 font-family:'Cinzel',serif;
@@ -381,7 +363,6 @@ color:#666;
 }
 
 /* ================= CURSOR ART ================= */
-
 .art-cursor{
 position:fixed;
 width:18px;
@@ -404,29 +385,13 @@ height:38px;
 background:rgba(196,155,61,0.15);
 }
 
-/* ================= COSMIC BACKGROUND ================= */
-
-.cosmic-bg{
+/* ================= GOLD DUST BACKGROUND ================= */
+.gold-bg{
 position:fixed;
 inset:0;
-z-index:-1;
+z-index:-2;
+pointer-events:none;
 background:#0d0d0d;
-overflow:hidden;
-}
-
-.star{
-position:absolute;
-width:2px;
-height:2px;
-background:#ffffff;
-opacity:.6;
-border-radius:50%;
-animation:starMove linear infinite;
-}
-
-@keyframes starMove{
-from{transform:translateY(0);}
-to{transform:translateY(-120vh);}
 }
 
 </style>
@@ -434,11 +399,11 @@ to{transform:translateY(-120vh);}
 
 <body>
 
+<!-- GOLD DUST BACKGROUND -->
+<canvas class="gold-bg"></canvas>
+
 <!-- CURSOR -->
 <div class="art-cursor"></div>
-
-<!-- COSMIC BACKGROUND -->
-<div class="cosmic-bg"></div>
 
 <div class="topbar">
 <div class="socials">
@@ -519,10 +484,8 @@ Acquire Artwork – $1,500 USD
 <script>
 
 /* ================= HERO ================= */
-
 const hero=document.querySelector(".hero");
 const heroText=document.querySelector(".hero-content");
-
 if(hero && heroText){
 const heroObserver=new IntersectionObserver(entries=>{
 entries.forEach(entry=>{
@@ -539,7 +502,6 @@ heroObserver.observe(hero);
 }
 
 /* ================= ARTWORK ANIMATION ================= */
-
 const artObserver=new IntersectionObserver(entries=>{
 entries.forEach(entry=>{
 const el=entry.target;
@@ -556,9 +518,7 @@ el.classList.remove("visible");
 document.querySelectorAll(".art-piece").forEach(el=>artObserver.observe(el));
 
 /* ================= THANOS MENU ================= */
-
 const links=document.querySelectorAll(".thanos-link");
-
 links.forEach(link=>{
 const textElement = link.querySelector(".menu-text");
 const text = textElement.textContent;
@@ -613,7 +573,6 @@ setTimeout(()=>{regenerateMenu();},1400);
 let lastScroll=window.scrollY;
 const scrollThreshold=20;
 let menuState="visible";
-
 window.addEventListener("scroll",()=>{
 const currentScroll=window.scrollY;
 if(currentScroll<=50){
@@ -642,8 +601,9 @@ setTimeout(regenerateMenu,950);
 });
 
 /* ================= ART CURSOR ================= */
-
 const cursor=document.querySelector(".art-cursor");
+let isMouseDown=false;
+
 window.addEventListener("mousemove",e=>{
 cursor.style.left=e.clientX+"px";
 cursor.style.top=e.clientY+"px";
@@ -654,22 +614,85 @@ el.addEventListener("mouseenter",()=>{cursor.classList.add("expand");});
 el.addEventListener("mouseleave",()=>{cursor.classList.remove("expand");});
 });
 
-/* ================= COSMIC BACKGROUND ================= */
-
-const bg=document.querySelector(".cosmic-bg");
-for(let i=0;i<80;i++){
-const star=document.createElement("div");
-star.className="star";
-star.style.left=Math.random()*100+"%";
-star.style.top=Math.random()*100+"%";
-star.style.animationDuration=(20+Math.random()*40)+"s";
-bg.appendChild(star);
+window.addEventListener("mousedown",e=>{
+if(e.button===0){
+isMouseDown=true;
+cursor.classList.add("expand");
 }
+});
+window.addEventListener("mouseup",e=>{
+if(e.button===0){
+isMouseDown=false;
+cursor.classList.remove("expand");
+}
+});
+
+/* ================= GOLD DUST BACKGROUND ================= */
+const canvas=document.querySelector(".gold-bg");
+const ctx=canvas.getContext("2d");
+let width=canvas.width=window.innerWidth;
+let height=canvas.height=window.innerHeight;
+
+window.addEventListener("resize",()=>{
+width=canvas.width=window.innerWidth;
+height=canvas.height=window.innerHeight;
+});
+
+const particles=[];
+const numParticles=80; 
+for(let i=0;i<numParticles;i++){
+particles.push({
+x: Math.random()*width,
+y: Math.random()*height,
+vx: (Math.random()-0.5)*0.25,
+vy: (Math.random()-0.5)*0.25,
+size: Math.random()*1.5+0.8,
+alpha: Math.random()*0.9+0.3
+});
+}
+
+const mouse={x:-9999,y:-9999,radius:80};
+window.addEventListener("mousemove",(e)=>{
+mouse.x=e.clientX;
+mouse.y=e.clientY;
+});
+
+function animate(){
+ctx.clearRect(0,0,width,height);
+particles.forEach(p=>{
+p.x += p.vx + Math.sin(Date.now()*0.001+p.vx)*0.2;
+p.y += p.vy + Math.cos(Date.now()*0.001+p.vy)*0.2;
+if(p.x>width) p.x=0;
+if(p.x<0) p.x=width;
+if(p.y>height) p.y=0;
+if(p.y<0) p.y=height;
+
+let dx=p.x-mouse.x;
+let dy=p.y-mouse.y;
+let dist=Math.sqrt(dx*dx+dy*dy);
+let activeRadius=isMouseDown ? 150 : 80;
+if(dist<activeRadius){
+let angle=Math.atan2(dy,dx);
+let force=(activeRadius-dist)/activeRadius;
+p.x += Math.cos(angle)*force*6;
+p.y += Math.sin(angle)*force*6;
+}
+
+ctx.beginPath();
+ctx.arc(p.x,p.y,p.size,0,Math.PI*2);
+ctx.fillStyle=`rgba(255,215,0,${p.alpha})`;
+ctx.shadowColor="rgba(255,215,0,0.9)";
+ctx.shadowBlur=6;
+ctx.fill();
+ctx.closePath();
+});
+
+requestAnimationFrame(animate);
+}
+
+animate();
 
 </script>
 
 </body>
 </html>
-
-
-
