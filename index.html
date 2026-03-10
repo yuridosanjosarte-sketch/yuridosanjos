@@ -403,20 +403,6 @@ pointer-events:none;
 background:#0d0d0d;
 }
 
-@media (pointer: coarse) {
-
-.art-cursor{
-display:none;
-}
-
-}
-
-@media (hover: none) {
-.art-cursor{
-display:none;
-}
-}
-  
 </style>
 </head>
 
@@ -426,11 +412,7 @@ display:none;
 <canvas class="gold-bg"></canvas>
 
 <!-- CURSOR -->
-<script>
-if (!window.matchMedia("(pointer: coarse)").matches) {
-document.write('<div class="art-cursor"></div>');
-}
-</script>
+<div class="art-cursor"></div>
 
 <div class="topbar">
 <div class="socials">
@@ -512,10 +494,6 @@ Acquire Artwork – $1,500 USD
 
 <script>
 
-if (window.matchMedia("(pointer: coarse)").matches) {
-document.querySelector(".art-cursor").remove();
-}
-  
 /* ================= HERO ================= */
 
 const hero=document.querySelector(".hero");
@@ -641,34 +619,37 @@ setTimeout(regenerateMenu,950);
 
 /* ================= ART CURSOR ================= */
 
-if (!window.matchMedia("(pointer: coarse)").matches) {
+let isMouseDown=false;
+
+if (!('ontouchstart' in window)) {
 
 const cursor=document.querySelector(".art-cursor");
 
-if (!('ontouchstart' in window)) {
 window.addEventListener("mousemove",e=>{
 cursor.style.left=e.clientX+"px";
 cursor.style.top=e.clientY+"px";
 });
-}
 
 document.querySelectorAll("img,.button,.thanos-link").forEach(el=>{
-el.addEventListener("mouseenter",()=>cursor.classList.add("expand"));
-el.addEventListener("mouseleave",()=>cursor.classList.remove("expand"));
+el.addEventListener("mouseenter",()=>{cursor.classList.add("expand");});
+el.addEventListener("mouseleave",()=>{cursor.classList.remove("expand");});
 });
 
-window.addEventListener("mousedown",()=>{
+window.addEventListener("mousedown",e=>{
+if(e.button===0){ 
 isMouseDown=true;
 cursor.classList.add("expand");
+}
 });
 
-window.addEventListener("mouseup",()=>{
+window.addEventListener("mouseup",e=>{
+if(e.button===0){ 
 isMouseDown=false;
 cursor.classList.remove("expand");
+}
 });
 
 }
-
 /* ================= GOLD DUST BACKGROUND ================= */
 
 const canvas=document.querySelector(".gold-bg");
@@ -696,19 +677,9 @@ alpha: Math.random()*0.9+0.3
 
 const mouse={x:-9999,y:-9999,radius:80};
 
-/* MOUSE - DESKTOP */
-
 window.addEventListener("mousemove",(e)=>{
 mouse.x=e.clientX;
 mouse.y=e.clientY;
-});
-
-/* TOUCH - MOBILE */
-
-window.addEventListener("touchmove",(e)=>{
-const touch = e.touches[0];
-mouse.x = touch.clientX;
-mouse.y = touch.clientY;
 });
 
 function animate(){
@@ -726,11 +697,10 @@ if(p.y>height) p.y=0;
 if(p.y<0) p.y=height;
 
 // Interação com cursor expandido ou normal
-let isMouseDown=false;  
 let dx=p.x-mouse.x;
 let dy=p.y-mouse.y;
 let dist=Math.sqrt(dx*dx+dy*dy);
-let activeRadius=isMouseDown ? 150 : 80;
+let activeRadius=isMouseDown ? 150 : 80; // aumenta alcance quando pressionado
 if(dist<activeRadius){
 let angle=Math.atan2(dy,dx);
 let force=(activeRadius-dist)/activeRadius;
@@ -760,8 +730,4 @@ animate();
 
 </body>
 </html>
-
-
-
-
 
