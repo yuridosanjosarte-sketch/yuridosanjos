@@ -393,9 +393,9 @@ height:38px;
 background:rgba(196,155,61,0.15);
 }
 
-/* ================= GOLD DUST FIBONACCI BACKGROUND ================= */
+/* ================= GOLD DUST BACKGROUND ================= */
 
-.fib-bg{
+.gold-bg{
 position:fixed;
 inset:0;
 z-index:-2;
@@ -409,7 +409,7 @@ background:#0d0d0d;
 <body>
 
 <!-- GOLD DUST BACKGROUND -->
-<canvas class="fib-bg"></canvas>
+<canvas class="gold-bg"></canvas>
 
 <!-- CURSOR -->
 <div class="art-cursor"></div>
@@ -628,9 +628,9 @@ el.addEventListener("mouseenter",()=>{cursor.classList.add("expand");});
 el.addEventListener("mouseleave",()=>{cursor.classList.remove("expand");});
 });
 
-/* ================= GOLD DUST FIBONACCI BACKGROUND ================= */
+/* ================= GOLD DUST BACKGROUND ================= */
 
-const canvas=document.querySelector(".fib-bg");
+const canvas=document.querySelector(".gold-bg");
 const ctx=canvas.getContext("2d");
 let width=canvas.width=window.innerWidth;
 let height=canvas.height=window.innerHeight;
@@ -641,41 +641,61 @@ height=canvas.height=window.innerHeight;
 });
 
 const particles=[];
-const numParticles=250;
-const goldenRatio=(1+Math.sqrt(5))/2;
+const numParticles=200;
 
 for(let i=0;i<numParticles;i++){
-const angle=i*2*Math.PI/goldenRatio;
-const radius=Math.sqrt(i/numParticles)*Math.min(width,height)/2.2;
-const x=width/2 + radius*Math.cos(angle);
-const y=height/2 + radius*Math.sin(angle);
 particles.push({
-x,y,
-baseX:x,
-baseY:y,
-vx:(Math.random()-0.5)*0.4,
-vy:(Math.random()-0.5)*0.4,
-size:Math.random()*2+1,
-alpha:Math.random()*0.7+0.3,
-angleOffset:angle
+x: Math.random()*width,
+y: Math.random()*height,
+vx: (Math.random()-0.5)*0.3,
+vy: (Math.random()-0.5)*0.3,
+size: Math.random()*2+0.7,
+alpha: Math.random()*0.8+0.2
 });
 }
 
+window.addEventListener("mousemove",(e)=>{
+mouse.x=e.clientX;
+mouse.y=e.clientY;
+});
+
+const mouse={x:-9999,y:-9999,radius:80};
+
 function animate(){
 ctx.clearRect(0,0,width,height);
-particles.forEach(p=>{
-// Movimento orgânico Fibonacci-like
-p.angleOffset += 0.002 + Math.random()*0.001;
-const radius = Math.sqrt(Math.random()*numParticles/numParticles)*Math.min(width,height)/2.2;
-p.x = width/2 + radius * Math.cos(p.angleOffset) + Math.sin(Date.now()*0.001+p.angleOffset*2)*15;
-p.y = height/2 + radius * Math.sin(p.angleOffset) + Math.cos(Date.now()*0.001+p.angleOffset*2)*15;
 
+particles.forEach(p=>{
+// Movimento leve, flutuando
+p.x += p.vx + Math.sin(Date.now()*0.001+p.vx)*0.3;
+p.y += p.vy + Math.cos(Date.now()*0.001+p.vy)*0.3;
+
+// Reaparecer ao sair da tela
+if(p.x>width) p.x=0;
+if(p.x<0) p.x=width;
+if(p.y>height) p.y=0;
+if(p.y<0) p.y=height;
+
+// Interação com mouse (afastar suavemente)
+let dx=p.x-mouse.x;
+let dy=p.y-mouse.y;
+let dist=Math.sqrt(dx*dx+dy*dy);
+if(dist<mouse.radius){
+let angle=Math.atan2(dy,dx);
+let force=(mouse.radius-dist)/mouse.radius;
+p.x += Math.cos(angle)*force*5;
+p.y += Math.sin(angle)*force*5;
+}
+
+// Desenhar partícula dourada
 ctx.beginPath();
 ctx.arc(p.x,p.y,p.size,0,Math.PI*2);
 ctx.fillStyle=`rgba(196,155,61,${p.alpha})`;
+ctx.shadowColor="rgba(255,215,0,0.8)";
+ctx.shadowBlur=4;
 ctx.fill();
 ctx.closePath();
 });
+
 requestAnimationFrame(animate);
 }
 
@@ -685,4 +705,3 @@ animate();
 
 </body>
 </html>
-
