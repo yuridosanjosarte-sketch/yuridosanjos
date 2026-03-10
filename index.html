@@ -533,8 +533,137 @@ el.classList.remove("visible");
 document.querySelectorAll(".art-piece")
 .forEach(el=>artObserver.observe(el));
 
+/* THANOS MENU */
+
+const links=document.querySelectorAll(".thanos-link");
+
+links.forEach(link=>{
+
+const text=link.querySelector(".menu-text").textContent;
+
+link.innerHTML="";
+
+text.split("").forEach(letter=>{
+
+const span=document.createElement("span");
+span.textContent=letter;
+
+const randomX=(Math.random()-0.5)*90;
+const randomY=(Math.random()-0.5)*90;
+const randomRotate=(Math.random()-0.5)*120;
+
+span.dataset.x=randomX;
+span.dataset.y=randomY;
+span.dataset.r=randomRotate;
+
+span.style.transitionDelay=(Math.random()*2.2)+"s";
+
+link.appendChild(span);
+
+});
+
+});
+
+function applyRandomMovement(){
+
+links.forEach(link=>{
+
+link.querySelectorAll("span").forEach(span=>{
+
+span.style.setProperty("--x",span.dataset.x+"px");
+span.style.setProperty("--y",span.dataset.y+"px");
+span.style.setProperty("--r",span.dataset.r+"deg");
+
+});
+
+});
+
+}
+
+function disintegrateMenu(){
+
+applyRandomMovement();
+
+links.forEach(link=>{
+link.classList.add("disintegrate");
+link.classList.remove("regenerate");
+});
+
+}
+
+function regenerateMenu(){
+
+links.forEach(link=>{
+link.classList.remove("disintegrate");
+link.classList.add("regenerate");
+});
+
+}
+
+window.addEventListener("load",()=>{
+
+links.forEach(link=>{
+link.classList.add("disintegrate");
+});
+
+setTimeout(()=>{
+regenerateMenu();
+},900);
+
+});
+
+let lastScroll=window.scrollY;
+const scrollThreshold=20;
+let menuState="visible";
+
+window.addEventListener("scroll",()=>{
+
+const currentScroll=window.scrollY;
+
+if(currentScroll<=50){
+
+regenerateMenu();
+menuState="visible";
+lastScroll=currentScroll;
+return;
+
+}
+
+const scrollDifference=currentScroll-lastScroll;
+
+if(scrollDifference>scrollThreshold && menuState!=="hidden"){
+
+disintegrateMenu();
+menuState="hidden";
+
+}
+
+if(scrollDifference<-scrollThreshold && menuState!=="visible"){
+
+regenerateMenu();
+menuState="visible";
+
+}
+
+lastScroll=currentScroll;
+
+});
+
+links.forEach(link=>{
+
+link.addEventListener("click",()=>{
+
+disintegrateMenu();
+
+setTimeout(regenerateMenu,950);
+
+});
+
+});
+  
 </script>
 
 </body>
 </html>
+
 
