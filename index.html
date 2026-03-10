@@ -628,6 +628,14 @@ el.addEventListener("mouseenter",()=>{cursor.classList.add("expand");});
 el.addEventListener("mouseleave",()=>{cursor.classList.remove("expand");});
 });
 
+// EXPAND CURSOR AO SEGURAR BOTÃO ESQUERDO
+window.addEventListener("mousedown",e=>{
+if(e.button===0){cursor.classList.add("expand");}
+});
+window.addEventListener("mouseup",e=>{
+if(e.button===0){cursor.classList.remove("expand");}
+});
+
 /* ================= GOLD DUST BACKGROUND ================= */
 
 const canvas=document.querySelector(".gold-bg");
@@ -654,12 +662,12 @@ alpha: Math.random()*0.8+0.2
 });
 }
 
+const mouse={x:-9999,y:-9999,radius:80};
+
 window.addEventListener("mousemove",(e)=>{
 mouse.x=e.clientX;
 mouse.y=e.clientY;
 });
-
-const mouse={x:-9999,y:-9999,radius:80};
 
 function animate(){
 ctx.clearRect(0,0,width,height);
