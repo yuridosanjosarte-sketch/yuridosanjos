@@ -618,6 +618,8 @@ setTimeout(regenerateMenu,950);
 /* ================= ART CURSOR ================= */
 
 const cursor=document.querySelector(".art-cursor");
+let isMouseDown=false;
+
 window.addEventListener("mousemove",e=>{
 cursor.style.left=e.clientX+"px";
 cursor.style.top=e.clientY+"px";
@@ -628,12 +630,18 @@ el.addEventListener("mouseenter",()=>{cursor.classList.add("expand");});
 el.addEventListener("mouseleave",()=>{cursor.classList.remove("expand");});
 });
 
-// EXPAND CURSOR AO SEGURAR BOTÃO ESQUERDO
+// SEGURAR BOTÃO ESQUERDO PARA EXPANDIR CURSOR
 window.addEventListener("mousedown",e=>{
-if(e.button===0){cursor.classList.add("expand");}
+if(e.button===0){ 
+isMouseDown=true;
+cursor.classList.add("expand");
+}
 });
 window.addEventListener("mouseup",e=>{
-if(e.button===0){cursor.classList.remove("expand");}
+if(e.button===0){ 
+isMouseDown=false;
+cursor.classList.remove("expand");
+}
 });
 
 /* ================= GOLD DUST BACKGROUND ================= */
@@ -649,14 +657,14 @@ height=canvas.height=window.innerHeight;
 });
 
 const particles=[];
-const numParticles=80; // reduzido para elegância
+const numParticles=80; 
 for(let i=0;i<numParticles;i++){
 particles.push({
 x: Math.random()*width,
 y: Math.random()*height,
 vx: (Math.random()-0.5)*0.25,
 vy: (Math.random()-0.5)*0.25,
-size: Math.random()*1.5+0.8, // menor, elegante
+size: Math.random()*1.5+0.8,
 alpha: Math.random()*0.9+0.3
 });
 }
@@ -672,7 +680,7 @@ function animate(){
 ctx.clearRect(0,0,width,height);
 
 particles.forEach(p=>{
-// Movimento leve, flutuando
+// Movimento leve
 p.x += p.vx + Math.sin(Date.now()*0.001+p.vx)*0.2;
 p.y += p.vy + Math.cos(Date.now()*0.001+p.vy)*0.2;
 
@@ -682,23 +690,24 @@ if(p.x<0) p.x=width;
 if(p.y>height) p.y=0;
 if(p.y<0) p.y=height;
 
-// Interação com mouse (afastar suavemente)
+// Interação com cursor expandido ou normal
 let dx=p.x-mouse.x;
 let dy=p.y-mouse.y;
 let dist=Math.sqrt(dx*dx+dy*dy);
-if(dist<mouse.radius){
+let activeRadius=isMouseDown ? 150 : 80; // aumenta alcance quando pressionado
+if(dist<activeRadius){
 let angle=Math.atan2(dy,dx);
-let force=(mouse.radius-dist)/mouse.radius;
+let force=(activeRadius-dist)/activeRadius;
 p.x += Math.cos(angle)*force*6;
 p.y += Math.sin(angle)*force*6;
 }
 
-// Desenhar partícula dourada brilhante
+// Desenhar partícula dourada
 ctx.beginPath();
 ctx.arc(p.x,p.y,p.size,0,Math.PI*2);
-ctx.fillStyle=`rgba(255,215,0,${p.alpha})`; // ouro reluzente
+ctx.fillStyle=`rgba(255,215,0,${p.alpha})`;
 ctx.shadowColor="rgba(255,215,0,0.9)";
-ctx.shadowBlur=6; // brilho mais intenso
+ctx.shadowBlur=6;
 ctx.fill();
 ctx.closePath();
 });
