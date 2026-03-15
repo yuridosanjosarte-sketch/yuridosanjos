@@ -7,7 +7,7 @@
 <title>Gallery | Yuri dos Anjos</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
-
+  
 <style>
 
 /* RESET */
@@ -251,6 +251,38 @@ letter-spacing:4px;
 *{
 -webkit-tap-highlight-color: transparent;
 }
+
+/* ================= CURSOR ART ================= */
+
+.art-cursor{
+position:fixed;
+width:18px;
+height:18px;
+border:2px solid #c49b3d;
+border-radius:50%;
+pointer-events:none;
+transform:translate(-50%,-50%);
+z-index:9999;
+transition:
+transform .15s ease,
+width .25s ease,
+height .25s ease,
+background .25s ease;
+}
+
+.art-cursor.expand{
+width:38px;
+height:38px;
+background:rgba(196,155,61,0.15);
+}
+
+/* remove no mobile */
+
+@media (hover: none) and (pointer: coarse){
+.art-cursor{
+display:none !important;
+}
+}
   
 </style>
 </head>
@@ -258,6 +290,8 @@ letter-spacing:4px;
 <body>
 
 <canvas id="spiritCanvas"></canvas>
+
+<div class="art-cursor"></div> 
 
 <div class="scroll-progress"></div>
 
@@ -513,56 +547,127 @@ document.querySelector(".scroll-progress").style.width=progress+"%"
 
 })
 
-/* PARTICLES */
+/* ================= GOLD DUST BACKGROUND ================= */
 
-const canvas=document.getElementById("spiritCanvas")
-const ctx=canvas.getContext("2d")
+const canvas=document.getElementById("spiritCanvas");
+const ctx=canvas.getContext("2d");
 
-function resizeCanvas(){
-canvas.width=window.innerWidth
-canvas.height=window.innerHeight
-}
+let width=canvas.width=window.innerWidth;
+let height=canvas.height=window.innerHeight;
 
-window.addEventListener("resize",resizeCanvas)
+window.addEventListener("resize",()=>{
+width=canvas.width=window.innerWidth;
+height=canvas.height=window.innerHeight;
+});
 
-resizeCanvas()
+const particles=[];
+const numParticles=80;
 
-let particles=[]
-
-for(let i=0;i<60;i++){
-
+for(let i=0;i<numParticles;i++){
 particles.push({
-x:Math.random()*canvas.width,
-y:Math.random()*canvas.height,
-size:Math.random()*2,
-speed:Math.random()*0.3
-})
-
+x: Math.random()*width,
+y: Math.random()*height,
+vx: (Math.random()-0.5)*0.25,
+vy: (Math.random()-0.5)*0.25,
+size: Math.random()*1.5+0.8,
+alpha: Math.random()*0.9+0.3
+});
 }
 
+const mouse={x:-9999,y:-9999};
+
+window.addEventListener("mousemove",(e)=>{
+mouse.x=e.clientX;
+mouse.y=e.clientY;
+});
+
+window.addEventListener("touchmove",(e)=>{
+if(e.touches.length>0){
+mouse.x=e.touches[0].clientX;
+mouse.y=e.touches[0].clientY;
+}
+},{passive:true});
+  
 function animate(){
 
-ctx.clearRect(0,0,canvas.width,canvas.height)
+ctx.clearRect(0,0,width,height);
 
 particles.forEach(p=>{
 
-p.y-=p.speed
+p.x += p.vx + Math.sin(Date.now()*0.001+p.vx)*0.2;
+p.y += p.vy + Math.cos(Date.now()*0.001+p.vy)*0.2;
 
-if(p.y<0)p.y=canvas.height
+if(p.x>width) p.x=0;
+if(p.x<0) p.x=width;
+if(p.y>height) p.y=0;
+if(p.y<0) p.y=height;
 
-ctx.beginPath()
-ctx.arc(p.x,p.y,p.size,0,Math.PI*2)
-ctx.fillStyle="rgba(196,155,61,0.25)"
-ctx.fill()
+let dx=p.x-mouse.x;
+let dy=p.y-mouse.y;
+let dist=Math.sqrt(dx*dx+dy*dy);
 
-})
+let activeRadius=isMouseDown ? 150 : 80;
 
-requestAnimationFrame(animate)
+if(dist<activeRadius){
+
+let angle=Math.atan2(dy,dx);
+let force=(activeRadius-dist)/activeRadius;
+
+p.x += Math.cos(angle)*force*6;
+p.y += Math.sin(angle)*force*6;
 
 }
 
-animate()
+ctx.beginPath();
+ctx.arc(p.x,p.y,p.size,0,Math.PI*2);
+ctx.fillStyle=`rgba(255,215,0,${p.alpha})`;
+ctx.shadowColor="rgba(255,215,0,0.9)";
+ctx.shadowBlur=6;
+ctx.fill();
+ctx.closePath();
 
+});
+
+requestAnimationFrame(animate);
+
+}
+
+animate();
+
+/* ================= ART CURSOR ================= */
+
+let isMouseDown=false;
+
+if (!('ontouchstart' in window)) {
+
+const cursor=document.querySelector(".art-cursor");
+
+window.addEventListener("mousemove",e=>{
+cursor.style.left=e.clientX+"px";
+cursor.style.top=e.clientY+"px";
+});
+
+document.querySelectorAll("img,.back-btn,.nav,.close").forEach(el=>{
+el.addEventListener("mouseenter",()=>{cursor.classList.add("expand");});
+el.addEventListener("mouseleave",()=>{cursor.classList.remove("expand");});
+});
+
+window.addEventListener("mousedown",e=>{
+if(e.button===0){ 
+isMouseDown=true;
+cursor.classList.add("expand");
+}
+});
+
+window.addEventListener("mouseup",e=>{
+if(e.button===0){ 
+isMouseDown=false;
+cursor.classList.remove("expand");
+}
+});
+
+}
+  
 </script>
 
 </body>
