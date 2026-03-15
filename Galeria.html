@@ -283,6 +283,60 @@ background:rgba(196,155,61,0.15);
 display:none !important;
 }
 }
+
+/* ================= ART STORY ================= */
+
+.art-story{
+max-width:900px;
+width:85%;
+margin-top:30px;
+background:rgba(0,0,0,0.55);
+border:1px solid rgba(196,155,61,0.25);
+backdrop-filter:blur(12px);
+border-radius:14px;
+box-shadow:0 20px 60px rgba(0,0,0,0.8);
+overflow:hidden;
+}
+
+.story-scroll{
+max-height:180px;
+overflow-y:auto;
+padding:28px 34px;
+}
+
+.story-scroll::-webkit-scrollbar{
+width:6px;
+}
+
+.story-scroll::-webkit-scrollbar-thumb{
+background:#c49b3d;
+border-radius:10px;
+}
+
+.story-scroll p{
+font-family:'Cinzel',serif;
+font-size:16px;
+line-height:1.8;
+letter-spacing:0.5px;
+color:#eaeaea;
+opacity:0.9;
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+.story-scroll{
+max-height:220px;
+padding:22px;
+}
+
+.story-scroll p{
+font-size:15px;
+line-height:1.7;
+}
+
+}
   
 </style>
 </head>
@@ -351,6 +405,16 @@ display:none !important;
 
 <h3 id="lightbox-title"></h3>
 
+<div class="art-story">
+<div class="story-scroll">
+
+<p id="story-text">
+COLE A HISTÓRIA DA OBRA AQUI
+<p id="story-text"></p>
+
+</div>
+</div>
+
 </div>
 
 <script>
@@ -368,6 +432,26 @@ const closeBtn=document.querySelector(".close")
 const nextBtn=document.querySelector(".next")
 const prevBtn=document.querySelector(".prev")
 
+/* ================= ART STORIES ================= */
+
+const stories=[
+
+`COLE A HISTÓRIA DA OBRA 1 AQUI`,
+
+`COLE A HISTÓRIA DA OBRA 2 AQUI`,
+
+`COLE A HISTÓRIA DA OBRA 3 AQUI`,
+
+`COLE A HISTÓRIA DA OBRA 4 AQUI`,
+
+`COLE A HISTÓRIA DA OBRA 5 AQUI`,
+
+`COLE A HISTÓRIA DA OBRA 6 AQUI`,
+
+`COLE A HISTÓRIA DA OBRA 7 AQUI`
+
+];  
+
 let currentIndex=0
 
 function openLightbox(index){
@@ -379,6 +463,8 @@ lightbox.classList.add("active")
 lightboxImg.src=images[index].src
 lightboxTitle.textContent=titles[index].textContent
 
+document.getElementById("story-text").textContent=stories[index]
+  
 resetZoom()
 
 }
