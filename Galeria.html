@@ -636,7 +636,8 @@ posX=0
 posY=0
 
 lightboxImg.style.cursor="zoom-in"
-
+document.querySelector(".close").style.opacity="1"
+  
 updateTransform()
 
 }
@@ -647,6 +648,7 @@ if(!zoom){
 
 zoom=true
 lightboxImg.style.cursor="grab"
+document.querySelector(".close").style.opacity="0"  
 
 const rect=lightboxImg.getBoundingClientRect()
 
