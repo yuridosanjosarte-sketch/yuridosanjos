@@ -549,6 +549,8 @@ document.querySelector(".scroll-progress").style.width=progress+"%"
 
 /* ================= GOLD DUST BACKGROUND ================= */
 
+let isMouseDown=false;
+  
 const canvas=document.getElementById("spiritCanvas");
 const ctx=canvas.getContext("2d");
 
@@ -635,8 +637,6 @@ requestAnimationFrame(animate);
 animate();
 
 /* ================= ART CURSOR ================= */
-
-let isMouseDown=false;
 
 if (!('ontouchstart' in window)) {
 
