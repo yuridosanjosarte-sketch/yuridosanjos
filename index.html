@@ -216,7 +216,7 @@ width:100%;
 .thanos-link.disintegrate .menu-text span{
 opacity:0;
 transform:translate(var(--x), var(--y)) rotate(var(--r)) scale(0.5);
-filter:blur(12px);
+filter:blur(6px);
 }
 
 .thanos-link.regenerate .menu-text span{
@@ -627,6 +627,17 @@ lastScroll=currentScroll;
 
 });
 
+// efeito ao clicar em Gallery
+links.forEach(link=>{
+link.addEventListener("click",(e)=>{
+
+if(link.getAttribute("href")==="Galeria.html"){
+disintegrateMenu();
+}
+
+});
+});
+  
 /* ================= ART CURSOR ================= */
 
 let isMouseDown=false;
