@@ -545,26 +545,105 @@ document.querySelectorAll(".art-piece").forEach(el=>artObserver.observe(el));
 
 /* ================= THANOS MENU ================= */
 
-const links=document.querySelectorAll(".thanos-link");
+const links = document.querySelectorAll(".thanos-link");
 
 links.forEach(link=>{
 const textElement = link.querySelector(".menu-text");
 const text = textElement.textContent;
+
 textElement.innerHTML="";
+
 text.split("").forEach(letter=>{
 const span=document.createElement("span");
 span.textContent=letter;
+
 const randomX=(Math.random()-0.5)*90;
 const randomY=(Math.random()-0.5)*90;
 const randomRotate=(Math.random()-0.5)*120;
+
 span.dataset.x=randomX;
 span.dataset.y=randomY;
 span.dataset.r=randomRotate;
-span.style.transitionDelay=(Math.random()*2.2)+"s";
+
+span.style.transitionDelay=(Math.random()*1.8)+"s";
+
 textElement.appendChild(span);
 });
 });
 
+function applyRandomMovement(){
+links.forEach(link=>{
+link.querySelectorAll(".menu-text span").forEach(span=>{
+span.style.setProperty("--x",span.dataset.x+"px");
+span.style.setProperty("--y",span.dataset.y+"px");
+span.style.setProperty("--r",span.dataset.r+"deg");
+});
+});
+}
+
+function disintegrateMenu(){
+applyRandomMovement();
+links.forEach(link=>{
+link.classList.add("disintegrate");
+link.classList.remove("regenerate");
+});
+}
+
+function regenerateMenu(){
+links.forEach(link=>{
+link.classList.remove("disintegrate");
+link.classList.add("regenerate");
+});
+}
+
+/* ===== INTEGRA AO CARREGAR HOME ===== */
+
+window.addEventListener("load",()=>{
+applyRandomMovement();
+regenerateMenu();
+});
+
+/* ===== DETECÇÃO DE SCROLL (PC + MOBILE) ===== */
+
+let lastScroll = window.scrollY;
+
+window.addEventListener("scroll",()=>{
+
+const currentScroll = window.scrollY;
+
+if(currentScroll > lastScroll){
+disintegrateMenu(); // rolando para baixo
+}else{
+regenerateMenu(); // rolando para cima
+}
+
+lastScroll = currentScroll;
+
+});
+
+/* ===== DESINTEGRAR AO IR PARA GALLERY ===== */
+
+links.forEach(link=>{
+
+link.addEventListener("click",(e)=>{
+
+const href = link.getAttribute("href");
+
+if(href.includes("Galeria") || href.includes("gallery")){
+
+e.preventDefault();
+
+disintegrateMenu();
+
+setTimeout(()=>{
+window.location.href = href;
+},700);
+
+}
+
+});
+
+});
 function applyRandomMovement(){
 links.forEach(link=>{
 link.querySelectorAll(".menu-text span").forEach(span=>{
