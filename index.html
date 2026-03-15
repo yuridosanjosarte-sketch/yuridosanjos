@@ -590,43 +590,41 @@ link.classList.add("regenerate");
 });
 }
 
-window.addEventListener("load",()=>{
-applyRandomMovement();
-requestAnimationFrame(()=>{
-links.forEach(link=>{link.classList.add("disintegrate");});
-setTimeout(()=>{regenerateMenu();},1400);
-});
-});
-
-let lastScroll=window.scrollY;
-const scrollThreshold=20;
+let lastScroll=0;
 let menuState="visible";
 
 window.addEventListener("scroll",()=>{
+
 const currentScroll=window.scrollY;
-if(currentScroll<=50){
-regenerateMenu();
-menuState="visible";
-lastScroll=currentScroll;
-return;
-}
-const scrollDifference=currentScroll-lastScroll;
-if(scrollDifference>scrollThreshold && menuState!=="hidden"){
+
+// se rolar para baixo
+if(currentScroll > lastScroll + 10){
+
+if(menuState !== "hidden"){
 disintegrateMenu();
 menuState="hidden";
 }
-if(scrollDifference<-scrollThreshold && menuState!=="visible"){
+
+}
+
+// se rolar para cima
+else if(currentScroll < lastScroll - 10){
+
+if(menuState !== "visible"){
 regenerateMenu();
 menuState="visible";
 }
-lastScroll=currentScroll;
-});
 
-links.forEach(link=>{
-link.addEventListener("click",()=>{
-disintegrateMenu();
-setTimeout(regenerateMenu,950);
-});
+}
+
+// topo sempre visível
+if(currentScroll <= 5){
+regenerateMenu();
+menuState="visible";
+}
+
+lastScroll=currentScroll;
+
 });
 
 /* ================= ART CURSOR ================= */
