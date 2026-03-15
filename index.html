@@ -545,28 +545,22 @@ document.querySelectorAll(".art-piece").forEach(el=>artObserver.observe(el));
 
 /* ================= THANOS MENU ================= */
 
-const links = document.querySelectorAll(".thanos-link");
+const links=document.querySelectorAll(".thanos-link");
 
 links.forEach(link=>{
 const textElement = link.querySelector(".menu-text");
 const text = textElement.textContent;
-
 textElement.innerHTML="";
-
 text.split("").forEach(letter=>{
 const span=document.createElement("span");
 span.textContent=letter;
-
 const randomX=(Math.random()-0.5)*90;
 const randomY=(Math.random()-0.5)*90;
 const randomRotate=(Math.random()-0.5)*120;
-
 span.dataset.x=randomX;
 span.dataset.y=randomY;
 span.dataset.r=randomRotate;
-
-span.style.transitionDelay=(Math.random()*1.8)+"s";
-
+span.style.transitionDelay=(Math.random()*2.2)+"s";
 textElement.appendChild(span);
 });
 });
