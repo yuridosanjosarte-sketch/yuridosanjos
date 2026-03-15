@@ -11,7 +11,6 @@
 <style>
 
 /* RESET */
-
 *{
 margin:0;
 padding:0;
@@ -26,7 +25,6 @@ overflow-x:hidden;
 }
 
 /* PARTICLES */
-
 #spiritCanvas{
 position:fixed;
 top:0;
@@ -37,7 +35,6 @@ z-index:-1;
 }
 
 /* SCROLL PROGRESS */
-
 .scroll-progress{
 position:fixed;
 top:0;
@@ -49,7 +46,6 @@ z-index:3000;
 }
 
 /* HEADER */
-
 header{
 text-align:center;
 padding:60px 10%;
@@ -63,7 +59,6 @@ letter-spacing:6px;
 }
 
 /* BACK BUTTON */
-
 .back-btn{
 position:fixed;
 top:25px;
@@ -86,22 +81,18 @@ transform:translateY(-2px);
 }
 
 /* GALLERY */
-
 .gallery{
 padding:140px 10%;
 }
 
 /* ART BLOCK */
-
 .art-piece{
 max-width:1000px;
 margin:0 auto 220px auto;
 text-align:center;
-
 opacity:0;
 transform:translateY(35px);
 filter:blur(6px);
-
 transition:
 opacity 2.4s cubic-bezier(.22,.61,.36,1),
 transform 2.4s cubic-bezier(.22,.61,.36,1),
@@ -130,7 +121,6 @@ letter-spacing:4px;
 }
 
 /* LIGHTBOX */
-
 .lightbox{
 position:fixed;
 inset:0;
@@ -153,10 +143,9 @@ visibility:visible;
 }
 
 /* IMAGE */
-
 .lightbox img{
 max-width:85%;
-max-height:80%;
+max-height:55vh; /* Mantém a imagem enquadrada */
 box-shadow:0 40px 120px rgba(0,0,0,0.9);
 border:1px solid rgba(255,255,255,0.08);
 cursor:zoom-in;
@@ -164,7 +153,6 @@ transition:transform 0.2s ease;
 }
 
 /* MUSEUM LIGHT EFFECT */
-
 .lightbox::before{
 content:"";
 position:absolute;
@@ -177,7 +165,6 @@ transform:translate(-50%,-50%);
 }
 
 /* TITLE */
-
 #lightbox-title{
 margin-top:30px;
 font-family:'Cinzel',serif;
@@ -187,7 +174,6 @@ opacity:0.85;
 }
 
 /* CLOSE */
-
 .close{
 position:absolute;
 top:40px;
@@ -197,8 +183,40 @@ color:#fff;
 cursor:pointer;
 }
 
-/* NAVIGATION */
+/* MOBILE CLOSE BUTTON */
+@media (max-width:768px){
+.close{
+position:fixed;
+top:18px;
+right:18px;
+width:44px;
+height:44px;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:26px;
+cursor:pointer;
+color:#d4af37;
+background:rgba(10,10,10,0.75);
+border:1px solid rgba(212,175,55,0.6);
+border-radius:50%;
+box-shadow:
+0 0 10px rgba(212,175,55,0.4),
+0 0 30px rgba(212,175,55,0.15);
+backdrop-filter:blur(8px);
+z-index:5000;
+transition:0.3s;
+touch-action:manipulation;
+}
+.close:hover{
+transform:scale(1.1);
+box-shadow:
+0 0 15px rgba(212,175,55,0.7),
+0 0 40px rgba(212,175,55,0.35);
+}
+}
 
+/* NAVIGATION */
 .nav{
 position:absolute;
 top:50%;
@@ -211,49 +229,33 @@ user-select:none;
 opacity:0.6;
 transition:0.3s;
 }
-
 .nav:hover{
 opacity:1;
 }
+.prev{left:40px;}
+.next{right:40px;}
 
-.prev{
-left:40px;
-}
-
-.next{
-right:40px;
-}
-
-/* MOBILE */
-
+/* MOBILE ADJUSTMENTS */
 @media (max-width:480px){
-
 .back-btn{
 top:12px;
 left:12px;
 padding:5px 12px;
 font-size:11px;
 }
-
 header{
 padding:90px 8% 40px 8%;
 }
-
 header h1{
 font-size:30px;
 letter-spacing:4px;
 }
-
 }
 
 /* REMOVE TAP HIGHLIGHT MOBILE */
-
-*{
--webkit-tap-highlight-color: transparent;
-}
+*{-webkit-tap-highlight-color: transparent;}
 
 /* ================= CURSOR ART ================= */
-
 .art-cursor{
 position:fixed;
 width:18px;
@@ -269,357 +271,258 @@ width .25s ease,
 height .25s ease,
 background .25s ease;
 }
-
 .art-cursor.expand{
 width:38px;
 height:38px;
 background:rgba(196,155,61,0.15);
 }
-
 /* remove no mobile */
-
 @media (hover: none) and (pointer: coarse){
-.art-cursor{
-display:none !important;
+.art-cursor{display:none !important;}
 }
+
+/* ================= ART STORY ================= */
+.art-story{
+max-width:900px;
+width:85%;
+margin-top:15px;
+background:rgba(0,0,0,0.55);
+border:1px solid rgba(196,155,61,0.25);
+backdrop-filter:blur(12px);
+border-radius:14px;
+box-shadow:0 20px 60px rgba(0,0,0,0.8);
+overflow:hidden;
 }
-  
+.story-scroll{
+max-height:180px;
+overflow-y:auto;
+padding:28px 34px;
+}
+.story-scroll::-webkit-scrollbar{
+width:6px;
+}
+.story-scroll::-webkit-scrollbar-thumb{
+background:#c49b3d;
+border-radius:10px;
+}
+.story-scroll p{
+font-family:'Cinzel',serif;
+font-size:16px;
+line-height:1.8;
+letter-spacing:0.5px;
+color:#eaeaea;
+opacity:0.9;
+}
+#story-title{
+font-family:'Cinzel',serif;
+font-size:22px;
+letter-spacing:3px;
+margin-bottom:18px;
+color:#c49b3d;
+}
+@media(max-width:768px){
+.story-scroll{
+max-height:220px;
+padding:22px;
+}
+.story-scroll p{font-size:15px;line-height:1.7;}
+}
+
+/* ================= END CSS ================= */
 </style>
 </head>
 
 <body>
 
 <canvas id="spiritCanvas"></canvas>
-
 <div class="art-cursor"></div> 
-
 <div class="scroll-progress"></div>
-
 <a href="index.html" class="back-btn">Back to Home</a>
 
-<header>
-<h1>Gallery</h1>
-</header>
+<header><h1>Gallery</h1></header>
 
 <section class="gallery">
-
-<div class="art-piece">
-<img src="etsa-ara.jpg" alt="Etsá Ara">
-<h2>Etsá Ara – Eyes of the Sky</h2>
-</div>
-
-<div class="art-piece">
-<img src="o-espirito.png" alt="O Espírito">
-<h2>The Spirit</h2>
-</div>
-
-<div class="art-piece">
-<img src="ipytue.jpg" alt="Ipytuẽ">
-<h2>Ipytuẽ – Breathe</h2>
-</div>
-
-<div class="art-piece">
-<img src="kiririndju.jpg" alt="Kiririndju">
-<h2>Kiririndju</h2>
-</div>
-
-<div class="art-piece">
-<img src="djera-poty.jpg" alt="Djera Poty">
-<h2>Djera Poty</h2>
-</div>
-
-<div class="art-piece">
-<img src="mariposa.jpg" alt="Mariposa">
-<h2>Mariposa</h2>
-</div>
-
-<div class="art-piece">
-<img src="obras-e-autor.jpg" alt="Artist and Works">
-<h2>Artist & Works</h2>
-</div>
-
+  <div class="art-piece">
+    <img src="etsa-ara.jpg" alt="Etsá Ara">
+    <h2>Etsá Ara – Eyes of the Sky</h2>
+  </div>
+  <div class="art-piece">
+    <img src="o-espirito.png" alt="O Espírito">
+    <h2>The Spirit</h2>
+  </div>
+  <div class="art-piece">
+    <img src="ipytue.jpg" alt="Ipytuẽ">
+    <h2>Ipytuẽ – Breathe</h2>
+  </div>
+  <div class="art-piece">
+    <img src="kiririndju.jpg" alt="Kiririndju">
+    <h2>Kiririndju</h2>
+  </div>
+  <div class="art-piece">
+    <img src="djera-poty.jpg" alt="Djera Poty">
+    <h2>Djera Poty</h2>
+  </div>
+  <div class="art-piece">
+    <img src="mariposa.jpg" alt="Mariposa">
+    <h2>Mariposa</h2>
+  </div>
+  <div class="art-piece">
+    <img src="obras-e-autor.jpg" alt="Artist and Works">
+    <h2>Artist & Works</h2>
+  </div>
 </section>
 
+<!-- LIGHTBOX -->
 <div class="lightbox" id="lightbox">
-
-<span class="close">&times;</span>
-
-<div class="nav prev">&#10094;</div>
-<div class="nav next">&#10095;</div>
-
-<img src="" id="lightbox-img">
-
-<h3 id="lightbox-title"></h3>
-
+  <span class="close">&times;</span>
+  <div class="nav prev">&#10094;</div>
+  <div class="nav next">&#10095;</div>
+  <img src="" id="lightbox-img">
+  <div class="art-story">
+    <div class="story-scroll">
+      <h3 id="story-title"></h3>
+      <p id="story-text"></p>
+    </div>
+  </div>
 </div>
 
 <script>
+/* ================= LIGHTBOX & STORIES ================= */
+const images=document.querySelectorAll(".art-piece img");
+const titles=document.querySelectorAll(".art-piece h2");
+const lightbox=document.getElementById("lightbox");
+const lightboxImg=document.getElementById("lightbox-img");
+const closeBtn=document.querySelector(".close");
+const nextBtn=document.querySelector(".next");
+const prevBtn=document.querySelector(".prev");
 
-/* LIGHTBOX */
+/* HISTÓRIAS */
+const stories={
+"Etsá Ara – Eyes of the Sky":"COLE O TEXTO DA OBRA Etsá Ara AQUI",
+"The Spirit":"COLE O TEXTO DA OBRA The Spirit AQUI",
+"Ipytuẽ – Breathe":"COLE O TEXTO DA OBRA Ipytuẽ AQUI",
+"Kiririndju":"COLE O TEXTO DA OBRA Kiririndju AQUI",
+"Djera Poty":"COLE O TEXTO DA OBRA Djera Poty AQUI",
+"Mariposa":"COLE O TEXTO DA OBRA Mariposa AQUI",
+"Artist & Works":"COLE O TEXTO DA OBRA Artist & Works AQUI"
+};
 
-const images=document.querySelectorAll(".art-piece img")
-const titles=document.querySelectorAll(".art-piece h2")
-
-const lightbox=document.getElementById("lightbox")
-const lightboxImg=document.getElementById("lightbox-img")
-const lightboxTitle=document.getElementById("lightbox-title")
-
-const closeBtn=document.querySelector(".close")
-const nextBtn=document.querySelector(".next")
-const prevBtn=document.querySelector(".prev")
-
-let currentIndex=0
+let currentIndex=0;
 
 function openLightbox(index){
-
-currentIndex=index
-
-lightbox.classList.add("active")
-
-lightboxImg.src=images[index].src
-lightboxTitle.textContent=titles[index].textContent
-
-resetZoom()
-
+currentIndex=index;
+document.body.style.overflow="hidden"; // trava scroll
+lightbox.classList.add("active");
+lightboxImg.src=images[index].src;
+document.getElementById("story-title").textContent=titles[index].textContent;
+document.getElementById("story-text").textContent=stories[titles[index].textContent];
+resetZoom();
 }
 
-function showNext(){
-
-currentIndex++
-if(currentIndex>=images.length) currentIndex=0
-
-openLightbox(currentIndex)
-
+function closeLightbox(){
+lightbox.classList.remove("active");
+document.body.style.overflow="auto"; // libera scroll
+resetZoom();
 }
 
-function showPrev(){
+function showNext(){currentIndex++; if(currentIndex>=images.length) currentIndex=0; openLightbox(currentIndex);}
+function showPrev(){currentIndex--; if(currentIndex<0) currentIndex=images.length-1; openLightbox(currentIndex);}
 
-currentIndex--
-if(currentIndex<0) currentIndex=images.length-1
-
-openLightbox(currentIndex)
-
-}
-
-images.forEach((img,i)=>{
-img.addEventListener("click",()=>{
-openLightbox(i)
-})
-})
-
-closeBtn.addEventListener("click",()=>{
-lightbox.classList.remove("active")
-resetZoom()
-})
-
-nextBtn.addEventListener("click",showNext)
-prevBtn.addEventListener("click",showPrev)
+images.forEach((img,i)=>{img.addEventListener("click",()=>{openLightbox(i)})});
+closeBtn.addEventListener("click",closeLightbox);
+nextBtn.addEventListener("click",showNext);
+prevBtn.addEventListener("click",showPrev);
 
 /* KEYBOARD */
-
 document.addEventListener("keydown",(e)=>{
-
-if(!lightbox.classList.contains("active")) return
-
-if(e.key==="ArrowRight") showNext()
-if(e.key==="ArrowLeft") showPrev()
-if(e.key==="Escape"){
-lightbox.classList.remove("active")
-resetZoom()
-}
-
-})
+if(!lightbox.classList.contains("active")) return;
+if(e.key==="ArrowRight") showNext();
+if(e.key==="ArrowLeft") showPrev();
+if(e.key==="Escape") closeLightbox();
+});
 
 /* ========================= */
 /* ADVANCED ZOOM + DRAG */
-/* ========================= */
-
-let zoom=false
-let scale=2
-let posX=0
-let posY=0
-
-let dragging=false
-let startX=0
-let startY=0
+let zoom=false, scale=2, posX=0, posY=0;
+let dragging=false, startX=0, startY=0;
 
 function updateTransform(){
-
-lightboxImg.style.transform=
-`translate(${posX}px, ${posY}px) scale(${zoom?scale:1})`
-
+lightboxImg.style.transform=`translate(${posX}px, ${posY}px) scale(${zoom?scale:1})`;
 }
 
 function resetZoom(){
-
-zoom=false
-posX=0
-posY=0
-
-lightboxImg.style.cursor="zoom-in"
-
-updateTransform()
-
+zoom=false;
+posX=0; posY=0;
+lightboxImg.style.cursor="zoom-in";
+document.querySelector(".close").style.display="flex"; // mostra close
+updateTransform();
 }
 
 lightboxImg.addEventListener("click",(e)=>{
-
 if(!zoom){
-
-zoom=true
-lightboxImg.style.cursor="grab"
-
-const rect=lightboxImg.getBoundingClientRect()
-
-const offsetX=e.clientX-rect.left
-const offsetY=e.clientY-rect.top
-
-posX=(rect.width/2-offsetX)
-posY=(rect.height/2-offsetY)
-
-updateTransform()
-
-}else{
-
-resetZoom()
-
-}
-
-})
+zoom=true;
+lightboxImg.style.cursor="grab";
+document.querySelector(".close").style.display="none"; // esconde close
+const rect=lightboxImg.getBoundingClientRect();
+posX=(rect.width/2-(e.clientX-rect.left));
+posY=(rect.height/2-(e.clientY-rect.top));
+updateTransform();
+}else{closeLightbox();}
+});
 
 /* DRAG */
-
 lightboxImg.addEventListener("mousedown",(e)=>{
-
-if(!zoom) return
-
-dragging=true
-
-lightboxImg.style.cursor="grabbing"
-
-startX=e.clientX-posX
-startY=e.clientY-posY
-
-})
-
-window.addEventListener("mousemove",(e)=>{
-
-if(!dragging) return
-
-posX=e.clientX-startX
-posY=e.clientY-startY
-
-updateTransform()
-
-})
-
-window.addEventListener("mouseup",()=>{
-
-dragging=false
-
-if(zoom) lightboxImg.style.cursor="grab"
-
-})
+if(!zoom) return;
+dragging=true;
+lightboxImg.style.cursor="grabbing";
+startX=e.clientX-posX;
+startY=e.clientY-posY;
+});
+window.addEventListener("mousemove",(e)=>{if(dragging){posX=e.clientX-startX; posY=e.clientY-startY; updateTransform();}});
+window.addEventListener("mouseup",()=>{dragging=false; if(zoom) lightboxImg.style.cursor="grab";});
 
 /* SCROLL REVEAL */
-
 const artObserver=new IntersectionObserver((entries)=>{
-entries.forEach(entry=>{
-if(entry.isIntersecting){
-entry.target.classList.add("visible")
-}
-})
-},{threshold:0.2})
-
-document.querySelectorAll(".art-piece")
-.forEach(el=>artObserver.observe(el))
+entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add("visible");}});
+},{threshold:0.2});
+document.querySelectorAll(".art-piece").forEach(el=>artObserver.observe(el));
 
 /* SCROLL PROGRESS */
-
 window.addEventListener("scroll",()=>{
-
-const scrollTop=document.documentElement.scrollTop
-const height=document.documentElement.scrollHeight-document.documentElement.clientHeight
-
-const progress=(scrollTop/height)*100
-
-document.querySelector(".scroll-progress").style.width=progress+"%"
-
-})
+const scrollTop=document.documentElement.scrollTop;
+const height=document.documentElement.scrollHeight-document.documentElement.clientHeight;
+document.querySelector(".scroll-progress").style.width=(scrollTop/height)*100+"%";
+});
 
 /* ================= GOLD DUST BACKGROUND ================= */
-
 let isMouseDown=false;
-  
 const canvas=document.getElementById("spiritCanvas");
 const ctx=canvas.getContext("2d");
-
 let width=canvas.width=window.innerWidth;
 let height=canvas.height=window.innerHeight;
-
-window.addEventListener("resize",()=>{
-width=canvas.width=window.innerWidth;
-height=canvas.height=window.innerHeight;
-});
+window.addEventListener("resize",()=>{width=canvas.width=window.innerWidth;height=canvas.height=window.innerHeight;});
 
 const particles=[];
 const numParticles=80;
-
 for(let i=0;i<numParticles;i++){
-particles.push({
-x: Math.random()*width,
-y: Math.random()*height,
-vx: (Math.random()-0.5)*0.25,
-vy: (Math.random()-0.5)*0.25,
-size: Math.random()*1.5+0.8,
-alpha: Math.random()*0.9+0.3
-});
+particles.push({x: Math.random()*width,y: Math.random()*height,vx:(Math.random()-0.5)*0.25,vy:(Math.random()-0.5)*0.25,size: Math.random()*1.5+0.8,alpha: Math.random()*0.9+0.3});
 }
-
 const mouse={x:-9999,y:-9999};
+window.addEventListener("mousemove",(e)=>{mouse.x=e.clientX; mouse.y=e.clientY;});
+window.addEventListener("touchmove",(e)=>{if(e.touches.length>0){mouse.x=e.touches[0].clientX; mouse.y=e.touches[0].clientY;}},{passive:true});
 
-window.addEventListener("mousemove",(e)=>{
-mouse.x=e.clientX;
-mouse.y=e.clientY;
-});
-
-window.addEventListener("touchmove",(e)=>{
-if(e.touches.length>0){
-mouse.x=e.touches[0].clientX;
-mouse.y=e.touches[0].clientY;
-}
-},{passive:true});
-  
 function animate(){
-
 ctx.clearRect(0,0,width,height);
-
 particles.forEach(p=>{
-
 p.x += p.vx + Math.sin(Date.now()*0.001+p.vx)*0.2;
 p.y += p.vy + Math.cos(Date.now()*0.001+p.vy)*0.2;
-
 if(p.x>width) p.x=0;
 if(p.x<0) p.x=width;
 if(p.y>height) p.y=0;
 if(p.y<0) p.y=height;
-
-let dx=p.x-mouse.x;
-let dy=p.y-mouse.y;
-let dist=Math.sqrt(dx*dx+dy*dy);
-
+let dx=p.x-mouse.x; let dy=p.y-mouse.y; let dist=Math.sqrt(dx*dx+dy*dy);
 let activeRadius=isMouseDown ? 150 : 80;
-
-if(dist<activeRadius){
-
-let angle=Math.atan2(dy,dx);
-let force=(activeRadius-dist)/activeRadius;
-
-p.x += Math.cos(angle)*force*6;
-p.y += Math.sin(angle)*force*6;
-
-}
-
+if(dist<activeRadius){let angle=Math.atan2(dy,dx); let force=(activeRadius-dist)/activeRadius; p.x += Math.cos(angle)*force*6; p.y += Math.sin(angle)*force*6;}
 ctx.beginPath();
 ctx.arc(p.x,p.y,p.size,0,Math.PI*2);
 ctx.fillStyle=`rgba(255,215,0,${p.alpha})`;
@@ -627,47 +530,23 @@ ctx.shadowColor="rgba(255,215,0,0.9)";
 ctx.shadowBlur=6;
 ctx.fill();
 ctx.closePath();
-
 });
-
 requestAnimationFrame(animate);
-
 }
-
 animate();
 
 /* ================= ART CURSOR ================= */
-
-if (!('ontouchstart' in window)) {
-
+if(!('ontouchstart' in window)){
 const cursor=document.querySelector(".art-cursor");
-
-window.addEventListener("mousemove",e=>{
-cursor.style.left=e.clientX+"px";
-cursor.style.top=e.clientY+"px";
-});
-
+window.addEventListener("mousemove",e=>{cursor.style.left=e.clientX+"px"; cursor.style.top=e.clientY+"px";});
 document.querySelectorAll("img,.back-btn,.nav,.close").forEach(el=>{
 el.addEventListener("mouseenter",()=>{cursor.classList.add("expand");});
 el.addEventListener("mouseleave",()=>{cursor.classList.remove("expand");});
 });
-
-window.addEventListener("mousedown",e=>{
-if(e.button===0){ 
-isMouseDown=true;
-cursor.classList.add("expand");
+window.addEventListener("mousedown",e=>{if(e.button===0){isMouseDown=true; cursor.classList.add("expand");}});
+window.addEventListener("mouseup",e=>{if(e.button===0){isMouseDown=false; cursor.classList.remove("expand");}});
 }
-});
 
-window.addEventListener("mouseup",e=>{
-if(e.button===0){ 
-isMouseDown=false;
-cursor.classList.remove("expand");
-}
-});
-
-}
-  
 </script>
 
 </body>
