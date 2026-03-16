@@ -810,7 +810,11 @@ ctx.closePath();
 requestAnimationFrame(animate);
 }
 
+const isMobile = window.matchMedia("(hover: none) and (pointer: coarse)").matches;
+
+if(!isMobile){
 animate();
+}
 
 </script>
 
