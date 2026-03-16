@@ -537,6 +537,16 @@ Acquire Artwork – $1,500 USD
 
 <script>
 
+/* detectar mobile */
+const isTouchDevice = window.matchMedia("(hover: none) and (pointer: coarse)").matches;
+
+/* bloquear qualquer efeito de scroll no mobile */
+if(isTouchDevice){
+window.addEventListener("scroll", e=>{
+e.stopPropagation();
+}, {passive:true});
+}  
+  
 /* ================= HERO ================= */
 
 const hero=document.querySelector(".hero");
@@ -573,8 +583,6 @@ el.classList.remove("visible");
 });
 },{threshold:0.2});
 document.querySelectorAll(".art-piece").forEach(el=>artObserver.observe(el));
-
-const isTouchDevice = window.matchMedia("(hover: none)").matches;
   
 /* ================= THANOS MENU ================= */
 
@@ -626,11 +634,12 @@ link.classList.add("regenerate");
 let lastScroll=0;
 let menuState="visible";
 
+if(!isTouchDevice){
+
 window.addEventListener("scroll",()=>{
 
 const currentScroll=window.scrollY;
 
-// se rolar para baixo
 if(currentScroll > lastScroll + 10){
 
 if(menuState !== "hidden"){
@@ -640,7 +649,6 @@ menuState="hidden";
 
 }
 
-// se rolar para cima
 else if(currentScroll < lastScroll - 10){
 
 if(menuState !== "visible"){
@@ -650,7 +658,6 @@ menuState="visible";
 
 }
 
-// topo sempre visível
 if(currentScroll <= 5){
 regenerateMenu();
 menuState="visible";
@@ -660,6 +667,7 @@ lastScroll=currentScroll;
 
 });
 
+}
 // efeito ao clicar em Gallery
 links.forEach(link=>{
 
@@ -671,12 +679,19 @@ e.preventDefault();
 
 const url = link.getAttribute("href");
 
+/* iniciar efeito */
 disintegrateMenu();
 
-/* esperar animação terminar antes de navegar */
+/* esperar animação terminar */
 setTimeout(()=>{
+
+if(url.startsWith("#")){
+document.querySelector(url).scrollIntoView({behavior:"smooth"});
+}else{
 window.location.href = url;
-},1200);
+}
+
+},900);
 
 }
 
@@ -791,8 +806,16 @@ requestAnimationFrame(animate);
 animate();
 
 window.addEventListener("pageshow", () => {
+
+if(isTouchDevice){
+
+setTimeout(()=>{
 regenerateMenu();
 menuState="visible";
+},300);
+
+}
+
 });
   
 </script>
