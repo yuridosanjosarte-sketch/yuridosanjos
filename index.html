@@ -415,32 +415,6 @@ display:none !important;
 }
 
 }
-
-/* MENU NASCE DAS CINZAS */
-
-.menu-intro .menu-text span{
-opacity:0;
-transform:translate(0,30px) scale(0.6);
-filter:blur(8px);
-}
-
-.menu-intro.regenerate .menu-text span{
-opacity:1;
-transform:translate(0,0) scale(1);
-filter:blur(0);
-}
-
-/* INTRO MOBILE MENU */
-
-@media (hover: none) and (pointer: coarse){
-
-.mobile-menu-hidden .menu-text span{
-opacity:0;
-transform:translate(0,30px) scale(0.6);
-filter:blur(8px);
-}
-
-}
   
 </style>
 </head>
@@ -706,36 +680,6 @@ disintegrateMenu();
 }
 
 });
-});
-
-/* INTRO CINEMATOGRÁFICA */
-
-window.addEventListener("load",()=>{
-
-links.forEach(link=>{
-link.classList.add("menu-intro");
-});
-
-setTimeout(()=>{
-
-links.forEach(link=>{
-link.classList.add("regenerate");
-});
-
-},700);
-
-});
-
-/* INTRO CINEMATOGRÁFICA MOBILE */
-
-const isMobileIntro = window.matchMedia("(hover: none) and (pointer: coarse)").matches;
-
-if(isMobileIntro){
-
-window.addEventListener("load",()=>{
-
-links.forEach(link=>{
-link.classList.add("mobile-menu-hidden");
 });
 
 /* pequena pausa para garantir estado inicial */
