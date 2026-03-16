@@ -414,6 +414,16 @@ display:none !important;
 }
 
 }
+
+/* MOBILE MENU START INVISIBLE */
+
+@media (hover: none) and (pointer: coarse){
+
+nav{
+opacity:0;
+}
+
+}
   
 </style>
 </head>
@@ -593,11 +603,16 @@ link.classList.add("regenerate");
 let lastScroll=0;
 let menuState="visible";
 
+const isMobile = window.matchMedia("(hover: none) and (pointer: coarse)").matches;
+
+if(!isMobile){
+
+/* ===== DESKTOP ORIGINAL ===== */
+
 window.addEventListener("scroll",()=>{
 
 const currentScroll=window.scrollY;
 
-// se rolar para baixo
 if(currentScroll > lastScroll + 10){
 
 if(menuState !== "hidden"){
@@ -607,7 +622,6 @@ menuState="hidden";
 
 }
 
-// se rolar para cima
 else if(currentScroll < lastScroll - 10){
 
 if(menuState !== "visible"){
@@ -617,7 +631,6 @@ menuState="visible";
 
 }
 
-// topo sempre visível
 if(currentScroll <= 5){
 regenerateMenu();
 menuState="visible";
@@ -626,6 +639,52 @@ menuState="visible";
 lastScroll=currentScroll;
 
 });
+
+}else{
+
+/* ===== MOBILE CINEMATIC MENU ===== */
+
+const nav=document.querySelector("nav");
+
+/* iniciar invisível */
+
+nav.style.opacity=0;
+
+/* aparecer após 2s */
+
+setTimeout(()=>{
+
+nav.style.opacity=1;
+regenerateMenu();
+
+},2000);
+
+
+/* interceptar clique da Gallery */
+
+document.querySelectorAll(".thanos-link").forEach(link=>{
+
+if(link.getAttribute("href")==="Galeria.html"){
+
+link.addEventListener("click",function(e){
+
+e.preventDefault();
+
+disintegrateMenu();
+
+setTimeout(()=>{
+
+window.location.href="Galeria.html";
+
+},2000);
+
+});
+
+}
+
+});
+
+}
 
 /* ================= ART CURSOR ================= */
 
