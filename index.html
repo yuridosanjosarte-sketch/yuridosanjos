@@ -428,24 +428,20 @@ opacity:0;
 
 }
 
-/* MOBILE — bloquear partículas atrás do menu */
+@media (hover: none) and (pointer: coarse) {
+    /* Isso remove o cursor no mobile */
+    .art-cursor {
+        display: none !important;
+    }
 
-@media (hover: none) and (pointer: coarse){
-
-nav{
-position:relative;
-z-index:5;
-background:#070707;
-}
-
-nav::before{
-content:"";
-position:absolute;
-inset:0;
-background:#070707;
-z-index:-1;
-}
-
+    /* Isso cria a "máscara" preta que esconde as partículas no topo */
+    nav {
+        opacity: 0;
+        background: #070707 !important; /* Cor sólida igual ao fundo */
+        position: relative;
+        z-index: 10; /* Fica acima das partículas */
+        border-bottom: none; /* Remove a linha dourada enquanto está invisível */
+    }
 }
   
 </style>
