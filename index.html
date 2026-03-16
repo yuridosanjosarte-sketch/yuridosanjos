@@ -439,9 +439,9 @@ margin-top:8px;
 /* acelerar efeito Thanos no mobile */
 .menu-text span{
 transition:
-transform 1.1s cubic-bezier(.19,1,.22,1),
-opacity 0.9s ease-out,
-filter 0.9s ease-out;
+transform 1.8s cubic-bezier(.22,.61,.36,1),
+opacity 1.6s ease,
+filter 1.6s ease;
 }
 
 }
@@ -654,6 +654,29 @@ link.classList.add("regenerate");
 let lastScroll=0;
 let menuState="visible";
 
+/* REINTEGRAR MENU AO VER O TÍTULO - MOBILE */
+
+if(isTouchDevice){
+
+const header = document.querySelector("header");
+
+const observer = new IntersectionObserver(entries=>{
+entries.forEach(entry=>{
+
+if(entry.isIntersecting && menuState==="hidden"){
+
+regenerateMenu();
+menuState="visible";
+
+}
+
+});
+},{threshold:0.65});
+
+observer.observe(header);
+
+}  
+
 /* reintegrar menu quando voltar ao topo no mobile */
 
 if(isTouchDevice){
@@ -856,7 +879,7 @@ if(isTouchDevice){
 setTimeout(()=>{
 regenerateMenu();
 menuState="visible";
-},1400);
+},600);
 
 }
 
