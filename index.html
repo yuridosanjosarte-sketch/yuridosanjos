@@ -405,19 +405,10 @@ position:fixed;
 inset:0;
 z-index:-2;
 pointer-events:none;
-background:#070707;
-opacity:1;
+background:#000;
+opacity:0;
 transition:opacity 1s ease;
 }
-
-@media (hover: none) and (pointer: coarse){
-
-.gold-bg{
-opacity:0;
-}
-
-}
-  
 /* ================= REMOVE CURSOR NO MOBILE ================= */
 
 @media (hover: none) and (pointer: coarse) {
@@ -630,55 +621,42 @@ let menuState="visible";
 
 const isMobile = window.matchMedia("(hover: none) and (pointer: coarse)").matches;
 
-/* ===== CINEMATIC THANOS MENU (DESKTOP + MOBILE) ===== */
+if(!isMobile){
 
-const nav=document.querySelector("nav");
+/* ===== DESKTOP ORIGINAL ===== */
 
-/* iniciar invisível */
+window.addEventListener("scroll",()=>{
 
-nav.style.opacity=0;
+const currentScroll=window.scrollY;
 
+if(currentScroll > lastScroll + 10){
+
+if(menuState !== "hidden"){
 disintegrateMenu();
 menuState="hidden";
-
-/* aparecer após 2s */
-
-setTimeout(()=>{
-
-nav.style.opacity=1;
-
-/* partículas aparecem junto */
-document.querySelector(".gold-bg").style.opacity = 1;
-
-setTimeout(()=>{
-regenerateMenu();
-},120);
-
-},2000);
-
-/* interceptar clique da Gallery */
-
-document.querySelectorAll(".thanos-link").forEach(link=>{
-
-if(link.getAttribute("href")==="Galeria.html"){
-
-link.addEventListener("click",function(e){
-
-e.preventDefault();
-
-disintegrateMenu();
-
-setTimeout(()=>{
-
-window.location.href="Galeria.html";
-
-},2000);
-
-});
+}
 
 }
 
+else if(currentScroll < lastScroll - 10){
+
+if(menuState !== "visible"){
+regenerateMenu();
+menuState="visible";
+}
+
+}
+
+if(currentScroll <= 5){
+regenerateMenu();
+menuState="visible";
+}
+
+lastScroll=currentScroll;
+
 });
+
+}else{
 
 /* ===== MOBILE CINEMATIC MENU ===== */
 
