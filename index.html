@@ -420,27 +420,36 @@ display:none !important;
 
 /* MOBILE MENU START INVISIBLE */
 
-@media (hover: none) and (pointer: coarse){
-
-nav{
-opacity:0;
-}
-
-}
+/* ================= AJUSTE MOBILE MENU DEFINITIVO ================= */
 
 @media (hover: none) and (pointer: coarse) {
-    /* Isso remove o cursor no mobile */
+
     .art-cursor {
         display: none !important;
     }
 
-    /* Isso cria a "máscara" preta que esconde as partículas no topo */
     nav {
-        opacity: 0;
-        background: #070707 !important; /* Cor sólida igual ao fundo */
+        /* Removemos a opacidade 0 para ele não ficar invisível */
+        opacity: 1 !important; 
+        
+        /* Damos uma cor sólida para cobrir as partículas */
+        background: #0d0d0d !important; 
+        
+        /* Garantimos que ele fique à frente do canvas */
         position: relative;
-        z-index: 10; /* Fica acima das partículas */
-        border-bottom: none; /* Remove a linha dourada enquanto está invisível */
+        z-index: 5; 
+        
+        /* Removemos a borda e a animação de luz enquanto o menu não "nasce" */
+        border-bottom: none !important;
+    }
+    
+    nav::after {
+        display: none; /* Esconde a linha brilhante debaixo do menu no início */
+    }
+
+    /* Esconde os links (letras) mas mantém o fundo preto cobrindo tudo */
+    .thanos-link .menu-text {
+        visibility: hidden;
     }
 }
   
@@ -671,30 +680,27 @@ lastScroll=currentScroll;
 
 });
 
-}else{
+} else {
+    /* ===== MOBILE CINEMATIC MENU ===== */
+    const nav = document.querySelector("nav");
+    const menuTexts = document.querySelectorAll(".thanos-link .menu-text");
 
-/* ===== MOBILE CINEMATIC MENU ===== */
+    // O fundo preto já estará lá cobrindo as partículas por causa do CSS novo
+    disintegrateMenu();
+    menuState = "hidden";  
 
-const nav=document.querySelector("nav");
+    /* aparecer após 2s */
+    setTimeout(() => {
+        // Mostra os textos e a linha dourada
+        menuTexts.forEach(el => el.style.visibility = "visible");
+        nav.style.borderBottom = "1px solid rgba(196,155,61,0.15)";
+        
+        setTimeout(() => {
+            regenerateMenu();
+        }, 120);
 
-/* iniciar invisível */
-
-nav.style.opacity=0;
-
-disintegrateMenu();
-menuState="hidden";  
-
-/* aparecer após 2s */
-
-setTimeout(()=>{
-
-nav.style.opacity=1;
-
-setTimeout(()=>{
-regenerateMenu();
-},120);
-
-},2000);
+    }, 2000);
+}
 
 /* interceptar clique da Gallery */
 
