@@ -11,7 +11,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 
-
+  
 <style>
 
 /* ================= RESET ================= */
@@ -217,7 +217,6 @@ width:100%;
 opacity:0;
 transform:translate(var(--x), var(--y)) rotate(var(--r)) scale(0.5);
 filter:blur(12px);
-filter:blur(6px);
 }
 
 .thanos-link.regenerate .menu-text span{
@@ -555,17 +554,13 @@ textElement.innerHTML="";
 text.split("").forEach(letter=>{
 const span=document.createElement("span");
 span.textContent=letter;
-
 const randomX=(Math.random()-0.5)*90;
 const randomY=(Math.random()-0.5)*90;
 const randomRotate=(Math.random()-0.5)*120;
-
 span.dataset.x=randomX;
 span.dataset.y=randomY;
 span.dataset.r=randomRotate;
-
 span.style.transitionDelay=(Math.random()*2.2)+"s";
-
 textElement.appendChild(span);
 });
 });
@@ -595,22 +590,14 @@ link.classList.add("regenerate");
 });
 }
 
-/* ===== DETECTA MOBILE ===== */
-
-const isMobile = window.matchMedia("(hover: none) and (pointer: coarse)").matches;
-
 let lastScroll=0;
 let menuState="visible";
-let scrollTimeout=null;
-
-/* ===== DESKTOP (igual ao seu) ===== */
-
-if(!isMobile){
 
 window.addEventListener("scroll",()=>{
 
 const currentScroll=window.scrollY;
 
+// se rolar para baixo
 if(currentScroll > lastScroll + 10){
 
 if(menuState !== "hidden"){
@@ -620,6 +607,7 @@ menuState="hidden";
 
 }
 
+// se rolar para cima
 else if(currentScroll < lastScroll - 10){
 
 if(menuState !== "visible"){
@@ -629,6 +617,7 @@ menuState="visible";
 
 }
 
+// topo sempre visível
 if(currentScroll <= 5){
 regenerateMenu();
 menuState="visible";
@@ -638,66 +627,6 @@ lastScroll=currentScroll;
 
 });
 
-}
-
-/* ===== MOBILE OTIMIZADO ===== */
-
-if(isMobile){
-
-window.addEventListener("scroll",()=>{
-
-clearTimeout(scrollTimeout);
-
-/* só desintegra se rolar bastante */
-if(window.scrollY > 120 && menuState !== "hidden"){
-
-disintegrateMenu();
-menuState="hidden";
-
-}
-
-/* espera parar de rolar para regenerar */
-scrollTimeout=setTimeout(()=>{
-
-if(menuState !== "visible"){
-regenerateMenu();
-menuState="visible";
-}
-
-},300);
-
-});
-
-}
-
-/* clique em Gallery */
-
-links.forEach(link=>{
-link.addEventListener("click",()=>{
-
-if(link.getAttribute("href")==="Galeria.html"){
-disintegrateMenu();
-}
-
-});
-});
-
-/* pequena pausa para garantir estado inicial */
-
-setTimeout(()=>{
-
-regenerateMenu();
-
-links.forEach(link=>{
-link.classList.remove("mobile-menu-hidden");
-});
-
-},350);
-
-});
-
-}
-  
 /* ================= ART CURSOR ================= */
 
 let isMouseDown=false;
