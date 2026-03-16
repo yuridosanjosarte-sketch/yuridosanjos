@@ -405,10 +405,19 @@ position:fixed;
 inset:0;
 z-index:-2;
 pointer-events:none;
-background:#000;
-opacity:0;
+background:#070707;
+opacity:1;
 transition:opacity 1s ease;
 }
+
+@media (hover: none) and (pointer: coarse){
+
+.gold-bg{
+opacity:0;
+}
+
+}
+  
 /* ================= REMOVE CURSOR NO MOBILE ================= */
 
 @media (hover: none) and (pointer: coarse) {
