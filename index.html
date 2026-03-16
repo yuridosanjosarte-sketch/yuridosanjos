@@ -630,42 +630,55 @@ let menuState="visible";
 
 const isMobile = window.matchMedia("(hover: none) and (pointer: coarse)").matches;
 
-if(!isMobile){
+/* ===== CINEMATIC THANOS MENU (DESKTOP + MOBILE) ===== */
 
-/* ===== DESKTOP ORIGINAL ===== */
+const nav=document.querySelector("nav");
 
-window.addEventListener("scroll",()=>{
+/* iniciar invisível */
 
-const currentScroll=window.scrollY;
+nav.style.opacity=0;
 
-if(currentScroll > lastScroll + 10){
-
-if(menuState !== "hidden"){
 disintegrateMenu();
 menuState="hidden";
-}
 
-}
+/* aparecer após 2s */
 
-else if(currentScroll < lastScroll - 10){
+setTimeout(()=>{
 
-if(menuState !== "visible"){
+nav.style.opacity=1;
+
+/* partículas aparecem junto */
+document.querySelector(".gold-bg").style.opacity = 1;
+
+setTimeout(()=>{
 regenerateMenu();
-menuState="visible";
-}
+},120);
 
-}
+},2000);
 
-if(currentScroll <= 5){
-regenerateMenu();
-menuState="visible";
-}
+/* interceptar clique da Gallery */
 
-lastScroll=currentScroll;
+document.querySelectorAll(".thanos-link").forEach(link=>{
+
+if(link.getAttribute("href")==="Galeria.html"){
+
+link.addEventListener("click",function(e){
+
+e.preventDefault();
+
+disintegrateMenu();
+
+setTimeout(()=>{
+
+window.location.href="Galeria.html";
+
+},2000);
 
 });
 
-}else{
+}
+
+});
 
 /* ===== MOBILE CINEMATIC MENU ===== */
 
