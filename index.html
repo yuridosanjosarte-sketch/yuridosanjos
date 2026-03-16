@@ -414,6 +414,37 @@ display:none !important;
 }
 
 }
+
+/* ================= MOBILE HERO + THANOS SPEED ================= */
+
+@media (max-width:768px){
+
+/* diminuir altura da hero no celular */
+.hero{
+height:75vh;
+}
+
+/* diminuir letreiro */
+.hero-content h2{
+font-size:28px;
+letter-spacing:2px;
+}
+
+.hero-content p{
+font-size:15px;
+letter-spacing:1px;
+margin-top:8px;
+}
+
+/* acelerar efeito Thanos no mobile */
+.menu-text span{
+transition:
+transform 1.1s cubic-bezier(.19,1,.22,1),
+opacity 0.9s ease-out,
+filter 0.9s ease-out;
+}
+
+}
   
 </style>
 </head>
