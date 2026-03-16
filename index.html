@@ -417,41 +417,6 @@ display:none !important;
 }
 
 }
-
-/* MOBILE MENU START INVISIBLE */
-
-/* ================= AJUSTE MOBILE MENU DEFINITIVO ================= */
-
-@media (hover: none) and (pointer: coarse) {
-
-    .art-cursor {
-        display: none !important;
-    }
-
-    nav {
-        /* Removemos a opacidade 0 para ele não ficar invisível */
-        opacity: 1 !important; 
-        
-        /* Damos uma cor sólida para cobrir as partículas */
-        background: #0d0d0d !important; 
-        
-        /* Garantimos que ele fique à frente do canvas */
-        position: relative;
-        z-index: 5; 
-        
-        /* Removemos a borda e a animação de luz enquanto o menu não "nasce" */
-        border-bottom: none !important;
-    }
-    
-    nav::after {
-        display: none; /* Esconde a linha brilhante debaixo do menu no início */
-    }
-
-    /* Esconde os links (letras) mas mantém o fundo preto cobrindo tudo */
-    .thanos-link .menu-text {
-        visibility: hidden;
-    }
-}
   
 </style>
 </head>
