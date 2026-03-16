@@ -11,7 +11,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 
-  
+
 <style>
 
 /* ================= RESET ================= */
@@ -216,6 +216,7 @@ width:100%;
 .thanos-link.disintegrate .menu-text span{
 opacity:0;
 transform:translate(var(--x), var(--y)) rotate(var(--r)) scale(0.5);
+filter:blur(12px);
 filter:blur(6px);
 }
 
@@ -415,57 +416,6 @@ display:none !important;
 
 }
 
-/* ================= MOBILE HERO + THANOS SPEED ================= */
-
-@media (max-width:768px){
-
-/* diminuir altura da hero no celular */
-.hero{
-height:75vh;
-}
-
-/* diminuir letreiro */
-.hero-content h2{
-font-size:28px;
-letter-spacing:2px;
-}
-
-.hero-content p{
-font-size:15px;
-letter-spacing:1px;
-margin-top:8px;
-}
-
-/* acelerar efeito Thanos no mobile */
-.menu-text span{
-transition:
-transform 1.8s cubic-bezier(.22,.61,.36,1),
-opacity 1.6s ease,
-filter 1.6s ease;
-}
-
-}
-
-/* THANOS mais orgânico apenas no mobile */
-
-.thanos-link.disintegrate .menu-text span{
-transform:
-translate(var(--x), var(--y))
-rotate(var(--r))
-scale(0.3)
-skewX(12deg);
-filter:blur(8px);
-}
-
-.thanos-link.regenerate .menu-text span{
-transform:
-translate(0,0)
-rotate(0deg)
-scale(1)
-skewX(0deg);
-filter:blur(0);
-}
-  
 </style>
 </head>
 
@@ -557,16 +507,6 @@ Acquire Artwork – $1,500 USD
 
 <script>
 
-/* detectar mobile */
-const isTouchDevice = window.matchMedia("(hover: none) and (pointer: coarse)").matches;
-
-/* bloquear qualquer efeito de scroll no mobile */
-if(isTouchDevice){
-window.addEventListener("scroll", e=>{
-e.stopPropagation();
-}, {passive:true});
-}  
-  
 /* ================= HERO ================= */
 
 const hero=document.querySelector(".hero");
@@ -603,7 +543,7 @@ el.classList.remove("visible");
 });
 },{threshold:0.2});
 document.querySelectorAll(".art-piece").forEach(el=>artObserver.observe(el));
-  
+
 /* ================= THANOS MENU ================= */
 
 const links=document.querySelectorAll(".thanos-link");
@@ -621,7 +561,7 @@ const randomRotate=(Math.random()-0.5)*120;
 span.dataset.x=randomX;
 span.dataset.y=randomY;
 span.dataset.r=randomRotate;
-span.style.transitionDelay = (isTouchDevice ? Math.random()*0.6 : Math.random()*2.2) + "s";
+span.style.transitionDelay=(Math.random()*2.2)+"s";
 textElement.appendChild(span);
 });
 });
@@ -654,74 +594,21 @@ link.classList.add("regenerate");
 let lastScroll=0;
 let menuState="visible";
 
-/* REINTEGRAR MENU AO VER O TOPO - MOBILE */
-
-if(isTouchDevice){
-
-window.addEventListener("scroll",()=>{
-
-const header = document.querySelector("header");
-const rect = header.getBoundingClientRect();
-
-/* quando o topo do site aparece */
-
-if(rect.top >= -50 && rect.bottom > 0){
-
-if(menuState === "hidden"){
-
-regenerateMenu();
-menuState="visible";
-
-}
-
-}
-
-});
-},{threshold:0.65});
-
-observer.observe(header);
-
-}  
-
-/* reintegrar menu quando voltar ao topo no mobile */
-
-if(isTouchDevice){
-
-const header = document.querySelector("header");
-
-const headerObserver = new IntersectionObserver(entries=>{
-entries.forEach(entry=>{
-
-if(entry.isIntersecting && menuState==="hidden"){
-
-regenerateMenu();
-menuState="visible";
-
-}
-
-});
-},{threshold:0.6});
-
-headerObserver.observe(header);
-
-}  
-
-if(!isTouchDevice){
-
 window.addEventListener("scroll",()=>{
 
 const currentScroll=window.scrollY;
 
+// se rolar para baixo
 if(currentScroll > lastScroll + 10){
 
 if(menuState !== "hidden"){
-  
 disintegrateMenu();
 menuState="hidden";
 }
 
 }
 
+// se rolar para cima
 else if(currentScroll < lastScroll - 10){
 
 if(menuState !== "visible"){
@@ -731,6 +618,7 @@ menuState="visible";
 
 }
 
+// topo sempre visível
 if(currentScroll <= 5){
 regenerateMenu();
 menuState="visible";
@@ -740,38 +628,17 @@ lastScroll=currentScroll;
 
 });
 
-}
 // efeito ao clicar em Gallery
 links.forEach(link=>{
-
 link.addEventListener("click",(e)=>{
 
-if(isTouchDevice){
-
-e.preventDefault();
-
-const url = link.getAttribute("href");
-
-/* iniciar efeito */
+if(link.getAttribute("href")==="Galeria.html"){
 disintegrateMenu();
-menuState="hidden";
-
-/* esperar animação terminar */
-setTimeout(()=>{
-
-if(url.startsWith("#")){
-document.querySelector(url).scrollIntoView({behavior:"smooth"});
-}else{
-window.location.href = url;
-}
-
-},1600);
-
 }
 
 });
-
 });
+  
 /* ================= ART CURSOR ================= */
 
 let isMouseDown=false;
@@ -878,21 +745,6 @@ requestAnimationFrame(animate);
 
 animate();
 
-window.addEventListener("pageshow", () => {
-
-if(isTouchDevice){
-
-setTimeout(()=>{
-
-regenerateMenu();
-menuState="visible";
-
-},500);
-
-}
-
-});
-  
 </script>
 
 </body>
