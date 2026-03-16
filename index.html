@@ -417,6 +417,16 @@ display:none !important;
 }
 
 }
+
+/* MOBILE MENU START INVISIBLE */
+
+@media (hover: none) and (pointer: coarse){
+
+nav{
+opacity:0;
+}
+
+}
   
 </style>
 </head>
@@ -645,27 +655,30 @@ lastScroll=currentScroll;
 
 });
 
-} else {
-    /* ===== MOBILE CINEMATIC MENU ===== */
-    const nav = document.querySelector("nav");
-    const menuTexts = document.querySelectorAll(".thanos-link .menu-text");
+}else{
 
-    // O fundo preto já estará lá cobrindo as partículas por causa do CSS novo
-    disintegrateMenu();
-    menuState = "hidden";  
+/* ===== MOBILE CINEMATIC MENU ===== */
 
-    /* aparecer após 2s */
-    setTimeout(() => {
-        // Mostra os textos e a linha dourada
-        menuTexts.forEach(el => el.style.visibility = "visible");
-        nav.style.borderBottom = "1px solid rgba(196,155,61,0.15)";
-        
-        setTimeout(() => {
-            regenerateMenu();
-        }, 120);
+const nav=document.querySelector("nav");
 
-    }, 2000);
-}
+/* iniciar invisível */
+
+nav.style.opacity=0;
+
+disintegrateMenu();
+menuState="hidden";  
+
+/* aparecer após 2s */
+
+setTimeout(()=>{
+
+nav.style.opacity=1;
+
+setTimeout(()=>{
+regenerateMenu();
+},120);
+
+},2000);
 
 /* interceptar clique da Gallery */
 
@@ -803,4 +816,3 @@ animate();
 
 </body>
 </html>
-
