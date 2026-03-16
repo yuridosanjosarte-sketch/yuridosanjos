@@ -659,8 +659,6 @@ lastScroll=currentScroll;
 
 /* ===== MOBILE CINEMATIC MENU ===== */
 
-particlesEnabled = false;
-  
 const nav=document.querySelector("nav");
 
 /* iniciar invisível */
@@ -755,9 +753,6 @@ height=canvas.height=window.innerHeight;
 
 const particles=[];
 const numParticles=80; 
-
-let particlesEnabled = true;
-  
 for(let i=0;i<numParticles;i++){
 particles.push({
 x: Math.random()*width,
@@ -779,12 +774,7 @@ mouse.y=e.clientY;
 function animate(){
 ctx.clearRect(0,0,width,height);
 
-if(particlesEnabled){
 particles.forEach(p=>{
-// código das partículas
-
-});
-}
 // Movimento leve
 p.x += p.vx + Math.sin(Date.now()*0.001+p.vx)*0.2;
 p.y += p.vy + Math.cos(Date.now()*0.001+p.vy)*0.2;
@@ -820,11 +810,10 @@ ctx.closePath();
 requestAnimationFrame(animate);
 }
 
-if(!isMobile){
 animate();
-}
 
 </script>
 
 </body>
 </html>
+
