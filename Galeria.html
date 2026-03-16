@@ -146,7 +146,7 @@ z-index:2000;
 backdrop-filter:blur(12px);
 overflow:hidden;
 
-touch-action:pan-y;
+touch-action:none;
 overscroll-behavior:contain;
 }
 
@@ -200,19 +200,14 @@ color:#fff;
 cursor:pointer;
 }
 
-/* MOBILE */
-
 @media (max-width:768px){
 
 .close{
-
 position:fixed;
 bottom:25px;
 right:20px;
 font-size:30px;
 z-index:5000;
-top:18px;
-right:18px;
 
 background:rgba(0,0,0,0.65);
 width:44px;
@@ -222,39 +217,8 @@ display:flex;
 align-items:center;
 justify-content:center;
 
-font-size:26px;
-
-color:#d4af37;
-
-background:rgba(10,10,10,0.75);
-
-border:1px solid rgba(212,175,55,0.6);
-
 border-radius:50%;
 backdrop-filter:blur(6px);
-
-box-shadow:
-0 0 10px rgba(212,175,55,0.4),
-0 0 30px rgba(212,175,55,0.15);
-
-backdrop-filter:blur(8px);
-
-z-index:5000;
-
-transition:0.3s;
-
-touch-action:manipulation;
-  
-}
-
-.close:hover{
-
-transform:scale(1.1);
-
-box-shadow:
-0 0 15px rgba(212,175,55,0.7),
-0 0 40px rgba(212,175,55,0.35);
-
 }
 
 }
@@ -615,18 +579,8 @@ resetZoom()
 /* CLOSE LIGHTBOX CLICKING OUTSIDE */
 
 lightbox.addEventListener("click",(e)=>{
-lightboxImg.addEventListener("click",()=>{
 
 if(e.target===lightbox){
-if(!zoom){
-
-zoom=true
-
-lightboxImg.style.cursor="grab"
-
-document.querySelector(".close").style.opacity="0"
-
-}else{
 
 lightbox.classList.remove("active")
 document.body.style.overflow="auto"
@@ -682,8 +636,9 @@ posX=0
 posY=0
 
 lightboxImg.style.cursor="zoom-in"
-document.querySelector(".close").style.opacity="1"
 
+document.querySelector(".close").style.opacity="1"
+  
 updateTransform()
 
 }
@@ -692,11 +647,6 @@ lightboxImg.addEventListener("click",(e)=>{
 
 if(!zoom){
 
-dragging=true
-
-startX=e.touches[0].clientX-posX
-startY=e.touches[0].clientY-posY
-  
 zoom=true
 lightboxImg.style.cursor="grab"
 document.querySelector(".close").style.opacity="0"  
