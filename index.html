@@ -427,6 +427,26 @@ opacity:0;
 }
 
 }
+
+/* MOBILE — bloquear partículas atrás do menu */
+
+@media (hover: none) and (pointer: coarse){
+
+nav{
+position:relative;
+z-index:5;
+background:#070707;
+}
+
+nav::before{
+content:"";
+position:absolute;
+inset:0;
+background:#070707;
+z-index:-1;
+}
+
+}
   
 </style>
 </head>
