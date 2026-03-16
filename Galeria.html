@@ -145,9 +145,6 @@ transition:opacity 0.6s ease;
 z-index:2000;
 backdrop-filter:blur(12px);
 overflow:hidden;
-
-touch-action:none;
-overscroll-behavior:contain;
 }
 
 .lightbox.active{
@@ -198,29 +195,6 @@ right:60px;
 font-size:40px;
 color:#fff;
 cursor:pointer;
-}
-
-@media (max-width:768px){
-
-.close{
-position:fixed;
-bottom:25px;
-right:20px;
-font-size:30px;
-z-index:5000;
-
-background:rgba(0,0,0,0.65);
-width:44px;
-height:44px;
-
-display:flex;
-align-items:center;
-justify-content:center;
-
-border-radius:50%;
-backdrop-filter:blur(6px);
-}
-
 }
 
 /* NAVIGATION */
@@ -468,7 +442,11 @@ const prevBtn=document.querySelector(".prev")
 
 const stories=[
 
-`On a night when the moon wandered alone above the forest, Djatsy stepped out of her hut and walked toward the river. She was pregnant, and her heart carried ancient prayers.
+`Etsá Ara – Eyes of the Sky
+
+COLE A HISTÓRIA DA OBRA ETSÁ ARA AQUI.`,
+`The Legend of Etsá Ara, the Girl with the Eyes of the Sky
+On a night when the moon wandered alone above the forest, Djatsy stepped out of her hut and walked toward the river. She was pregnant, and her heart carried ancient prayers.
 The sky was clear.
 The stars glowed like cool embers scattered across the darkness.
 Djatsy knelt at the water’s edge and spoke her prayer to Nhanderu Tupã:
@@ -535,8 +513,6 @@ currentIndex=index
 
 lightbox.classList.add("active")
 
-document.body.style.overflow="hidden"  
-
 lightboxImg.src=images[index].src
 document.getElementById("story-title").textContent = titles[index].textContent
 
@@ -572,22 +548,7 @@ openLightbox(i)
 
 closeBtn.addEventListener("click",()=>{
 lightbox.classList.remove("active")
-document.body.style.overflow="auto"
 resetZoom()
-})
-
-/* CLOSE LIGHTBOX CLICKING OUTSIDE */
-
-lightbox.addEventListener("click",(e)=>{
-
-if(e.target===lightbox){
-
-lightbox.classList.remove("active")
-document.body.style.overflow="auto"
-resetZoom()
-
-}
-
 })
 
 nextBtn.addEventListener("click",showNext)
@@ -603,7 +564,6 @@ if(e.key==="ArrowRight") showNext()
 if(e.key==="ArrowLeft") showPrev()
 if(e.key==="Escape"){
 lightbox.classList.remove("active")
-document.body.style.overflow="auto"
 resetZoom()
 }
 
@@ -637,8 +597,6 @@ posY=0
 
 lightboxImg.style.cursor="zoom-in"
 
-document.querySelector(".close").style.opacity="1"
-  
 updateTransform()
 
 }
@@ -649,7 +607,6 @@ if(!zoom){
 
 zoom=true
 lightboxImg.style.cursor="grab"
-document.querySelector(".close").style.opacity="0"  
 
 const rect=lightboxImg.getBoundingClientRect()
 
