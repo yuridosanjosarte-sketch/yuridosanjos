@@ -555,13 +555,17 @@ textElement.innerHTML="";
 text.split("").forEach(letter=>{
 const span=document.createElement("span");
 span.textContent=letter;
+
 const randomX=(Math.random()-0.5)*90;
 const randomY=(Math.random()-0.5)*90;
 const randomRotate=(Math.random()-0.5)*120;
+
 span.dataset.x=randomX;
 span.dataset.y=randomY;
 span.dataset.r=randomRotate;
+
 span.style.transitionDelay=(Math.random()*2.2)+"s";
+
 textElement.appendChild(span);
 });
 });
@@ -591,14 +595,22 @@ link.classList.add("regenerate");
 });
 }
 
+/* ===== DETECTA MOBILE ===== */
+
+const isMobile = window.matchMedia("(hover: none) and (pointer: coarse)").matches;
+
 let lastScroll=0;
 let menuState="visible";
+let scrollTimeout=null;
+
+/* ===== DESKTOP (igual ao seu) ===== */
+
+if(!isMobile){
 
 window.addEventListener("scroll",()=>{
 
 const currentScroll=window.scrollY;
 
-// se rolar para baixo
 if(currentScroll > lastScroll + 10){
 
 if(menuState !== "hidden"){
@@ -608,7 +620,6 @@ menuState="hidden";
 
 }
 
-// se rolar para cima
 else if(currentScroll < lastScroll - 10){
 
 if(menuState !== "visible"){
@@ -618,7 +629,6 @@ menuState="visible";
 
 }
 
-// topo sempre visível
 if(currentScroll <= 5){
 regenerateMenu();
 menuState="visible";
@@ -628,9 +638,42 @@ lastScroll=currentScroll;
 
 });
 
-// efeito ao clicar em Gallery
+}
+
+/* ===== MOBILE OTIMIZADO ===== */
+
+if(isMobile){
+
+window.addEventListener("scroll",()=>{
+
+clearTimeout(scrollTimeout);
+
+/* só desintegra se rolar bastante */
+if(window.scrollY > 120 && menuState !== "hidden"){
+
+disintegrateMenu();
+menuState="hidden";
+
+}
+
+/* espera parar de rolar para regenerar */
+scrollTimeout=setTimeout(()=>{
+
+if(menuState !== "visible"){
+regenerateMenu();
+menuState="visible";
+}
+
+},300);
+
+});
+
+}
+
+/* clique em Gallery */
+
 links.forEach(link=>{
-link.addEventListener("click",(e)=>{
+link.addEventListener("click",()=>{
 
 if(link.getAttribute("href")==="Galeria.html"){
 disintegrateMenu();
