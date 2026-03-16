@@ -445,6 +445,26 @@ filter 0.9s ease-out;
 }
 
 }
+
+/* THANOS mais orgânico apenas no mobile */
+
+.thanos-link.disintegrate .menu-text span{
+transform:
+translate(var(--x), var(--y))
+rotate(var(--r))
+scale(0.3)
+skewX(12deg);
+filter:blur(8px);
+}
+
+.thanos-link.regenerate .menu-text span{
+transform:
+translate(0,0)
+rotate(0deg)
+scale(1)
+skewX(0deg);
+filter:blur(0);
+}
   
 </style>
 </head>
@@ -601,7 +621,7 @@ const randomRotate=(Math.random()-0.5)*120;
 span.dataset.x=randomX;
 span.dataset.y=randomY;
 span.dataset.r=randomRotate;
-span.style.transitionDelay=(Math.random()*2.2)+"s";
+span.style.transitionDelay = (isTouchDevice ? Math.random()*0.6 : Math.random()*2.2) + "s";
 textElement.appendChild(span);
 });
 });
@@ -634,6 +654,29 @@ link.classList.add("regenerate");
 let lastScroll=0;
 let menuState="visible";
 
+/* reintegrar menu quando voltar ao topo no mobile */
+
+if(isTouchDevice){
+
+const header = document.querySelector("header");
+
+const headerObserver = new IntersectionObserver(entries=>{
+entries.forEach(entry=>{
+
+if(entry.isIntersecting && menuState==="hidden"){
+
+regenerateMenu();
+menuState="visible";
+
+}
+
+});
+},{threshold:0.6});
+
+headerObserver.observe(header);
+
+}  
+
 if(!isTouchDevice){
 
 window.addEventListener("scroll",()=>{
@@ -643,6 +686,7 @@ const currentScroll=window.scrollY;
 if(currentScroll > lastScroll + 10){
 
 if(menuState !== "hidden"){
+  
 disintegrateMenu();
 menuState="hidden";
 }
@@ -691,7 +735,7 @@ document.querySelector(url).scrollIntoView({behavior:"smooth"});
 window.location.href = url;
 }
 
-},900);
+},1600);
 
 }
 
@@ -812,7 +856,7 @@ if(isTouchDevice){
 setTimeout(()=>{
 regenerateMenu();
 menuState="visible";
-},300);
+},1400);
 
 }
 
