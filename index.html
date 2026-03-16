@@ -654,19 +654,25 @@ link.classList.add("regenerate");
 let lastScroll=0;
 let menuState="visible";
 
-/* REINTEGRAR MENU AO VER O TÍTULO - MOBILE */
+/* REINTEGRAR MENU AO VER O TOPO - MOBILE */
 
 if(isTouchDevice){
 
+window.addEventListener("scroll",()=>{
+
 const header = document.querySelector("header");
+const rect = header.getBoundingClientRect();
 
-const observer = new IntersectionObserver(entries=>{
-entries.forEach(entry=>{
+/* quando o topo do site aparece */
 
-if(entry.isIntersecting && menuState==="hidden"){
+if(rect.top >= -50 && rect.bottom > 0){
+
+if(menuState === "hidden"){
 
 regenerateMenu();
 menuState="visible";
+
+}
 
 }
 
@@ -748,6 +754,7 @@ const url = link.getAttribute("href");
 
 /* iniciar efeito */
 disintegrateMenu();
+menuState="hidden";
 
 /* esperar animação terminar */
 setTimeout(()=>{
@@ -765,7 +772,6 @@ window.location.href = url;
 });
 
 });
-  
 /* ================= ART CURSOR ================= */
 
 let isMouseDown=false;
@@ -877,9 +883,11 @@ window.addEventListener("pageshow", () => {
 if(isTouchDevice){
 
 setTimeout(()=>{
+
 regenerateMenu();
 menuState="visible";
-},600);
+
+},500);
 
 }
 
