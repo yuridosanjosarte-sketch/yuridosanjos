@@ -406,8 +406,9 @@ inset:0;
 z-index:-2;
 pointer-events:none;
 background:#0d0d0d;
+opacity:0;
+transition:opacity 1s ease;
 }
-
 /* ================= REMOVE CURSOR NO MOBILE ================= */
 
 @media (hover: none) and (pointer: coarse) {
@@ -673,6 +674,9 @@ menuState="hidden";
 setTimeout(()=>{
 
 nav.style.opacity=1;
+
+/* mostrar partículas agora */
+document.querySelector(".gold-bg").style.opacity = 1;
 
 setTimeout(()=>{
 regenerateMenu();
