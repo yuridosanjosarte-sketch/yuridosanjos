@@ -574,6 +574,8 @@ el.classList.remove("visible");
 },{threshold:0.2});
 document.querySelectorAll(".art-piece").forEach(el=>artObserver.observe(el));
 
+const isTouchDevice = window.matchMedia("(hover: none)").matches;
+  
 /* ================= THANOS MENU ================= */
 
 const links=document.querySelectorAll(".thanos-link");
@@ -660,13 +662,26 @@ lastScroll=currentScroll;
 
 // efeito ao clicar em Gallery
 links.forEach(link=>{
+
 link.addEventListener("click",(e)=>{
 
-if(link.getAttribute("href")==="Galeria.html"){
+if(isTouchDevice){
+
+e.preventDefault();
+
+const url = link.getAttribute("href");
+
 disintegrateMenu();
+
+/* esperar animação terminar antes de navegar */
+setTimeout(()=>{
+window.location.href = url;
+},1200);
+
 }
 
 });
+
 });
   
 /* ================= ART CURSOR ================= */
@@ -775,6 +790,11 @@ requestAnimationFrame(animate);
 
 animate();
 
+window.addEventListener("pageshow", () => {
+regenerateMenu();
+menuState="visible";
+});
+  
 </script>
 
 </body>
