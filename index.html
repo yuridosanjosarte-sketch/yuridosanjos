@@ -170,6 +170,9 @@ background:inherit;
 background-clip:text;
 -webkit-background-clip:text;
 display:inline-block;
+
+will-change: transform, opacity, filter;
+  
 transition:
 transform 3s cubic-bezier(.19,1,.22,1),
 opacity 2.8s ease-out,
@@ -570,7 +573,7 @@ const randomRotate=(Math.random()-0.5)*120;
 span.dataset.x=randomX;
 span.dataset.y=randomY;
 span.dataset.r=randomRotate;
-span.style.transitionDelay=(Math.random()*2.2)+"s";
+span.style.transitionDelay=(Math.random()*1.4)+"s";
 textElement.appendChild(span);
 });
 });
@@ -594,10 +597,22 @@ link.classList.remove("regenerate");
 }
 
 function regenerateMenu(){
+
 links.forEach(link=>{
+
+const letters=link.querySelectorAll(".menu-text span");
+
 link.classList.remove("disintegrate");
 link.classList.add("regenerate");
+
+letters.forEach((span,i)=>{
+
+span.style.transitionDelay=(i*0.06)+"s";
+
 });
+
+});
+
 }
 
 let lastScroll=0;
@@ -655,10 +670,12 @@ nav.style.opacity=0;
 setTimeout(()=>{
 
 nav.style.opacity=1;
+
+setTimeout(()=>{
 regenerateMenu();
+},120);
 
 },2000);
-
 
 /* interceptar clique da Gallery */
 
