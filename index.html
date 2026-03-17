@@ -621,6 +621,28 @@ let menuState="visible";
 
 const isMobile = window.matchMedia("(hover: none) and (pointer: coarse)").matches;
 
+const nav=document.querySelector("nav");
+
+/* INÍCIO CINEMATOGRÁFICO (AGORA PARA TODOS) */
+
+nav.style.opacity=0;
+
+disintegrateMenu();
+menuState="hidden";
+
+setTimeout(()=>{
+
+nav.style.opacity=1;
+
+/* mostrar partículas */
+document.querySelector(".gold-bg").style.opacity = 1;
+
+setTimeout(()=>{
+regenerateMenu();
+},120);
+
+},2000);
+
 if(!isMobile){
 
 /* ===== DESKTOP ORIGINAL ===== */
